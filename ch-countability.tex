@@ -1,0 +1,180 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Countability}
+\label{chapter:countability}
+
+\epigraph{\(\aleph_0\) is my favorite character!}{Justin Goodman}
+
+\minitoc
+
+\section{Introduction}
+
+Our motivation here is that we want to describe the sizes of incredibly large sets. What is the cardinality of \(\N\)? So far, we have not learned any means to count the natural numbers. That is what this chapter is for!
+
+Additional reading: \href{https://youtu.be/s86-Z-CbaHA}{The Banach-Tarski Paradox -- Vsauce} (relevant content starts at 2:06)
+
+\section{Definitions}
+
+\begin{defn}[Enumeration of a Set]
+	A specified ordering of a set
+\end{defn}
+
+\begin{example}
+	We could enumerate the set of integers as follows: \[0,1,-1,2,-2,3,-3,4,-4,\cdots\]
+\end{example}
+
+\begin{defn}[Finite]
+	A set is finite if there exists a bound on the number of elements. If you start counting the elements in a finite set, there should be a precise stopping point
+\end{defn}
+
+\begin{example}
+	\(\{1,2,3\}\) and \(\N^{< 10,000,000,000}\) are finite sets
+\end{example}
+
+\begin{defn}[Countably Infinite]
+	A set is countably infinte if you can find a one-to-one correspondence (bijection) between the set and \(\N\). Alternatively, a set is countably infinite if you can enumerate the set such that every element appears at a finite position
+\end{defn}
+
+\begin{rem}
+	We denote \(|S| = \aleph_0\) for any (every) countably infinite set \(S\)
+\end{rem}
+
+There exist other definitions for countably infinite, however they all share the same idea that \textit{countably infinite} sets can be \textit{counted} \textit{in a finite amount of time}.
+
+\begin{defn}[Countable]
+	A set is countable if it is finite or countably infinite
+\end{defn}
+
+\begin{example}
+	\(\N\) is countably infinite
+	
+	\begin{proof}
+		The function \(f(x) = x\) where \(f : \N \mapsto \N\) is a bijection
+	\end{proof}
+\end{example}
+
+\begin{example}
+	\(\Z\) is countably infinite
+	
+	\begin{proof}
+		Enumerate \(\Z\) as follows: \(\{0,-1,1,-2,2,-3,3,\cdots\}\)
+		
+		Then \[f(x) = \begin{cases} \frac{n}{2} & x \equiv 0 \Mod{2} \\ -\frac{n+1}{2} & x \equiv 1 \Mod{2} \end{cases}\] where \(f : \N \mapsto \Z\) is a bijection
+	\end{proof}
+\end{example}
+
+\begin{example}
+	\(\Q^+\) is countably infinite
+	
+	\begin{proof}
+		We use what is called a \textit{snaking argument}. The idea is to build a grid that describes all positive rational numbers, then provide a bijection between that grid and the natural numbers.
+		
+		Grid:
+		
+		\begin{center}
+			\begin{tabular}{c|cccccc}
+				& 1 & 2 & 3 & 4 & 5 & \(\cdots\) \\
+				\hline
+				1 & \(1/1\)\tikzmark{1} & \tikzmark{2}\(2/1\) & \tikzmark{6}\(3/1\)\tikzmark{6b} & \tikzmark{7}\(4/1\) & \(5/1\) & \(\cdots\) \\
+				2 & \(1/2\)\tikzmark{3} & \tikzmark{5}\(2/2\)\tikzmark{5b} & \tikzmark{8b}\(3/2\)\tikzmark{8} & \(4/2\) & \(5/2\) & \(\cdots\) \\
+				3 & \(1/3\)\tikzmark{4} & \tikzmark{9b}\(2/3\)\tikzmark{9} & \(3/3\) & \(4/3\) & \(5/3\) & \(\cdots\) \\
+				4 & \(1/4\)\tikzmark{10} & \tikzmark{12}\(2/4\) & \(3/4\) & \(4/4\) & \(5/4\) & \(\cdots\) \\
+				5 & \(1/5\)\tikzmark{11} & \(2/5\) & \(3/5\) & \(4/5\) & \(5/5\) & \(\cdots\) \\
+				\(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\ddots\) \\
+			\end{tabular}
+		\end{center}
+	
+		\begin{tikzpicture}
+		[
+		remember picture,
+		overlay,
+		-latex,
+		%color=blue!75!green,
+		color=red,
+		yshift=1ex,
+		shorten >=1pt,
+		shorten <=1pt,
+		]
+		\draw ([yshift=1mm]{pic cs:1}) -- ([yshift=1mm]{pic cs:2});
+		\draw ({pic cs:2}) -- ([yshift=1mm]{pic cs:3});
+		\draw ([yshift=1mm]{pic cs:3}) -- ([yshift=1mm]{pic cs:4});
+		\draw ({pic cs:4}) -- ({pic cs:5});
+		\draw ([yshift=1mm]{pic cs:5b}) -- ({pic cs:6});
+		\draw ([yshift=1mm]{pic cs:6b}) -- ([yshift=1mm]{pic cs:7});
+		\draw ({pic cs:7}) -- ([yshift=1mm]{pic cs:8});
+		\draw ({pic cs:8b}) -- ([yshift=1mm]{pic cs:9});
+		\draw ({pic cs:9b}) -- ([yshift=1mm]{pic cs:10});
+		\draw ([yshift=1mm]{pic cs:10}) -- ([yshift=1mm]{pic cs:11});
+		\draw ({pic cs:11}) -- ({pic cs:12});
+		\end{tikzpicture}
+		
+		Let \(f(n)\) yield the rational number at position \(n\) along the snake in the table (e.g.\ \(f(0) = 1/1\), \(f(1) = 2/1\), \(f(2) = 1/2\)). Then \(f : \N \mapsto \Q^+\) is a bijection
+	\end{proof}
+	
+	\textit{Note: this proof does not account for the fact that we can reduce fractions (like how \(4/2 = 2/1\)). A more rigorous proof uses the Schr\"{o}der-Bernstein Theorem, which is out of the scope of this course}
+\end{example}
+
+\begin{defn}[Uncountable]
+	A set that is not countable
+\end{defn}
+
+\section{Cantor's Diagonal Argument}
+
+We begin our study of this famous proof by diving into the actual proof.
+
+\begin{example}
+	Prove \((0,1)\) is uncountable
+	
+	\begin{proof}
+		Assume \((0,1)\) is countable. Then, we can enumerate the entire set. One possible enumeration follows:
+		
+		\begin{tabular}{rlllllllll}
+			0. & 0 & 1 & 2 & 6 & 5 & 9 & 8 & 7 & \(\cdots\) \\
+			0. & 1 & 8 & 4 & 3 & 1 & 3 & 0 & 8 & \(\cdots\) \\
+			0. & 1 & 9 & 9 & 5 & 9 & 9 & 6 & 6 & \(\cdots\) \\
+			0. & 1 & 9 & 0 & 3 & 2 & 5 & 2 & 7 & \(\cdots\) \\
+			0. & 1 & 9 & 0 & 4 & 2 & 0 & 4 & 1 & \(\cdots\) \\
+			0. & 1 & 9 & 0 & 4 & 3 & 3 & 8 & 2 & \(\cdots\) \\
+			0. & 1 & 9 & 0 & 4 & 3 & 4 & 8 & 2 & \(\cdots\) \\
+			\(\vdots\) \\
+		\end{tabular}
+	\end{proof}
+\end{example}
+
+\section{Useful Theorems}
+
+We give some useful theorems of countable and uncountable sets. These will help you in determining whether a set is countable or uncountable.
+
+%\begin{thm}
+%	There exists a bijection between any countably infinite set.
+%\end{thm}
+%
+%\begin{proof}
+%	omitted.
+%\end{proof}
+%
+%\begin{thm}
+%	The power set of any countably infinite set is uncountable
+%\end{thm}
+%
+%\begin{proof}
+%	Let \(A\) be any countably infinite set. Then, there exists a bijection \(f\) between \(\N\) and \(A\).
+%\end{proof}
+
+
+
+\section{Summary}
+
+\begin{itemize}
+	\item 
+	\item 
+	\item 
+\end{itemize}
+
+\section{Practice}
+
+\begin{enumerate}
+	\item 
+	\item 
+\end{enumerate}
+\end{document}

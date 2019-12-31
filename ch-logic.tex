@@ -1,0 +1,1276 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Logic}
+\label{chapter:logic}
+
+\epigraph{All opinions are not equal. Some are a very great deal more robust, sophisticated and well supported in logic and argument than others.}{Douglas Adams}
+
+\minitoc
+
+\section{Introduction}
+
+Let's spell out two logic puzzles:
+
+\begin{center}
+	\textit{Sam has 1 cow. If Sam has at least 2 cows, then Sam can breed the cows to make one more cow. Assuming Sam has access to infinite resources and time, how many cows can Sam make?}
+\end{center}
+
+\begin{center}
+	\textit{Two givens: knights always tell the truth, and knaves always lie. On the island of knights and knaves, you are approached by two people. The first one says to you, ``we are both knaves." What are they actually?} (from Popular Mechanic's Riddle of the Week \#43: Knights and Knaves, Part 1)
+\end{center}
+
+Thinking logically about these puzzles will help you -- think about what can and cannot happen; what can and cannot be true. Solutions to the above puzzles appear at the end of the chapter. There are only two possibilities for Boolean\index{Boolean} statements -- True or False. Here's a formal definition of logic, from Merriam-Webster:
+
+\begin{defn}[Logic\index{Logic}]
+	A science that deals with the principles and criteria of validity of inference and demonstration : the science of the formal principles of reasoning
+\end{defn}
+
+This chapter includes a wealth of topics. We will touch on propositional logic and its corollaries, as well as predicate logic and it's applications to the rest of this course. Thinking logically should be a natural process, so we hope this section is relatively straightforward.
+
+\section{Propositional Logic}
+
+Propositional logic is a branch of logic that deals with simple propositions and logical connectives. Sometimes propositional logic is referred to as \textbf{zeroth-order logic}, as it lays the foundations for \textit{predicate logic}, also known as \textit{first-order logic}.
+
+\begin{defn}[Proposition]
+	\index{Proposition}
+	A statement that is exclusively either true or false. A proposition must \textit{have} a true or false value, and it cannot have \textit{both}. Propositions are usually represented as variables. These variables can represent a single statement, or large compound statements. We will see examples later
+\end{defn}
+
+\begin{defn}[Logical Connective]
+	An operation that connects two propositions. We study these below
+\end{defn}
+
+The motivation behind propositional logic is that we want to represent basic logical statements as an expression of variables and operators. Propositional logic also lays the groundwork for higher-order logic.
+
+\subsection{Truth Tables and Logical Connectives}
+
+Before we dive into the logical connectives, let's study the notion of a truth table. This will help us fully understand the logical connectives.
+
+\begin{defn}[Truth Table]
+	\index{Truth Table}
+	A table that shows us all truth-value possibilities. For example, with two propositions \(p\) and \(q\):
+	
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \textit{some compound proposition} \\
+			\hline
+			F & F & T/F \\
+			F & T & T/F \\
+			T & F & T/F \\
+			T & T & T/F
+		\end{tabular}
+	\end{center}
+\end{defn}
+
+Now we can begin our study of the logical connectives. The following definitions explain the intuition behind the logical connectives, and present their associated truth tables.
+
+\begin{defn}[And \(\land\)]
+	Also known as the \textit{conjunction}. Logical connective that evaluates to true when the propositions that it connects are both true. If either proposition is false, then \textit{and} evaluates to false. To remember: \textit{prop 1} \textbf{and} \textit{prop 2} must \textit{both} be true. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(p \land q\) \\
+			\hline
+			F & F & F \\
+			F & T & F \\
+			T & F & F \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+	
+	\textit{Notice the only row that evaluates to true is when both propositions are true}
+\end{defn}
+
+\begin{defn}[Or \(\lor\)]
+	Also known as the \textit{disjunction}. Logical connective that evaluates to true when either of the propositions that it connects are true (at least 1 of the connected propositions is true). If both propositions are false, then \textit{or} evaluates to false. \textbf{Note}: if both propositions are true, then \textit{or} still evaluates to true. To remember: either \textit{prop 1} \textbf{or} \textit{prop 2} must be true. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(p \lor q\) \\
+			\hline
+			F & F & F \\
+			F & T & T \\
+			T & F & T \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+	
+	\textit{Notice the only row that evaluates to false is when both propositions are false}
+\end{defn}
+
+\begin{defn}[Not \(\lnot\), \(\sim\)]
+	Also known as the \textit{negation}. Logical connective that flips the truth value of the proposition to which it is connected. Unlike \textit{and} and \textit{or}, \textit{not} only affects 1 proposition. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c}
+			\(p\) & \(\lnot p\) \\
+			\hline
+			F & T \\
+			T & F \\
+		\end{tabular}
+	\end{center}
+\end{defn}
+
+\begin{defn}[Implication/Conditional \(\Rightarrow\), \(\rightarrow\)]
+	Logical connective that reads as an \textit{if-then} statement. The implication must be false if the first proposition is true and the implied (connected/second) proposition is false. Otherwise it is true. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(p \Rightarrow q\) \\
+			\hline
+			F & F & T \\
+			F & T & T \\
+			T & F & F \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+	Note: the direction of an implication can be flipped: \(p \Leftarrow q\) is the same as \(q \Rightarrow p\)
+\end{defn}
+
+Let's try to understand the truth table for the implication statement before we continue. We present two examples that attempt to form an intuitive analogy to the implication.
+
+\begin{example}
+	Think of the implication as a vending machine. \(p\) is the statement \textit{we put money into the vending machine}, and \(q\) is the statement \textit{we received a snack from the vending machine}. Notice that the statements do not necessarily depend on each other. We examine the four cases and see when we are \textit{unhappy}:
+	
+	\begin{enumerate}
+		\item \(p\) is \textbf{false} and \(q\) is \textbf{false} -- we did not put in money, and we did not get a snack, so we remain happy (normal operations)
+		\item \(p\) is \textbf{false} and \(q\) is \textbf{true} -- we did not put in money, and we did get a snack, so we are very very happy (free snack!)
+		\item \(p\) is \textbf{true} and \(q\) is \textbf{false} -- we did put in money, and we did not get a snack, so we are very very unhappy (we got robbed!)
+		\item \(p\) is \textbf{true} and \(q\) is \textbf{true} -- we did put in money, and we did get a snack, so we are happy (normal operations)
+	\end{enumerate}
+	
+	When we are unhappy, then the implication statement is false. Otherwise it is true (we are not \textit{unhappy}).
+\end{example}
+
+\begin{example}
+	Think of the implication in the lens of a program. You want to evaluate whether your program \textit{makes sense}. Here is the example program from the statement \(p \Rightarrow q\):
+	
+	\begin{lstlisting}
+	(...)
+	if (p is true) {
+		<run body code if q is true>
+	}
+	(...)
+	\end{lstlisting}
+	
+	The body code is run only if \(q\) is true. Now let's examine the 4 cases and see whether the program makes sense:
+	\begin{enumerate}
+		\item \(p\) is \textbf{false} and \(q\) is \textbf{false} -- the program does not go into the body of the if-statement and hence makes sense
+		\item \(p\) is \textbf{false} and \(q\) is \textbf{true} -- the program again does not go into the body of the if-statement and hence makes sense (regardless of the value of \(q\))
+		\item \(p\) is \textbf{true} and \(q\) is \textbf{false} -- the program goes into the body of the if-statement but since \(q\) is false the program does not evaluate the body code. This does not make sense
+		\item \(p\) is \textbf{true} and \(q\) is \textbf{true} -- the program goes into the body of the if-statement and evaluates the body code. This makes sense
+	\end{enumerate}
+	
+	When the code evaluator makes sense, then the implication statement is true.
+\end{example}
+
+% todo add the 'promise' example?
+
+\begin{defn}[Bi-conditional \(\Leftrightarrow\), \(\leftrightarrow\)]
+	Logical connective that reads as an \textit{if and only if} statement. This means that both propositions must imply each other. For the bi-conditional to be true, both propositions must either be true or false. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(p \Leftrightarrow q\) \\
+			\hline
+			F & F & T \\
+			F & T & F \\
+			T & F & F \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+\end{defn}
+
+Some more complicated ones:
+
+\begin{defn}[Exclusive Or (\textit{Xor}) \(\oplus\)]
+	Logical connective that evaluates to true when \textit{only} one of the two propositions that it connects is true. If both propositions are true or false, then \textit{xor} evaluates to false. The exclusive part means we \textit{exclude} the \textit{or} case when both propositions are true. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(p \oplus q\) \\
+			\hline
+			F & F & F \\
+			F & T & T \\
+			T & F & T \\
+			T & T & F
+		\end{tabular}
+	\end{center}
+\end{defn}
+
+\begin{defn}[Exclusive Nor (\textit{Xnor}) \(\otimes\)]
+	Logical connective that negates the \textit{xor}. It is just an \textit{xor} connective appended with a \textit{not} connective. Truth table:
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(\lnot (p \oplus q) \equiv (p \otimes q)\) \\
+			\hline
+			F & F & T \\
+			F & T & F \\
+			T & F & F \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+\end{defn}
+
+Now an example:
+
+\exsol{
+	Translate the following statement into a propositional logic statement: \textit{exclusively either the weather rains or students wear rain jackets}.
+}{
+	Let \(r\) be the proposition \textit{the weather rains} and \(j\) be the proposition \textit{students wear rain jackets}. Then the statement becomes \(r \oplus j\)
+}
+
+\subsection{Boolean Algebra}
+
+The motivation behind Boolean algebra is that we want to take complicated compound propositional statements and simplify them. If we notice that a variable does not affect the final output, then getting rid of that variable cuts the amount of truth-value possibilities (truth-table rows) in half.
+
+\begin{defn}[Boolean Statement]
+	\index{Boolean Statement}
+	A statement that is exclusively either true or false
+\end{defn}
+
+Some handy notations:
+
+\begin{defn}[Equivalence \(\equiv\)]
+	Logical equivalence says that the two connected statements are logically the same. You can think of this notation as the \textit{equals} sign. Equality is poorly defined for Boolean expressions, so we use the equivalence notation instead
+\end{defn}
+
+\begin{defn}[Tautology \(t\) \textit{or} \(\mathbf{T}\)]
+	A proposition that is always true
+\end{defn}
+
+\begin{defn}[Contradiction \(c\) \textit{or} \(\mathbf{F}\)]
+	A proposition that is always false
+\end{defn}
+
+We provide a handful of helpful theorems to aid in your Boolean algebra simplifications. You do not need to memorize these theorems -- they will be given to you as a table.
+
+% TODO change this into a table?
+\begin{thm}[Commutativity]
+	For any propositions \(p\) and \(q\) the \textbf{and} and \textbf{or} operations are commutative: \[p \lor q \equiv q \lor p\] \[p \land q \equiv q \land p\]
+\end{thm}
+
+\begin{thm}[Associativity]
+	For any propositions \(p\), \(q\), and \(r\) the \textbf{and} and \textbf{or} operations are associative: \[(p \lor q) \lor r \equiv p \lor (q \lor r)\] \[(p \land q) \land r \equiv p \land (q \land r)\]
+\end{thm}
+
+\begin{thm}[Distributivity]
+	For any propositions \(p\), \(q\), and \(r\) the \textbf{and} and \textbf{or} operations are distributive: \[p \land (q \lor r) \equiv (p \land q) \lor (p \land r)\] \[p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)\]
+\end{thm}
+
+\begin{thm}[Identity]
+	For any proposition \(p\) the following hold: \[p \lor c \equiv p\] \[p \land t \equiv p\]
+\end{thm}
+
+\begin{thm}[Negation]
+	For any proposition \(p\) the following hold: \[p \lor \lnot p \equiv t\] \[p \land \lnot p \equiv c\]
+\end{thm}
+
+\begin{thm}[Double Negation]
+	For any proposition \(p\) the following holds: \[\lnot (\lnot p) \equiv p\]
+\end{thm}
+
+\begin{thm}[Idempotence]
+	For any proposition \(p\) the following hold: \[p \lor p = p\] \[p \land p = p\]
+\end{thm}
+
+\begin{thm}[De Morgan's]
+	For any propositions \(p\) and \(q\) the following hold: \[\lnot (p \lor q) = \lnot p \land \lnot q\] \[\lnot (p \land q) = \lnot p \lor \lnot q\]
+\end{thm}
+
+\begin{thm}[Universal Bound]
+	For any proposition \(p\) the following hold: \[p \lor t \equiv t\] \[p \land c \equiv c\]
+\end{thm}
+
+\begin{thm}[Absorption]
+	For any propositions \(p\) and \(q\) the following hold: \[p \lor (p \land q) \equiv p\] \[p \land (p \lor q) \equiv p\]
+\end{thm}
+
+\begin{thm}[Negation of Tautology and Contradiction]
+	The following hold: \[\lnot t \equiv c\] \[\lnot c \equiv t\]
+\end{thm}
+
+Here are two important theorems that you will use throughout your proofs in this course. The first theorem says that for a bi-conditional both propositions must imply each other. The second theorem gives an equivalence between the implication and \textit{or} connective. The proofs of these theorems are left as an exercise to the reader.
+
+\begin{thm}[Bi-conditional to Implication]
+	\label{bicond-to-imp}
+	For any propositions \(p\) and \(q\) the following hold: \[p \Leftrightarrow q \equiv (p \Rightarrow q) \land (q \Rightarrow p)\]
+\end{thm}
+
+\begin{thm}[Implication to Disjunction]
+	\label{imp-to-disj}
+	For any propositions \(p\) and \(q\) the following holds: \[p \Rightarrow q \equiv \lnot p \lor q\]
+\end{thm}
+
+Now some examples of Boolean statement simplification.
+
+% todo
+\exsol{
+	Simplify the following expression: \((p \Rightarrow q) \Rightarrow r\)
+}{
+	\begin{align*}
+	(p \Rightarrow q) \Rightarrow r &\equiv \big(\lnot (p \Rightarrow q)\big) \lor r & \text{Implication to Disjunction} \\
+	&\equiv \big(\lnot ((\lnot p) \lor q)\big) \lor r & \text{Implication to Disjunction} \\
+	&\equiv ((\lnot (\lnot p)) \land (\lnot q)) \lor r & \text{De Morgan's} \\
+	&\equiv (p \land (\lnot q)) \lor r & \text{Double Negation}
+	\end{align*}
+}
+
+Notice how we reference a theorem in each step. This allows us to fully explain our equivalence, keeps us from making mistakes, and ensures our equivalence is valid.
+
+\exsol{
+	Simplify the following expression: \((p \otimes q) \land p\)
+}{
+	\begin{align*}
+	(p \otimes q) \land p &\equiv \lnot (p \oplus q) \land p & \text{XNOR equivalence} \\
+	&\equiv \lnot \big((p \land (\lnot q)) \lor ((\lnot p) \land q)\big) \land p & \text{XOR equivalence} \\
+	&\equiv \big( \lnot (p \land (\lnot q)) \land \lnot ((\lnot p) \land q)\big) \land p & \text{De Morgan's} \\
+	&\equiv \big( ((\lnot p) \lor \lnot(\lnot q)) \land (\lnot (\lnot p) \lor (\lnot q))\big) \land p & \text{De Morgan's} \\
+	&\equiv \big( ((\lnot p) \lor q) \land (p \lor (\lnot q)) \big) \land p & \text{Double Negation} \\
+	%
+	&\equiv ((\lnot p) \lor q) \land \big( (p \lor (\lnot q)) \land p \big) & \text{Associativity} \\
+	&\equiv ((\lnot p) \lor q) \land \big(p \land (p \lor (\lnot q)) \big) & \text{Commutativity} \\
+	&\equiv ((\lnot p) \lor q) \land p & \text{Absorption} \\
+	%
+	&\equiv p \land ((\lnot p) \lor q) & \text{Commutativity} \\
+	&\equiv (p \land (\lnot p)) \lor (p \land q) & \text{Distributivity} \\
+	&\equiv c \lor (p \land q) & \text{Negation} \\
+	&\equiv p \land q & \text{Identity}
+	\end{align*}
+}
+
+Note in the preceding example that we used equivalences between the \textit{xnor} to the \textit{xor}, and the \textit{xor} to the \textit{or}. We will discuss later exactly how we deduced these equivalences.
+
+\subsection{Circuits} %todo make better
+
+Propositions have two possible values: true and false. If we set true to mean \textit{on} and false to mean \textit{off}, then we can translate our Boolean statements into logical circuits. To do this, think of each logical connective as a \textit{gate}. Similar to the logical connectives, a gate takes 2 (or more) inputs and returns some output. The inputs and outputs are all 1s and 0s (\textit{on}s and \textit{off}s -- true and false). Circuits are the bare-bones to computers, so it is necessary you understand the basics. For computer engineers, you must know circuits by heart.
+
+\begin{defn}[Circuit]
+	Representations of Boolean statements into electronic components
+\end{defn}
+
+Boolean variables can be exclusively either true or false; this is analogous to electric wires being exclusively either on or off. We let a tautology be equivalent to a \textit{power source}, which is a wire that is always \textbf{on}. Similarly we let a contradiction be equivalent to \textbf{off}, or a wire receiving no power.
+
+The following gates are exactly equivalent to their logic counterparts. We thus only include the gate picture.
+
+\begin{defn}[And Gate -- \textit{conjunction}]
+	Picture:
+	
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[and port] () {};
+		\end{circuitikz}
+	\end{center}
+	
+	To remember the \textit{and} gate, note that the picture looks like a \textbf{D}, which corresponds to the D in AN\textbf{D}
+\end{defn}
+
+\begin{defn}[Or Gate -- \textit{Disjunction}]
+	Picture:
+	
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[or port] () {};
+		\end{circuitikz}
+	\end{center}
+\end{defn}
+
+\begin{defn}[Not Gate -- \textit{Negation}]
+	Picture:
+	
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[not port] () {};
+		\end{circuitikz}
+	\end{center}
+\end{defn}
+
+\begin{rem}
+	When we have a gate that has a \textit{not} after it, we can simplify the gate by just adding a circle to the output. Example (the \textit{nand} gate is the negation of the \textit{and} gate):
+	
+	\begin{multicols}{3}
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,0) node[and port] (and1) {}
+				(1,0) node[not port] (not1) {}
+				(and1.out) -- (not1.in);
+			\end{circuitikz}
+		\end{center}
+		\begin{center}
+			becomes
+		\end{center}
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,0) node[nand port] (and1) {};
+			\end{circuitikz}
+		\end{center}
+	\end{multicols}
+\end{rem}
+
+\begin{defn}[Xor Gate (\textit{eXclusive Or gate})]
+	Picture:
+	
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node[xor port] () {};
+		\end{circuitikz}
+	\end{center}
+\end{defn}
+
+We can think of truth tables in an equivalent fashion, where 1 is true and 0 is false.
+
+\exsol{
+	Write the truth table for the \textit{nand} gate.
+}{
+	\mbox{}
+	
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			\(p\) & \(q\) & \(\lnot (p \land q)\) \\
+			\hline
+			0 & 0 & 1 \\
+			0 & 1 & 1 \\
+			1 & 0 & 1 \\
+			1 & 1 & 0
+		\end{tabular}
+	\end{center}
+}
+
+You can use 1/0 or T/F, whichever you prefer. If an assignment specifies you use a specific key, then use the one specified. Later when we discuss different number systems, you will notice a correlation between binary numbers and truth tables with 1/0s. This makes it easy to construct a truth table very quickly with a given amount of inputs.
+
+We can also create circuits that add numbers. We will come back to this after our discussion of different number bases in section \ref{diff-num-bases}.
+
+\subsection{Translations}
+
+You must know how to translate between circuits, Boolean statements, and truth tables.
+
+We start by motivating the translation between truth tables and Boolean statements. First, notice that we have already discussed how to make a truth table from a Boolean statement -- simply draw the truth table and fill in each row. Now we can focus on the reverse.
+
+We attempt to first motivate a process for this translation by showing a few examples.
+
+\begin{example}
+	First recall the truth table for the conjunction:
+	
+	\begin{center}
+		\begin{tabular}{cc|c}
+			\(p\) & \(q\) & \(p \land q\) \\
+			\hline
+			F & F & F \\
+			F & T & F \\
+			T & F & F \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+	
+	Recall that we can extend the conjunction to take multiple inputs -- in this case, \textit{each} input \textit{must} be \textbf{True} for the output to be \textbf{True}.
+	
+	Now consider the following unknown table:
+	
+	\begin{center}
+		\begin{tabular}{cc|c}
+			\(p\) & \(q\) & unknown \\
+			\hline
+			F & F & F \\
+			F & T & T \\
+			T & F & F \\
+			T & T & F
+		\end{tabular}
+	\end{center}
+	
+	This table is similar to the conjunction table in that it has \textit{one row} that outputs \textbf{True}. In the conjunction case, the assignments to \(p\) and \(q\) were both \textbf{True}. What are the assignments to the previous truth table? Well, the \(p\) input is \textbf{False} and the \(q\) input is \textbf{True}, as per the table. If we apply the conjunction to this row we have, we get the following table:
+	
+	\begin{center}
+		\begin{tabular}{c|c|c|c}
+			\(p\) & \(\lnot p\) & \(q\) & \((\lnot p) \land q\) \\
+			\hline
+			F & T & F & F \\
+			F & T & T & T \\
+			T & F & F & F \\
+			T & F & T & F
+		\end{tabular}
+	\end{center}
+	
+	In the previous table, if we look at the middle two columns, we recover the conjunction with the \(p\) variable negated.
+\end{example}
+
+This is only half the story though.
+
+\begin{example}
+	First recall the truth table for the disjunction:
+	
+	\begin{center}
+		\begin{tabular}{cc|c}
+			\(p\) & \(q\) & \(p \lor q\) \\
+			\hline
+			F & F & F \\
+			F & T & T \\
+			T & F & T \\
+			T & T & T
+		\end{tabular}
+	\end{center}
+	
+	For this example, we only care about the middle two rows where \textit{either} variable is \textbf{True}.
+	
+	
+\end{example}
+
+These bring light to a simple 3-step process to translate from truth tables to Boolean statements:
+
+\begin{enumerate}
+	\item Collect the rows whose \textit{output} is \textbf{True}
+	\item For each of those rows
+	\begin{enumerate}
+		\item Look at the truth value assigned to the \textit{input}
+		\item Construct a Boolean statement where, for each input
+		\begin{itemize}
+			\item If the assignment is \textbf{True} then use the variable itself
+			\item If the assignment is \textbf{False} then use the \textit{negation} of the variable
+		\end{itemize}
+		\item Chain each input with \textbf{And} (\(\land\)) connectives
+	\end{enumerate}
+	\item Chain each row's statement with \textbf{Or} (\(\lor\)) connectives
+\end{enumerate}
+
+\exsol{
+	Find the unknown Boolean formula corresponding to the following truth table:
+
+	\begin{center}
+		\begin{tabular}{cc|c}
+			\(p\) & \(q\) & unknown \\
+			\hline
+			F & F & T \\
+			F & T & F \\
+			T & F & T \\
+			T & T & F
+		\end{tabular}
+	\end{center}
+}{
+	We follow the algorithm as before. The first and third rows return true in the output. In the first row, we see neither input is true, so we AND the negation of each input: \((\lnot p) \land (\lnot q)\). In the third row, we see the first input is true, while the second input is false, thus we get: \(p \land (\lnot q)\). OR-ing each statement together thus yields our unknown formula: \[((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q))\]
+}
+
+\begin{rem}
+	In our Boolean formula algorithm, we only focus on the true rows. If we wanted to also include the false rows, then we would need the statement in each false row to return false. We know how to get a statement that returns true, so we can simply take that statement and negate it! What happens, though, if we include the false rows then?
+\end{rem}
+
+\exsol{
+	Include the false rows in the Boolean formula from the previous example.
+}{
+	We negate the second and fourth row returned by the algorithm: \(\lnot ((\lnot p) \land q)\) and \(\lnot (p \land q)\)
+	
+	So our entire statement is now \[((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q)) \lor (\lnot ((\lnot p) \land q)) \lor (\lnot (p \land q))\]
+	
+	Let's simplify this statement (rules omitted):
+	\begin{align*}
+	&\equiv ((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q)) \lor (\lnot ((\lnot p) \land q)) \lor (\lnot (p \land q)) \\
+	&\equiv ((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q)) \lor (p \lor (\lnot q)) \lor ((\lnot p) \lor q) \\
+	&\equiv ((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q)) \lor (p \lor (\lnot p)) \lor ((\lnot q) \lor q) \\
+	&\equiv ((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q)) \lor t \lor t \\
+	&\equiv ((\lnot p) \land (\lnot q)) \lor (p \land (\lnot q))
+	\end{align*}
+	
+	Nice, we have recovered the original statement!
+}
+
+\begin{rem}
+	Including each false row in the Boolean statement generated by the algorithm -- so long as their true versions are negated -- does not logically change the Boolean statement
+\end{rem}
+
+We have a name for the type of statement generated from our algorithm above:
+
+\begin{defn}[Disjunctive Normal Form\index{Disjunctive Normal Form}]
+	Describes a Boolean statement that is a conjunction of disjunctions -- abbreviated DNF
+\end{defn}
+
+If we flip each gate (AND goes to OR, OR goes to AND), then we get another important type of statement:
+
+\begin{defn}[Conjunctive Normal Form\index{Conjunctive Normal Form}]
+	Describes a Boolean statement that is a disjunction of conjunctions -- abbreviated CNF
+\end{defn}
+
+Interestingly, any Boolean statement can be translated to an equivalent statement in CNF. Namely, statements in DNF, which are easy to generate, can be translated into CNF. This is important for computational complexity theory -- specifically NP-completeness. There exists a problem in computer science which entails finding a set of truth-value assignments for \(n\) different Boolean variables which makes a Boolean statement in CNF return true (or, become \textit{satisfiable}).
+
+\subsection{Reasoning/Deductions}
+\label{section:reasoning}
+
+Propositional logic also allows us to \textit{reason} about things.
+
+\begin{defn}[Knowledge Base]
+	A group of information that you know is true
+\end{defn}
+
+\begin{defn}[Reasoning]
+	The process of deriving new information from a given knowledge base
+\end{defn}
+
+See the introduction of this chapter for an example.
+
+\subsubsection{Classical Rules of Deduction}
+
+We may refer to \textit{deductions} as \textit{inferences}. They are the same.
+
+\begin{defn}[Deductions]
+	Using previously-known knowledge in your knowledge base to obtain/create new knowledge
+\end{defn}
+
+We have a whole list of useful deductions that are provably valid. As with our Boolean algebra theorems, you do not need to memorize these theorems -- they will be given to you as a table.
+
+\begin{thm}[Modus Ponens]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p\) \\
+			& \(p \Rightarrow q\) \\
+			\cline{2-2}
+			\(\therefore\) & \(q\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Modus Tollens]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(\lnot q\) \\
+			& \(p \Rightarrow q\) \\
+			\cline{2-2}
+			\(\therefore\) & \(\lnot p\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Disjunctive Addition]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p\) \\
+			\cline{2-2}
+			\(\therefore\) & \(p \lor q\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Conjunctive Addition]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p,q\) \\
+			\cline{2-2}
+			\(\therefore\) & \(p \land q\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Conjunctive Simplification]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p \land q\) \\
+			\cline{2-2}
+			\(\therefore\) & \(p,q\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Disjunctive Syllogism]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p \lor q\) \\
+			& \(\lnot p\) \\
+			\cline{2-2}
+			\(\therefore\) & \(q\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Hypothetical Syllogism]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p \Rightarrow q\) \\
+			& \(q \Rightarrow r\) \\
+			\cline{2-2}
+			\(\therefore\) & \(p \Rightarrow r\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Resolution]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p \lor q\) \\
+			& \((\lnot q) \lor r\) \\
+			\cline{2-2}
+			\(\therefore\) & \(p \lor r\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Division Into Cases]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(p \lor q\) \\
+			& \(p \Rightarrow r\) \\
+			& \(q \Rightarrow r\) \\
+			\cline{2-2}
+			\(\therefore\) & \(r\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Law of Contradiction]
+	\mbox{}
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \((\lnot p) \Rightarrow \mathbf{c}\) \\
+			\cline{2-2}
+			\(\therefore\) & \(p\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+You may be wondering how to prove these deductions are \textit{valid}. We have two equivalent methods:
+\begin{enumerate}
+	\item Tautological implication
+	\item Critical-row identification
+\end{enumerate}
+
+Consider an arbitrary deduction:
+\begin{center}
+	\begin{tabular}{c@{\,}l@{}}
+		& \(P_1\) \\
+		& \(P_2\) \\
+		& \(\cdots \cdots \cdots\) \\
+		& \(P_n\) \\
+		\cline{2-2}
+		\(\therefore\) & \(Q\)
+	\end{tabular}
+\end{center}
+
+To prove it valid,
+
+\textbf{Tautological implication}
+\begin{enumerate}
+	\item Construct a new proposition \(A \Rightarrow B\) where \(A\) is a \textbf{conjunction of the premises} and \(B\) is the conclusion. For our arbitrary deduction, we would have \[\big( P_1 \land P_2 \land \cdots \land P_n \big) \Rightarrow Q\]
+	\item Inspect this proposition in a truth-table. If the proposition is a tautology, then the deduction is valid. Otherwise, the deduction is invalid. So, to be valid we must have \[(A \Rightarrow B) \equiv \big( P_1 \land P_2 \land \cdots \land P_n \big) \Rightarrow Q \equiv t\]
+\end{enumerate}
+
+\textbf{Critical-row identification}
+\begin{enumerate}
+	\item Construct a truth-table with columns for each proposition and for the conclusion. \textit{You may need extra columns, that is fine}. For our arbitrary deduction, we would have
+	\begin{center}
+		\begin{tabular}{cccc|c}
+			\(P_1\) & \(P_2\) & \(\cdots\) & \(P_n\) & \(Q\) \\
+			\midrule
+			F/T & F/T & \(\cdots\) & F/T & F/T \\
+			&& \(\vdots\) && \\
+			T/T & F/T & \(\cdots\) & F/T & F/T \\
+		\end{tabular}
+	\end{center}
+	\item Identify the rows in which each \textbf{premise} is true. We call these rows \textbf{critical-rows}.
+	\item For each critical-row, inspect the conclusion. If the conclusion is true in \textbf{every} critical-row, then the deduction is valid. Otherwise, the deduction is invalid.
+\end{enumerate}
+
+Examples following the above steps.
+
+\exsol{
+	Show that Modus Ponens is a valid rule of inference.
+}{
+	\textit{method 1 -- tautological implication}
+	
+	Our proposition we care about is \((p \land (p \Rightarrow q)) \Rightarrow q\), so we build the following truth-table with extraneous rows:
+	\begin{center}
+		\begin{tabular}{cc|cc|cc|c}
+			\(p\) & \(q\) & \(p\) & \(p \Rightarrow q\) & \(p \land (p \Rightarrow q)\) & \(q\) & \((p \land (p \Rightarrow q)) \Rightarrow q\) \\
+			\midrule
+			F & F & F & T & F & F & T \\
+			F & T & F & T & F & T & T \\
+			T & F & T & F & F & F & T \\
+			T & T & T & T & T & T & T \\
+		\end{tabular}
+	\end{center}
+	
+	Inspect the last column.
+	\begin{center}
+		\begin{tabular}{cc|cc|cc|c}
+			\(p\) & \(q\) & \(p\) & \(p \Rightarrow q\) & \(p \land (p \Rightarrow q)\) & \(q\) & \((p \land (p \Rightarrow q)) \Rightarrow q\) \\
+			\midrule
+			F & F & F & T & F & F & \cellcolor{Melon}\color{green} \textbf{T} \\
+			F & T & F & T & F & T & \cellcolor{Melon}\color{green} \textbf{T} \\
+			T & F & T & F & F & F & \cellcolor{Melon}\color{green} \textbf{T} \\
+			T & T & T & T & T & T & \cellcolor{Melon}\color{green} \textbf{T} \\
+		\end{tabular}
+	\end{center}
+	
+	In the case of Modus Ponens, the final column is a tautology, hence the deduction is valid.
+}
+
+\exsol{
+	Show that Modus Ponens is a valid rule of inference.
+}{
+	\textit{method 2 -- critical-row identification}
+	
+	Construct a truth table with each premise and conclusion:
+	\begin{center}
+		\begin{tabular}{cc|cc|c}
+			\(p\) & \(q\) & \(p\) & \(p \Rightarrow q\) & \(q\) \\
+			\midrule
+			F & F & F & T & F \\
+			F & T & F & T & T \\
+			T & F & T & F & F \\
+			T & T & T & T & T \\
+		\end{tabular}
+	\end{center}
+	
+	Identify the critical-rows.
+	\begin{center}
+		\begin{tabular}{cc|cc|c}
+			\(p\) & \(q\) & \(p\) & \(p \Rightarrow q\) & \(q\) \\
+			\midrule
+			F & F & F & T & F \\
+			F & T & F & T & T \\
+			T & F & T & F & F \\
+			\rowcolor{Melon}
+			T & T & \textbf{T} & \textbf{T} & T \\
+		\end{tabular}
+	\end{center}
+	
+	Inspect the conclusion in each critical-row.
+	\begin{center}
+		\begin{tabular}{cc|cc|c}
+			\(p\) & \(q\) & \(p\) & \(p \Rightarrow q\) & \(q\) \\
+			\midrule
+			F & F & F & T & F \\
+			F & T & F & T & T \\
+			T & F & T & F & F \\
+			\rowcolor{Melon}
+			T & T & \textbf{T} & \textbf{T} & \textbf{\color{green} T} \\
+		\end{tabular}
+	\end{center}
+	
+	In the case of Modus Ponens, the conclusion is true in each critical row, hence the deduction is valid.
+}
+
+We leave it to the reader to understand why the two methods are equivalent.
+
+\subsubsection{Deducing Things}
+
+In a later section, we will see that this order of logic is not powerful enough to prove mathematical statements. For now, we can still do interesting things with a given knowledge base.
+
+\exsol{
+	Given the following knowledge base, deduce as much new information as possible using the following rules of inference: Modus Ponens, Modus Tollens, Hypothetical Syllogism, and Disjunctive Syllogism.
+	
+	\begin{center}
+		\hfill \(a \Rightarrow b\) \hfill \(b \Rightarrow (\lnot d)\) \hfill \(e\) \hfill \(d \lor (\lnot e)\) \hfill \mbox{}
+	\end{center}
+}{
+\\
+	By Hypothetical Syllogism \(a \Rightarrow b\), \(b \Rightarrow (\lnot d)\), \hfill \(\therefore a \Rightarrow (\lnot d)\)
+	
+	By Disjunctive Syllogism \(d \lor (\lnot e)\), \(e\), \hfill \(\therefore d\)
+	
+	By Modus Tollens \(d\), \(a \Rightarrow (\lnot d)\), \hfill \(\therefore \lnot a\)
+	
+	By Modus Tollens \(d\), \(b \Rightarrow (\lnot d)\), \hfill \(\therefore \lnot b\)
+	
+	% todo is this finished?
+}
+
+\begin{rem}
+	From the above example, we restricted the rules you could have used. We did this mainly because Disjunctive Addition can allow you to generate any new knowledge you like -- so long as you have one thing that is true, then you can add in a disjunction infinitely-many times.
+\end{rem}
+
+\begin{rem}
+	In the above example, we could have translated \(d \lor (\lnot e) \equiv e \Rightarrow d\) and concluded \(d\) by Modus Ponens. This somewhat tells you that Disjunctive Syllogism and Modus Ponens are equivalent.
+\end{rem}
+
+\begin{rem}
+	From an inconsistent database, anything follows.
+	
+	This is due to the law of contradiction. An \textit{inconsistent database} is one that contains a contradiction. Recall from the law of contradiction that \((\lnot p) \Rightarrow c \equiv (\lnot (\lnot p)) \lor c \equiv p\) using the Identity Boolean algebra theorem. Using Disjunctive Addition, we have the contradiction \(c\), \(\therefore A \lor c\), and by Identity, \(\therefore A\). \(A\) can be \textit{Anything}.
+\end{rem}
+
+In Artificial Intelligence, there exists an algorithm called \textbf{The Resolution Algorithm}. Essentially, it says to take a given knowledge base, translate each statement into disjunctive normal form, then apply the Resolution rule of inference as many times as possible.
+
+\section{Predicate Logic}
+
+Sometimes basic propositions are not enough to do what you want. In programming we can have functions that return true or false. We can do the same thing with logic -- we call this \textit{first-order} logic, or \textit{predicate} logic. Predicate logic includes all of propositional logic, however it adds predicates and quantifiers.
+
+\begin{defn}[Predicate\index{Predicate}]
+	A property that the subject of a statement can have. In logic, we represent this sort-of like a function. A predicate takes, as input, some element, and returns whether the inputted element has the specific property.
+\end{defn}
+
+\begin{example}
+	We could use the predicate \(EVEN(x)\) to mean \(x\) is an even number. In this case, the predicate is \(EVEN(\cdot)\)
+\end{example}
+
+\begin{example}
+	We could use the predicate \(P(y)\) to mean \(y\) is an integer multiple of 3. In this case, the predicate is \(P(\cdot)\)
+\end{example}
+
+\begin{rem}
+	Predicates take \textbf{elements}. They do \textbf{not} take in other predicates. This is because predicates say whether the input element \textit{has} the property specified by the predicate -- true and false cannot have properties.
+	
+	In terms of programming, you can think of a predicate as a program method. For example, the \(EVEN(x)\) predicate might be implemented as follows:
+	
+	\begin{lstlisting}
+func EVEN(Entity x) -> bool {
+	if IS_INTEGER(x) {
+		return x % 2 == 0
+	}
+	return false
+}
+	\end{lstlisting}
+	
+	In this case, entities are \textit{objects} and true/false are \textit{Boolean primitives} (or, propositional statements, which can only be true or false). In contrast to, say, Java, a compiler for this code would not allow \textit{true/false} to be an object.
+	
+	A better example,
+	
+	\begin{lstlisting}
+class Foo extends Entity {
+	bool isInteger
+	bool isOdd
+	
+	Foo(Integer i) {
+		this.isInteger = true
+		this.isOdd = i % 2 == 1
+	}
+}
+
+func ODD(Entity x) -> bool {
+	if x has type Foo {
+		return x.isOdd
+	}
+	if IS_INTEGER(x) {
+		return x % 2 == 1
+	}
+	return false
+}
+	\end{lstlisting}
+\end{rem}
+
+\begin{defn}[Quantifier\index{Quantifier}]
+	A way to select a specific range of elements that get inputted to a predicate. We have two quantifiers:
+	
+	\begin{itemize}
+		\item The Universal quantifier \(\forall\)
+		\item The Existential quantifier \(\exists\)
+	\end{itemize}
+
+	The universal quantifier says to select \textbf{all} elements, and the existential quantifier says to select \textbf{at least one} element.
+\end{defn}
+
+\begin{defn}[Quantified Statement]
+	A logical statement involving predicates and quantifiers. Syntax: \[(\text{quantifier } var \in D)[\text{statement involving predicates}]\]
+\end{defn}
+
+And now we can define:
+
+\begin{defn}[Predicate Logic]
+	Also called \textit{first-order logic}, is a logic made up of quantified statements.
+\end{defn}
+
+\exsol{
+	Translate the following statements to predicate logic:
+	\begin{enumerate}
+		\item All people are mortal
+		\item Even integers exist
+		\item If an integer is prime then it is not even
+	\end{enumerate}
+}{
+	\begin{enumerate}
+		\item Denote \(P\) as the domain of people, and the predicate \(M(x)\) to mean \(x\) is mortal. Then the statement translates to \[(\forall p \in P)[M(p)]\]
+		\item Denote \(\Z\) as the domain of integers, and the predicate \(EVEN(x)\) to mean \(x\) is even. Then the statement translates to \[(\exists x \in \Z)[EVEN(x)]\]
+		\item Denote the predicate \(PRIME(y)\) to mean \(y\) is prime. Then the statement translates to \[(\forall a \in \Z)[PRIME(a) \Rightarrow \lnot EVEN(a)]\]
+	\end{enumerate}
+}
+
+\subsection{Negating Quantified Statements}
+
+One may find useful to negate a given quantified statement. We present here how to do this, first with an English example, followed by a quantified example, followed by an algorithm.
+
+\begin{example}
+	The following statement
+	\begin{center}
+		\textit{There is no student who has taken calculus.}
+	\end{center}
+	is equivalent to
+	\begin{center}
+		\textit{All students have not taken calculus.}
+	\end{center}
+\end{example}
+
+\begin{example}
+	The following statement
+	\begin{center}
+		\textit{Not all students have taken calculus.}
+	\end{center}
+	is equivalent to
+	\begin{center}
+		\textit{There is a student who has not taken calculus.}
+	\end{center}
+\end{example}
+
+\begin{example}
+	The following statement \[\lnot(\exists x \in D)[C(x)]\] is equivalent to \[(\forall x \in D)[\lnot C(x)]\]
+\end{example}
+
+\begin{example}
+	The following statement \[\lnot(\forall x \in D)[C(x)]\] is equivalent to \[(\exists x \in D)[\lnot C(x)]\]
+\end{example}
+
+The generic algorithm for pushing the negation into a quantified statement:
+
+\begin{enumerate}
+	\item Flip each quantifier \(\forall \rightarrow \exists\) and \(\exists \rightarrow \forall\)
+	\item Apply the negation to the propositional part of the quantified statement, and simplify
+	\begin{enumerate}
+		\item If the inside contains another quantified statement, then recursively apply this algorithm
+	\end{enumerate}
+\end{enumerate}
+
+\begin{rem}
+	The domain and variable attached to any quantifier are \textbf{not} changed.
+\end{rem}
+
+\exsol{
+	Push the negation in as far as possible: \[\lnot (\forall x,y \in \Z)[(x < y) \Rightarrow (\exists m \in \Q)[x < m < y]]\]
+}{
+	\begin{align*}
+	& \lnot (\forall x,y \in \Z)[(x < y) \Rightarrow (\exists m \in \Q)[x < m < y]] \\
+	\equiv & (\exists x,y \in \Z) \lnot [(x < y) \Rightarrow (\exists m \in \Q)[x < m < y]] \\
+	\equiv & (\exists x,y \in \Z) \lnot [\lnot (x < y) \lor (\exists m \in \Q)[x < m < y]] \\
+	\equiv & (\exists x,y \in \Z) [\lnot \lnot (x < y) \land \lnot (\exists m \in \Q)[x < m < y]] \\
+	\equiv & (\exists x,y \in \Z) [(x < y) \land (\forall m \in \Q) \lnot [x < m < y]] \\
+	\equiv & (\exists x,y \in \Z) [(x < y) \land (\forall m \in \Q) \lnot [x < m \land m < y]] \\
+	\equiv & (\exists x,y \in \Z) [(x < y) \land (\forall m \in \Q) [x \geq m \lor m \geq y]]
+	\end{align*}
+}
+
+\begin{rem}
+	We typically expect the final statement to contain no \(\lnot\) operators.
+\end{rem}
+
+\subsection{Quantified Rules of Inference}
+
+Again, \textit{deductions} and \textit{inferences} are the same. We present a handful of important \textit{quantified} rules of inference.
+
+\begin{thm}[Universal Instantiation]
+	For a predicate \(P(\cdot)\) and some domain \(D\) with \(c \in D\),
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \((\forall x \in D)[P(x)]\) \\
+			\cline{2-2}
+			\(\therefore\) & \(P(c)\)
+		\end{tabular}
+	\end{center}
+
+	As an example, if our domain consists of all dogs and Fido is a dog, then the above rule can be read as
+	\begin{center}
+		``All dogs are cuddly''
+		
+		``Therefore Fido is cuddly''
+	\end{center}
+\end{thm}
+
+\begin{thm}[Universal Generalization]
+	For a predicate \(P(\cdot)\) and some domain \(D\) for an arbitrary \(c \in D\),
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(P(c)\) \\
+			\cline{2-2}
+			\(\therefore\) & \((\forall x \in D)[P(x)]\)
+		\end{tabular}
+	\end{center}
+
+	This is most-often used in mathematics. As an example, if our domain consists of all dogs, then the above rule can be read as
+	\begin{center}
+		``An arbitrary dog is cuddly'' (which in-turn applies to all dogs)
+		
+		``Therefore all dogs are cuddly''
+	\end{center}
+\end{thm}
+
+\begin{thm}[Existential Instantiation]
+	For a predicate \(P(\cdot)\) and some domain \(D\) for some element \(c \in D\),
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \((\exists x \in D)[P(x)]\) \\
+			\cline{2-2}
+			\(\therefore\) & \(P(c)\)
+		\end{tabular}
+	\end{center}
+
+	As an example, if our domain consists of all dogs, then the above rule can be read as
+	\begin{center}
+		``There is a dog who is cuddly''
+		
+		``Let's call that dog \(c\), and so \(c\) is cuddly''
+	\end{center}
+\end{thm}
+
+\begin{thm}[Existential Generalization]
+	For a predicate \(P(\cdot)\) and some domain \(D\) for some element \(c \in D\),
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(P(c)\) \\
+			\cline{2-2}
+			\(\therefore\) & \((\exists x \in D)[P(x)]\)
+		\end{tabular}
+	\end{center}
+
+	As an example, if our domain consists of all dogs and Fido is a dog, then the above rule can be read as
+	\begin{center}
+		``Fido is cuddly''
+		
+		``Therefore there is a dog who is cuddly''
+	\end{center}
+\end{thm}
+
+\begin{thm}[Universal Modus Ponens]
+	For two predicates \(P(\cdot)\) and \(Q(\cdot)\), and some domain \(D\) with \(a \in D\),
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(P(a)\) \\
+			& \((\forall x \in D)[P(x) \Rightarrow Q(x)]\) \\
+			\cline{2-2}
+			\(\therefore\) & \(Q(a)\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{thm}[Universal Modus Tollens]
+	For two predicates \(P(\cdot)\) and \(Q(\cdot)\), and some domain \(D\) with \(a \in D\),
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \(\lnot Q(a)\) \\
+			& \((\forall x \in D)[P(x) \Rightarrow Q(x)]\) \\
+			\cline{2-2}
+			\(\therefore\) & \(\lnot P(a)\)
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\subsection{Proving Things}
+
+Our familiar rules of inference are not strong enough to prove abstract mathematical statements. Typically we want our proof to apply to a whole \textit{set} of things (numbers). Now that we know about \textit{predicate logic}, we can apply our more powerful \textit{quantified} rules of inference to prove real mathematical statements.
+
+\exsol{
+	Using Universal Modus Ponens, verify the validity of the following proof:
+	\begin{proof}
+		Let \(m,n \in \Z\), and let \(m\) be even. Then \(m = 2p\) for some integer \(p\).\textsuperscript{\color{blue} (1)} Now, 
+		\begin{align*}
+		m \cdot n &= (2p)n & \text{by substitution} \\
+		&= 2(pn)^{\text{\color{blue} (2)}} & \text{by associativity}
+		\end{align*}
+		
+		Now, \(pn \in \Z\),\textsuperscript{\color{blue} (3)} so by definition of even \(2(pn)\) is even.\textsuperscript{\color{blue} (4)} Thus \(mn\) is even.
+	\end{proof}
+}{
+	\\
+	\makebox[4mm]{\color{blue} (1)} \makebox[6mm]{} If an integer is even, then it equals twice some integer.\\
+	\makebox[4mm]{} \makebox[6mm]{} \(m\) is a particular integer, and it is even.\\
+	\makebox[4mm]{} \makebox[6mm]{\(\therefore\)} \(m\) equals twice some integer \(p\).\\
+	
+	\makebox[4mm]{\color{blue} (2)} \makebox[6mm]{} If a quantity is an integer, then it is a real number.\\
+	\makebox[4mm]{} \makebox[6mm]{} \(p\) and \(n\) are both particular integers.\\
+	\makebox[4mm]{} \makebox[6mm]{\(\therefore\)} \(p\) and \(n\) are both real numbers.\\
+	
+	\makebox[4mm]{} \makebox[6mm]{} For all \(a,b,c\), if \(a,b,c \in \R\) then \((ab)c = a(bc)\).\\
+	\makebox[4mm]{} \makebox[6mm]{} \(2\), \(p\), and \(n\) are all particular real numbers.\\
+	\makebox[4mm]{} \makebox[6mm]{\(\therefore\)} \((2p)n = 2(pn)\).\\
+	
+	\makebox[4mm]{\color{blue} (3)} \makebox[6mm]{} For all \(u,v\), if \(u,v \in \Z\) then \(uv \in \Z\).\\
+	\makebox[4mm]{} \makebox[6mm]{} \(p\) and \(n\) are both particular integers.\\
+	\makebox[4mm]{} \makebox[6mm]{\(\therefore\)} \(pn \in \Z\).\\
+	
+	\makebox[4mm]{\color{blue} (4)} \makebox[6mm]{} If a number equals twice some integer, then that number is even.\\
+	\makebox[4mm]{} \makebox[6mm]{} \(2(pn)\) equals twice the integer \(pn\).\\
+	\makebox[4mm]{} \makebox[6mm]{\(\therefore\)} \(2(pn)\) is even.\\
+}
+
+Of course, we would never do a mathematical proof like this. In reality, you do this in your head automatically. Seeing this form, however, allows you to easily verify the \textbf{validity} of the proof.
+
+\section{Summary}
+
+\begin{itemize}
+	\item Propositional logic contains the entirety of Boolean algebra and logic connectives, with True and False as the only inputs/outputs
+	\item Predicate logic contains the entirety of propositional logic and uses functions along with entities
+	\item Deriving knowledge from familiar rules entails mathematical proof
+\end{itemize}
+
+\section{Practice}
+
+\begin{enumerate}
+	\item Answer the two logic puzzles presented in the introduction of this chapter.
+	\item Translate the following statement into propositional logic: \textit{turn right then turn left}.
+	\item Translate the following statement into propositional logic: \textit{if it is raining then everyone has an umbrella}.
+	\item How can you quickly construct a truth table with all row possibilities? Use your technique to construct a truth table with 4 variables.
+	\item How many rows does a truth table with \(n\) variables have?
+	\item Prove theorem \ref{bicond-to-imp}.
+	\item Prove theorem \ref{imp-to-disj}.
+	\item Draw the circuit representation of theorem \ref{bicond-to-imp}.
+	\item Prove the following rule valid or invalid:
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \((a \land d) \Rightarrow b\) \\
+			& \(e\) \\
+			& \(b \Rightarrow (\lnot e)\) \\
+			& \((\lnot a) \Rightarrow f\) \\
+			& \((\lnot d) \Rightarrow f\) \\
+			\cline{2-2}
+			\(\therefore\) & \(f\)
+		\end{tabular}
+	\end{center}
+	\item Prove the following rule valid or invalid:
+	\begin{center}
+		\begin{tabular}{c@{\,}l@{}}
+			& \((a \land d) \Rightarrow b\) \\
+			& \(e\) \\
+			& \(b \Rightarrow (\lnot e)\) \\
+			& \((\lnot a) \Rightarrow f\) \\
+			& \((\lnot d) \Rightarrow f\) \\
+			\cline{2-2}
+			\(\therefore\) & \(b \Rightarrow e\)
+		\end{tabular}
+	\end{center}
+	\item Push the negation inside the following statement as far as possible: \[\lnot (\forall x \in \R)(\exists m \in \Z)[(0 \leq x - m < 1) \Leftrightarrow (m = \floor{x})]\]
+\end{enumerate}
+
+%\section{Solutions}
+%
+%\begin{enumerate}
+%	\item (1) Sam cannot make any cows, because Sam only starts with 1 cow. (2) We know knights always tell the truth. If we assume the speaker is a knight, then he will have lied about whom he is. Therefore, the speaker is a knave. Since knaves always lie, then we know the speaker lied, so the two people cannot both be knaves. Therefore, the second person is a knight.
+%	\item This is a trick question since the statement does not have any true or false value! If you answered something like \(r \Rightarrow l\), good thinking, however this is incorrect.
+%	\item One possibility: let \(r\) be the proposition \textit{it is raining} and \(u\) be the proposition \textit{everyone has an umbrella}, then the statement becomes \(r \Rightarrow u\).
+%	\item \(2^n\) rows.
+%	\item Examine the rows from right to left. In the first column, alternate T/F by 1 step. In the second column, alternate T/F by 2 steps. In the third column, alternate T/F by 4 steps. In the \(n\)th column, alternate T/F by \(2^{n-1}\) steps. The following example uses 1/0, however you should be able to translate it to T/F.
+%	
+%	\begin{center}
+%		\begin{tabular}{cccc}
+%			\(p\) & \(q\) & \(r\) & \(s\) \\
+%			\hline
+%			0 & 0 & 0 & 0 \\
+%			0 & 0 & 0 & 1 \\
+%			0 & 0 & 1 & 0 \\
+%			0 & 0 & 1 & 1 \\
+%			0 & 1 & 0 & 0 \\
+%			0 & 1 & 0 & 1 \\
+%			0 & 1 & 1 & 0 \\
+%			0 & 1 & 1 & 1 \\
+%			1 & 0 & 0 & 0 \\
+%			1 & 0 & 0 & 1 \\
+%			1 & 0 & 1 & 0 \\
+%			1 & 0 & 1 & 1 \\
+%			1 & 1 & 0 & 0 \\
+%			1 & 1 & 0 & 1 \\
+%			1 & 1 & 1 & 0 \\
+%			1 & 1 & 1 & 1
+%		\end{tabular}
+%	\end{center}
+%	\item 
+%	\item 
+%\end{enumerate}
+\end{document}

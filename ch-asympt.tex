@@ -1,0 +1,177 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Asymptotic Analysis}
+
+\epigraph{In algorithms, as in life, persistence usually pays off.}{Steven S.\ Skiena}
+
+\minitoc
+
+\section{Introduction}
+
+What is an algorithm?
+
+\begin{defn}[Algorithm]
+	A recipe/description of a process that accomplishes a goal
+\end{defn}
+
+Why study algorithms? First, you will gain tools to \textit{compare} algorithms. Second, studying algorithms will help you to creatively make \textit{new} algorithms.
+
+Why study algorithms in discrete math? Computers are discrete. Computers run programs, which are based on algorithms. Hence, algorithms must be discrete.
+
+\section{\(\Oh\), \(\Omega\), and \(\Theta\) Notations}
+
+Our motivation here is to describe the \textit{growth-rate} of functions. The growth-rate class gives us key insights to what the actual function does on large inputs.
+
+\begin{defn}[Big-Oh]
+	An upper-bound on the growth-rate of a function. Formally: \[f(n) \in \Oh(g(n)) \Leftrightarrow (\exists n_0 \in \N, \exists c \in \R^+, \forall n \in \N^{\geq n_0})[f(n) \leq c \cdot g(n)]\]
+\end{defn}
+
+\begin{defn}[Big-Omega]
+	A lower-bound on the growth-rate of a function. Formally: \[f(n) \in \Omega(g(n)) \Leftrightarrow (\exists n_0 \in \N, \exists c \in \R^+, \forall n \in \N^{\geq n_0})[f(n) \geq c \cdot g(n)]\]
+\end{defn}
+
+\begin{defn}[Big-Theta]
+	An exact growth-rate of a function. Formally: \[f(n) \in \Theta(g(n)) \Leftrightarrow f(n) \in \Oh(g(n)) \land f(n) \in \Omega(g(n))\]
+\end{defn}
+
+\section{Analyzing Algorithms}
+
+We can express algorithms in terms of functions. The function input is typically \(n\), the number of elements inputted into the algorithm, and the function output is typically time. Usually \textit{time} will be the number of certain operations performed during the algorithm.
+
+\begin{example}
+	Come up with a function \(T(n)\) that describes the run-time of the following algorithm. Define run-time as the number of conditional evaluations. In the following algorithm, \(L\) is a list of integers of length \(n\).
+	\begin{algorithmic}[1]
+		\Function{GetMax}{\(L\), \(n\)\@}
+			\State \(M \gets -\infty\)
+			\State \(i \gets 0\)
+			\While{\(i < n\)}
+				\If{\(L[i] > M\)}
+					\State \(M \gets L[i]\)
+				\EndIf
+				\State \(i \gets i+1\)
+			\EndWhile
+			\State \Return \(M\)
+		\EndFunction
+	\end{algorithmic}
+	
+	\begin{sol}
+		We evaluate the if-statement in line 5 exactly \(n\) times, and we evaluate the while-loop condition exactly \(n+1\) times (the last time is when we break out of the loop). Thus, \(T(n) = n + n + 1 = 2n + 1\)
+	\end{sol}
+	
+	Now come up with a function \(U(n)\) that outputs the number of \(\gets\) operations. Compare \(T(n)\) to \(U(n)\).
+	
+	\begin{sol}
+		We have two initial stores from lines 1 and 2. Each while-loop iteration has a store command in line 8. The while-loop runs exactly \(n\) times, so this gives us \(n\) stores. Line 6 has a store command which is run \(\leq n\) times. We can model this using a natural number \(c \leq n\) where \(c\) is the number of times line 5 evaluates to true. Our function is thus \(U(n) = n + c + 2\)
+		
+		Since \(c \leq n\) we have that \(U(n) \leq T(n)\) for all \(n > 1\). Note that when \(n = 1\) we have \(T(n) = 3\) and \(U(n) = 4\) (since \(c = 1\)). In any case, we have that the growth-rates of both functions are solely dependent on \(n\) and are hence the same. Both functions are in \(\Theta(n)\)
+	\end{sol}
+\end{example}
+
+\begin{defn}[The Loop-Heuristic]
+	(algorithm analysis) For each nested loop in an algorithm, multiply \(n\) by the number of nested levels. This can be helpful in an initial analysis, however it will only take you so far.
+\end{defn}
+
+\begin{rem}
+	We state the loop-heuristic as a definition, however it can be rephrased as a provable theorem.
+\end{rem}
+
+It is important to think about what is going on during the algorithm instead of blindly following the loop-heuristic. We present a few related examples.
+
+\begin{example}
+	Analyze the following algorithm:
+	\begin{algorithmic}[1]
+		\Function{AnalyzeList}{\(L\), \(n\)\@}
+			\State \(M \gets 0\)
+			\For{\(i \gets 0\); \(i < n\); \(i \gets i + 1\)}
+				\State \(k \gets L[i]\)
+				\For{\(j \gets i\); \(j < n\); \(j \gets j + 1\)}
+					\State \(k \gets k * L[j]\)
+				\EndFor
+				\State \(M \gets M + k\)
+			\EndFor
+			\State \Return \(M\)
+		\EndFunction
+	\end{algorithmic}
+	
+	\begin{sol}
+		The algorithm contains 2 nested loops, so by the loop-heuristic our run-time is \(n^2\). We examine further. The outer loop goes through the list \(n\) times. For each iteration \(i\), we have a loop that goes through the list \(n - i\) times. The actual \textit{work} is done in the inner loop. Thus, the amount of work equals \(1 + 2 + 3 + \cdots + n = \frac{n(n+1)}{2} = \frac{1}{2}n^2 + \frac{1}{2}n\) by the Gaussian sum. This has a growth rate of \(n^2\), so we see that the loop-heuristic worked and the algorithm runs in \(\Oh(n^2)\). In fact, the amount of work does not change with respect to different input ordering, so the algorithm runs in \(\Theta(n^2)\)
+	\end{sol}
+\end{example}
+
+\begin{example}
+	Examine the following algorithm:
+	\begin{algorithmic}[1]
+		\Function{AnalyzeGraph}{\(G = (V,E)\)\@}
+			\State \(c \gets 0\)
+			\For{\(v \in V\)}
+				\For{\(w \in \text{Neighbors}(v)\)}
+					\State \(c \gets c + 1\)
+				\EndFor
+			\EndFor
+			\State \Return \(c\)
+		\EndFunction
+	\end{algorithmic}
+	
+	\begin{sol}
+		\(G\) represents a graph
+	\end{sol}
+\end{example}
+
+\begin{example}
+	
+\end{example}
+
+\section{Common Complexities}
+
+There are a handful of common run-time complexities that you should be familiar with. In this book, we give them to you in ascending order of growth rate in Big Theta notation.
+
+\begin{defn}[Constant]
+	\[\Theta(1)\]
+\end{defn}
+
+\begin{defn}[Logarithmic]
+	\[\Theta(\log n)\]
+\end{defn}
+
+\begin{defn}[Linear]
+	\[\Theta(n)\]
+\end{defn}
+
+\begin{defn}[Polynomial]
+	\[\Theta(n^c),\ c > 1\]
+	We call \(\Theta(n^2)\) Quadratic
+\end{defn}
+
+\begin{defn}[Exponential]
+	\[\Theta(c^n),\ c > 1\]
+\end{defn}
+
+\section{Summary}
+
+\begin{itemize}
+	\item 
+	\item 
+	\item 
+\end{itemize}
+
+\section{Practice}
+
+\begin{enumerate}
+	\item Analyze the following algorithm:
+	\begin{algorithmic}[1]
+		\Function{SomeFunc}{\(n\)\@}
+			\State something
+		\EndFunction
+	\end{algorithmic}
+	\item Order the following complexities: \(\Theta(n \log n)\), \(\Theta(n \log (n^2))\), \(\Theta(n)\), \(\Theta(n^2)\). Explain why your ordering is correct.
+	\item Order the following complexities: \(\Theta(\log (3n))\), \(\Theta(n^n)\), \(\Theta(n!)\), \(\Theta(\log (\log n))\).
+\end{enumerate}
+
+%\section{Solutions}
+%
+%\begin{enumerate}
+%	\item 
+%	\item Since \(n \log (n^2) = 2n \log n\) we have that \(n \log (n^2) \in \Theta(n \log n)\). So the growth-rate of those two functions are the same. It suffices to order \(\Theta(n \log n)\), \(\Theta(n)\), \(\Theta(n^2)\). We know \(n \in \Oh(n^2)\). It should be clear that \(n \in \Oh(n \log n)\) (consider \(1 < \log_b n \Rightarrow n < n \log_b n\) for all \(n > b\)). Similar logic can be applied to show that \(n \log n \in \Oh(n^2)\). Thus our ordering is \(n < n \log n < n \log (n^2) < n^2\) where \(a <b \) is shorthand for \(a \in \Oh(b)\)
+%	\item \(\log \log n < \log (3n) < n! < n^n\) where \(a <b \) is shorthand for \(a \in \Oh(b)\)
+%\end{enumerate}
+\end{document}

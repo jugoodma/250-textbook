@@ -1,0 +1,322 @@
+\documentclass{book}
+
+% title stuff
+\title{Notes on Discrete Mathematics}
+\author{Justin Goodman}
+\date{Updated \today}
+
+% math stuff
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheoremstyle{break}% name
+{\topsep}%   Space above, empty = `usual value'
+{\topsep}%   Space below
+{}%          Body font
+{}%          Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%         Punctuation after thm head
+{\newline}%  Space after thm head: \newline = linebreak
+{}%          Thm head spec
+\theoremstyle{break}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{rem}[defn]{Remark}
+%\newtheorem{rem}{Remark}[section]
+%\newtheorem{example}{Example}
+\newtheoremstyle{plainbreak}% name
+{\topsep}%   Space above, empty = `usual value'
+{\topsep}%   Space below
+{\itshape}% Body font
+{}%          Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%         Punctuation after thm head
+{\newline}%  Space after thm head: \newline = linebreak
+{}%          Thm head spec
+\theoremstyle{plainbreak}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\makeatletter
+\def\thmhead@plain#1#2#3{%
+	\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+	\thmnote{ {\the\thm@notefont#3}}}
+\let\thmhead\thmhead@plain
+\makeatother
+
+% better-looking paragraphs
+\usepackage[parfill]{parskip}
+\makeatletter
+\def\thm@space@setup{%
+	\thm@preskip=\parskip \thm@postskip=0pt
+}
+\makeatother
+
+% fuck
+% https://tex.stackexchange.com/questions/310100/breakable-nested-tcolorbox
+
+% special proofs and solutions
+%\usepackage{xcolor}
+%\usepackage{mdframed}
+%\theoremstyle{remark}
+%\newtheorem*{mdproof}{Proof}
+%\theoremstyle{break}
+%\newtheorem*{mdsol}{Solution}
+%\definecolor{light-gray}{gray}{0.85}
+%\renewenvironment{proof}
+%	{\vspace{4mm} \begin{mdframed}[backgroundcolor=light-gray, nobreak=false]\begin{mdproof}\vspace{0.6em}}
+%	{\hfill\(\square\)\end{mdproof}\end{mdframed}}
+%\newenvironment{sol}
+%	{\vspace{4mm} \begin{mdframed}[backgroundcolor=light-gray, nobreak=false]\begin{mdsol}}
+%	{\end{mdsol}\end{mdframed}}
+%\newtheorem{mdex}{Example}[chapter]
+%\newenvironment{example}
+%	{\vspace{4mm} \begin{mdframed}[nobreak=false]\begin{mdex}}
+%	{\end{mdex}\end{mdframed} \vspace{4mm}}
+
+\let\proof\relax
+\let\endproof\relax
+\usepackage[table,dvipsnames]{xcolor}
+%\usepackage{colortbl}
+\usepackage[breakable,most,skins]{tcolorbox}
+\definecolor{lightgray}{gray}{0.85}
+\newtcolorbox{proof}[1][]{%
+	enhanced jigsaw, % better frame drawing
+	breakable,
+	%borderline west={2pt}{0pt}{red}, % straight vertical line at the left edge
+	sharp corners, % No rounded corners
+	boxrule=0.5pt, % frame
+	colback={lightgray},
+	fonttitle={\itshape},
+	coltitle={black},  % Black colour for title
+	title={Proof.\ },  % Fixed title
+	attach title to upper, % Move the title into the box
+	after upper={\hfill\(\square\)},
+	#1
+}
+\newtcolorbox{sol}[1][]{%
+	enhanced jigsaw, % better frame drawing
+	breakable,
+	%borderline west={2pt}{0pt}{red}, % straight vertical line at the left edge
+	sharp corners, % No rounded corners
+	boxrule=0.5pt, % frame
+	colback={lightgray},
+	fonttitle={\bfseries},
+	coltitle={black},  % Black colour for title
+	title={Solution:\ },  % Fixed title
+	attach title to upper, % Move the title into the box
+	#1
+}
+\newtcolorbox{example}[1][]{%
+	enhanced jigsaw, % better frame drawing
+	breakable,
+	%borderline west={2pt}{0pt}{red}, % straight vertical line at the left edge
+	sharp corners, % No rounded corners
+	boxrule=0.5pt, % frame
+	colback={white},
+	fonttitle={\bfseries},
+	coltitle={black},  % Black colour for title
+	title={Example:\ },  % Fixed title
+	attach title to upper, % Move the title into the box
+	#1
+}
+
+\newtcolorbox{exampleproof}[1][]{%
+	enhanced jigsaw,
+	breakable,
+	skin=bicolor,
+	sharp corners, % No rounded corners
+	boxrule=0.5pt, % frame
+	colback=white,
+	colupper=black,
+	fonttitle={\bfseries},
+	coltitle={black},  % Black colour for title
+	title={Example:\ },  % Fixed title
+	attach title to upper, % Move the title into the box
+	colbacklower=lightgray,
+	#1
+}
+\newcommand{\exproof}[2]{
+	\vspace{4mm}
+	\begin{exampleproof}
+		#1
+		\tcblower
+		% \setlength{\parindent}{0pt}
+		\textit{Proof.\@}
+		#2
+		\hfill\(\square\)
+	\end{exampleproof}
+	\vspace{4mm}
+}
+
+\newtcolorbox{examplesolution}[1][]{%
+	enhanced jigsaw,
+	breakable,
+	skin=bicolor,
+	sharp corners, % No rounded corners
+	boxrule=0.5pt, % frame
+	colback=white,
+	colupper=black,
+	fonttitle={\bfseries},
+	coltitle={black},  % Black colour for title
+	title={Example:\ },  % Fixed title
+	attach title to upper, % Move the title into the box
+	colbacklower=lightgray,
+	#1
+}
+\newcommand{\exsol}[2]{
+	\vspace{4mm}
+	\begin{examplesolution}
+		#1
+		\tcblower
+		\textbf{Solution:\@}
+		#2
+	\end{examplesolution}
+	\vspace{4mm}
+}
+
+\newtcolorbox{boxx}[1][]{%
+	enhanced jigsaw, % better frame drawing
+	breakable,
+	%borderline west={2pt}{0pt}{red}, % straight vertical line at the left edge
+	sharp corners, % No rounded corners
+	boxrule=0.5pt, % frame
+	colback={white},
+	#1
+}
+
+% fancy chapter TOC
+\usepackage{minitoc}
+
+% specialty commands
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\renewcommand{\P}{\ensuremath{\mathbf{P}}}
+\newcommand{\Oh}{\ensuremath{\mathcal{O}}}
+\newcommand{\Mod}[1]{\ensuremath{\ (\mathrm{mod}\ #1)}}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\avector}{\langle}{\rangle}
+
+% url stuff
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	citecolor=green,
+}
+
+% drawing pictures stuff
+\usepackage{tikz,calc}
+\usetikzlibrary{tikzmark,arrows}
+\usepackage{circuitikz}
+
+\makeatletter
+\newlength\@SizeOfCirc
+\newcommand{\circarrowleft}[1]{
+	\setlength{\@SizeOfCirc}{\maxof{\widthof{#1}}{\heightof{#1}}}
+	\begin{tikzpicture}[x=1.0ex,y=1.0ex,line width=.15ex, draw=black, baseline=-\the\dimexpr\fontdimen22\textfont2\relax]
+	\draw [->,anchor=center] node (0,0) {#1} (0.25\@SizeOfCirc,0.25\@SizeOfCirc) arc (0:90:0.5\@SizeOfCirc);
+	\end{tikzpicture}
+}
+\makeatother
+
+% tables
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+%\renewcommand\tabularxcolumn[1]{ m{#1} }
+
+% index stuff
+\usepackage{makeidx}
+\makeindex
+
+% multicols
+\usepackage{multicol}
+
+% for quotes before chapters
+\usepackage{epigraph}
+
+% for algorithms
+\usepackage{listings}
+\usepackage{algpseudocode}
+
+% for nice enumerates
+\usepackage{enumitem}
+
+% for modular documents
+\usepackage{subfiles}
+
+% dedication page
+\newenvironment{dedication}
+{%\clearpage             % we want a new page          %% I commented this
+	\thispagestyle{empty}% no header and footer
+	\vspace*{\stretch{1}}% some space at the top
+	\itshape             % the text is in italics
+	\raggedleft          % flush to the right margin
+}
+{\par % end the paragraph
+	\vspace{\stretch{3}} % space at bottom is three times that at the top
+	\clearpage           % finish off the page
+}
+
+% nice section breaks
+\usepackage[mark=***]{sectionbreak}
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\begin{dedication}
+	Mom, I never thought you were bad at math
+%	\par   %% or a blank line
+%	\vspace{2\baselineskip}
+%	Pop-Pop -- I wish we had more time together; miss you chief
+	
+	\vspace{\baselineskip}
+	\usefont{T1}{LobsterTwo-LF}{bx}{it}
+	Justin
+\end{dedication}
+
+\dominitoc
+
+\tableofcontents
+
+\mainmatter
+
+\setcounter{chapter}{-1}
+\subfile{ch-intro.tex} % intro
+
+\subfile{ch-logic.tex} % logic
+
+\subfile{ch-settheory.tex} % set theory
+
+\subfile{ch-numtheory.tex} % number theory
+
+\subfile{ch-combprob.tex} % combinatorics / probability
+
+\subfile{ch-funcrel.tex} % functions / relations
+
+\subfile{ch-countability.tex} % countability
+
+\subfile{ch-graphtheory.tex} % graph theory
+
+\subfile{ch-asympt.tex} % asymptotic analysis
+
+\subfile{ch-outro.tex} % outro
+
+\appendix
+
+\backmatter
+% to recompile, go to Tools > Index
+% then standard F6
+\printindex
+
+\end{document}

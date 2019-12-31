@@ -1,0 +1,356 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Set Theory}
+
+\epigraph{Sets are wild fam.}{Justin Goodman}
+
+\minitoc
+
+\section{Introduction}
+
+Sets were introduced by Georg Cantor in the late 1800s. Cantor is the grandfather of set theory and continuity. We will see continuity topics later, including Cantor's famous diagonal argument. We can define all of discrete mathematics using sets. What is a set though?
+
+\begin{defn}[Set\index{Set}]
+	An unordered collection of unique objects. We denote sets using curly braces \(\{\}\) with objects appearing in them -- e.g.\ \(\{\circ, 3, \pi, \blacktriangle\}\)
+\end{defn}
+
+Each part of this definition is important -- we do not have a set unless it satisfies the entire definition. We now examine the definition.
+
+\begin{itemize}
+	\item A set is a \textbf{collection} of stuff. Think of a set like a box. You can put things in your box, and you can take them out. Your box is special -- it can expand/contract to fit anything you like.
+	\item A set is \textbf{unordered}. This simply means that any different ordering we give to a set does not change the equality property of the set -- \(\{1,2\} = \{2,1\}\)
+	\item A set contains \textbf{objects}. A set can contain anything you want.
+	\item A set contains \textbf{unique} objects. For any two distinct objects in a set, the objects cannot be equal. Sometimes we see books describe the sets \(\{1,1,2,3\}\) and \(\{1,2,3\}\) as equal, however we argue that the first set is not even a set!\footnote{We would classify the set \(\{1,1,2,3\}\) as a \textit{multi-set}} We recommend you ask your instructor about this distinction, and follow what they prefer.
+\end{itemize}
+
+This chapter includes an overview of set theory -- sets, operations, binary relations, and theorems.
+
+\section{Building Sets}
+
+Before we dive into set theory concepts, we introduce set-builder notation. As the name implies, this is how we will build our sets.
+
+\begin{defn}[Set-Builder Notation]
+	A way of defining sets. Syntax: \(\{\,\mbox{element} \mid \mbox{condition(s)}\,\}\), read as, ``element \textit{such that} condition(s) is (are) satisfied.'' For example, the set of even integers (which we will learn about soon) can be written as: \(\{e \mid (\exists k \in \Z)[e = 2k]\}\)
+\end{defn}
+
+It is pivotal that you know how to read and create sets this way. The syntax is very flexible because the conditions can be almost anything you like. The conditions should, however, relate to the set itself (otherwise the set would be trivially pointless).
+
+\exsol{
+	Build a set that contains all square roots of even integers (for now, use the definition of even integers given previously).
+}{
+	\[S = \{x \mid (\exists k \in \Z)[x^2 = 2k]\}\]
+}
+
+\exsol{
+	Build a set that contains everything except for the object \(\star\).
+}{
+	\[S = \{y \mid y \neq \star\}\]
+}
+
+\section{Definitions}
+
+We include a handful of definitions and notations we use in our study of set theory.
+
+Binary relations:
+
+\begin{defn}[Member/Element]
+	An object that is part of a set. Symbol: \(\in\). Example: \(5 \in \{1,2,3,4,5\}\)
+\end{defn}
+
+\begin{defn}[Subset]
+	A set of elements that are all members of another set. A subset CAN be equal to its parent set. Symbol: \(\subseteq\). Example: for sets \(S\) and \(T\), \(S \subseteq T \Leftrightarrow (\forall s \in S)[s \in T]\)
+\end{defn}
+
+\begin{defn}[Proper Subset]
+	A set of elements that are all members of another set, but the subset is NOT equal to the parent set. Symbol: \(\subset\). Example: for sets \(S\) and \(T\), \(S \subset T \Leftrightarrow (\forall s \in S)[(s \in T) \land (S \neq T)]\)
+\end{defn}
+
+\begin{defn}[Superset]
+	A flipped version of subset. Symbol: \(\supseteq\). Example: for sets \(S\) and \(T\), \(S \supseteq T \Leftrightarrow (\forall t \in T)[t \in S]\)
+\end{defn}
+
+\begin{defn}[Proper Superset]
+	A flipped version of proper subset. Symbol: \(\supset\). Example: for sets \(S\) and \(T\), \(S \supset T \Leftrightarrow (\forall t \in T)[(t \in S) \land (S \neq T)]\)
+\end{defn}
+
+\begin{defn}[Equality]
+	Two sets are equal if and only if both sets are subsets of each other. Notation: for sets \(S\) and \(T\), \(S = T \Leftrightarrow (S \subseteq T) \land (T \subseteq S)\). To prove this, you can use set-builder notation \& theorems (given later in this chapter) to show equivalence, or you can prove \((e \in S \Rightarrow e \in T) \land (e \in T \Rightarrow e \in S)\)
+\end{defn}
+
+Things:
+
+\begin{defn}[Cardinality]
+	The number of elements in a set. Notation: for a set \(S\), cardinality is denoted by \(|S|\). For example, $|\{2,3,4,5,6\}| = 5$
+\end{defn}
+
+\begin{defn}[Empty/Null Set]
+	The set containing zero elements. Notation: $\emptyset$ or $\{\}$ -- these symbols are \textit{interchangable}. \textbf{Note}: \(|\emptyset| = 0\)
+\end{defn}
+
+\begin{defn}[Universal Set]
+	The set of all possible sets. Notation: \(U\) is the Universal Set
+\end{defn}
+
+\begin{defn}[Power Set]
+	The set of all possible subsets of a set. Notation: of a set \(S\), the power set is denoted \(\mathcal{P}(S)\). For example, \(\mathcal{P}(\{1,2,3\}) = \{\emptyset, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}\}\). \textbf{Note}: for any set \(S\), \(|\mathcal{P}(S)| = 2^{|S|}\)
+\end{defn}
+
+\begin{defn}[Disjoint]
+	Two sets are disjoint if and only if both sets have no members in common. For two sets \(S\) and \(T\), this is equivalent to \(S \cap T = \emptyset\)
+\end{defn}
+
+\begin{defn}[Partition]
+	(of a set) A set of sets \(T\) where the union of every element in \(T\) equals the original set, and all elements in \(T\) are disjoint. For example, \(\{\{1,2\}, \{3\}, \{4,5,6\}\}\) is a partition of \(\{1,2,3,4,5,6\}\)
+\end{defn}
+
+Operations:
+
+\begin{defn}[Union]
+	(of two sets) A set that includes all elements from both sets (discounting duplicates, since a set must contain unique elements). Notation: for sets \(S\) and \(T\), \(S \cup T = \{e \mid (e \in S) \lor (e \in T)\}\). For example, \(\{1,2,3\} \cup \{3,4,5\} = \{1,2,3,4,5\}\)
+\end{defn}
+
+\begin{defn}[Intersection]
+	(of two sets) A set that includes only elements from both sets. Notation: for sets \(S\) and \(T\), \(S \cap T = \{e \mid (e \in S) \land (e \in T)\}\). For example, \(\{1,2,3\} \cap \{3,4,5\} = \{3\}\)
+\end{defn}
+
+\begin{defn}[Subtraction]
+	(of two sets) A set representing the elements of the second set taken out of the first set. \textbf{Note}: subtraction order \textit{matters} (i.e.\ subtraction is not commutative). Notation: for sets \(S\) and \(T\), \(S - T = \{e \mid (e \in S) \land (e \not\in T)\}\). You may also see set subtraction represented as \(S \setminus T\). For example, \(\{1,2,3\} \setminus \{3,4,5\} = \{1,2\}\)
+\end{defn}
+
+\begin{defn}[Compliment]
+	(of a set) A set containing every element from the universal set that is NOT contained in the original set. \textbf{Note}: you can take the compliment with respect to different universes so long as you specify which one -- by default the universal set is assumed. Notation: for a set \(S\), the complement is noted as \(S^{\mathsf{c}}\), or \(S^{'}\), or \(\overline{S}\); with the universe \(U\), \(S^{'} = \{e \mid e \in (U - S)\}\)
+\end{defn}
+
+\begin{defn}[Cross Product]
+	(of two sets) The set of all ordered pairings of two sets. Notation: for sets \(S\) and \(T\), \(S \times T = \{(s,t) \mid s \in S \land t \in T\}\).
+	
+	Note: you can take the cross product of multiple sets. For sets \(A_1 \cdots A_n\), the cross product \(A_1 \times A_2 \times \cdots \times A_n = \{(a_1, a_2, \cdots, a_n) \mid a_i \in A_i\}\). When \(A_1 = \cdots = A_n = A\) then we let \(A^n = A_1 \times A_2 \times \cdots \times A_n\)
+\end{defn}
+
+\section{Theorems}
+
+We will not go into depth on the axioms of Zermelo–Fraenkel set theory. We do include a handful of nice theorems that will aid in proving statements about sets. Sometimes these are referred to as axioms, however we argue that the following statements can be derived from ZF set theory axioms and should hence be called theorems. It does not really matter though.
+
+You are not required to memorize these theorems -- they will be given to you as a table.
+
+\begin{thm}[Commutativity]
+	For any sets \(A\) and \(B\) the union and intersection operations are commutative: \[A \cup B = B \cup A\] \[A \cap B = B \cap A\]
+\end{thm}
+
+\begin{thm}[Associativity]
+	For any sets \(A\), \(B\), and \(C\) the union and intersection operations are associative: \[(A \cup B) \cup C = A \cup (B \cup C)\] \[(A \cap B) \cap C = A \cap (B \cap C)\]
+\end{thm}
+
+\begin{thm}[Distributivity]
+	For any sets \(A\), \(B\), and \(C\) the union and intersection operations are distributive: \[A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\] \[A \cup (B \cap C) = (A \cup B) \cap (A \cup C)\]
+\end{thm}
+
+\begin{thm}[Identity]
+	For any set \(A\) and universe \(U\) the following hold: \[A \cup \emptyset = A\] \[A \cap U = A\]
+\end{thm}
+
+\begin{thm}[Inverse]
+	For any set \(A\) and universe \(U\) the following hold: \[A \cup A^{\mathsf{c}} = U\] \[A \cap A^{\mathsf{c}} = \emptyset\]
+\end{thm}
+
+\begin{thm}[Double Compliment]
+	For any set \(A\) the following holds: \[(A^{\mathsf{c}})^{\mathsf{c}} = A\]
+\end{thm}
+
+\begin{thm}[Idempotence]
+	For any set \(A\) the following hold: \[A \cup A = A\] \[A \cap A = A\]
+\end{thm}
+
+\begin{thm}[De Morgan's]
+	For any sets \(A\) and \(B\) the following hold: \[(A \cup B)^{\mathsf{c}} = A^{\mathsf{c}} \cap B^{\mathsf{c}}\] \[(A \cap B)^{\mathsf{c}} = A^{\mathsf{c}} \cup B^{\mathsf{c}}\]
+\end{thm}
+
+\begin{thm}[Universal Bound (Domination)]
+	For any set \(A\) and universe \(U\) the following hold: \[A \cup U = U\] \[A \cap \emptyset = \emptyset\]
+\end{thm}
+
+\begin{thm}[Absorption]
+	For any sets \(A\) and \(B\) the following hold: \[A \cup (A \cap B) = A\] \[A \cap (A \cup B) = A\]
+\end{thm}
+
+\begin{thm}[Absolute Compliment]
+	For a given universe \(U\) the following hold: \[\emptyset^{\mathsf{c}} = U\] \[U^{\mathsf{c}} = \emptyset\]
+\end{thm}
+
+\begin{thm}[Set Subtraction Equality]
+	\label{set-sub-eq}
+	For any sets \(A\) and \(B\) the set subtraction operation satisfies the following: \[A - B = A \cap B^{\mathsf{c}}\]
+	This establishes a relationship between the relative and absolute compliment
+\end{thm}
+
+The aforementioned theorems are helpful for simplifying complicated sets.
+
+\exsol{
+	Simplify the following expression: \[((A \cup B) \cap C) \cup ((A^{\mathsf{c}} \cap B^{\mathsf{c}}) \cup D^{\mathsf{c}})^{\mathsf{c}}\]
+}{
+	Lots of compliments is a good indication for using De Morgan's.
+	\begin{align*}
+	& ((A \cup B) \cap C) \cup ((A^{\mathsf{c}} \cap B^{\mathsf{c}}) \cup D^{\mathsf{c}})^{\mathsf{c}} \\
+	&= ((A \cup B) \cap C) \cup ((A \cup B)^{\mathsf{c}} \cup D^{\mathsf{c}})^{\mathsf{c}} & \text{De Morgan's} \\
+	&= ((A \cup B) \cap C) \cup ((A \cup B) \cap D) & \text{De Morgan's} \\
+	&= (A \cup B) \cap (C \cup D) & \text{Distributivity}
+	\end{align*}
+}
+
+\exsol{
+	\label{ex-prove-equivalence}
+Show the following equivalence: \[A \cup (B \cup (A \cap C)) = A \cup B\]
+}{
+	Sometimes just trying random things works out in your favor.
+	\begin{align*}
+	A \cup (B \cup (A \cap C)) &= A \cup ((A \cap C) \cup B) & \text{Commutativity} \\
+	&= (A \cup (A \cap C)) \cup B & \text{Associativity} \\
+	&= A \cup B & \text{Absorption}
+	\end{align*}
+}
+
+\begin{rem}
+	There is a stark similarity between set and Boolean simplification.
+\end{rem}
+
+\section{Important Sets}
+
+We introduce some notation for a handful of important sets.
+
+\begin{defn}[The Natural Numbers -- \(\N\)]
+	The standard discrete numbers with which you count. Some math classes start the naturals at 1, however in computer science we start the naturals at 0. Just remember simply that arrays utilize 0-indexing, so we do the same. The set looks like so: \(\{0,1,2,3,4,5,\cdots\}\)
+\end{defn}
+
+In mathematics, we define the natural numbers \textit{inductively} -- we will discuss induction in a few chapters. We introduce the inductive definition here. You do not need to know this, however we think it is interesting.
+
+\begin{prop}[Inductive Definition of \(\N\)]
+	\label{ind-defn-N}
+	Define a set \(S \subseteq \R\) to be \textit{inductive} if and only if the following conditions hold:
+	\begin{itemize}
+		\item \(0 \in S\)
+		\item if \(x \in S\) then \(x + 1 \in S\)
+	\end{itemize}
+	
+	\noindent Define \(\N\) as the intersection of all inductive sets.
+\end{prop}
+
+Understandably you may be confused on the notation of \(\R\) -- we will come back to this in a moment. For now, we continue to the integers.
+
+\begin{defn}[The Integers -- \(\Z\)]
+	The standard \textit{signed} discrete numbers with which you count. The integers include all of the natural numbers as well as all of their negatives\footnote{0 is neither positive nor negative, so we cannot take its negation, however we let \(0 \in \Z\)}. The set looks like so: \(\{\cdots,-3,-2,-1,0,1,2,3,\cdots\}\)
+\end{defn}
+
+The next set, which you may be familiar with, is the rationals.
+
+\begin{defn}[The Rationals -- \(\Q\)]
+	The set of numbers that can be written as a ratio (\(\Q\)uotient) of integers. \(\Q = \{x = \frac{a}{b} \mid a \in \Z \land b \in \Z^{\neq 0}\}\)
+\end{defn}
+
+Naturally we can define somewhat of an `opposite' to the rationals.
+
+\begin{defn}[The Irrationals -- \(\R \setminus \Q\)]
+	The set of real numbers that do not satisfy the rational property. A provable example is that \(\sqrt{2} \in \R \setminus \Q\)
+\end{defn}
+
+The real numbers are not the main focus in discrete mathematics, however we still provide a definition.
+
+\begin{defn}[The Reals -- \(\R\)]
+	The continuous interval \((-\infty, \infty)\). Any number that does not have the form \(a+bi\), where \(i = \sqrt{-1}\)
+\end{defn}
+
+In an analytical mathematics course, the reals and irrationals are more strongly defined. The above definitions are enough for this course.
+
+\section{Sets to Logic}
+
+We can use set-builder notation along with our familiar logic rules to prove things about sets. This proof technique can be used to prove the theorems we showed earlier.
+
+\exproof{
+	Prove theorem \ref{set-sub-eq}: \[A - B = A \cap B^{\mathsf{c}}\]
+}{
+	\begin{align*}
+	A - B &= \{x \mid x \in A \land x \not\in B\}  & \text{defn of subtraction} \\
+	&= \{x \mid x \in A \land x \in B^{\mathsf{c}}\} & \text{defn of compliment} \\
+	&= A \cap B^{\mathsf{c}} & \text{defn of intersection}
+	\end{align*}
+}
+
+\exproof{
+	Prove example \ref{ex-prove-equivalence} \[A \cup (B \cup (A \cap C)) = A \cup B\]
+}{
+	\begin{align*}
+	& A \cup (B \cup (A \cap C)) \\
+	&= \{x \mid x \in A \lor (x \in B \lor (x \in A \land x \in C))\} & \text{defn of } \cup/\cap \\
+	&= \{x \mid x \in A \lor ((x \in A \land x \in C) \lor x \in B)\} & \text{Commutativity (logic)} \\
+	&= \{x \mid (x \in A \lor (x \in A \land x \in C)) \lor x \in B\} & \text{Associativity (logic)} \\
+	&= \{x \mid x \in A \lor x \in B\} & \text{Absorption (logic)} \\
+	&= A \cup B & \text{defn of } \cup
+	\end{align*}
+}
+
+\section{Summary}
+
+\begin{itemize}
+	\item Sets are unordered collections of unique objects
+	\item Many operations and theorems exist in set theory
+	\item \(\N, \Z, \Q, \R \setminus \Q, \R\) are all important sets
+\end{itemize}
+
+\section{Practice}
+
+\begin{enumerate}
+	\item Provide an example of a valid set, and an invalid set.
+	\item Build a set of natural numbers that are all multiples of 3.
+	\item Explain why the cardinality of a finite set is a natural number.
+	\item For two sets \(A\) and \(B\), is it necessarily the case that \(|A \cup B| = |A| + |B|\)?
+	\item Explain intuitively why \(|\mathcal{P}(A)| = 2^{|A|}\).
+	\item Is \(\{\Z^-, 0, \Z^+\}\) a valid partition of \(\Z\)? Explain. If it is not, change the partition to make it valid.
+	\item Is \(\{\{1,3,5,7,9,\cdots\} , \{0,2,4,6,8,\cdots\}\}\) a valid partition of \(\N\)? Explain. If it is not, change the partition to make it valid.
+	\item Provide a set \(T\) which is a valid partition of \(\N\) such that \(|T| = 5\).
+	\item For each of the following, answer true or false:
+	\begin{enumerate}
+		\item \(\Z \supset \N\)
+		\item \(\N \in \Z\)
+		\item \(0 \in \emptyset\)
+		\item \(\emptyset \in \emptyset\)
+		\item \(\emptyset \subseteq \emptyset\)
+		\item \(\emptyset \subset \emptyset\)
+		\item \(\mathcal{P}(\emptyset) = \emptyset\)
+	\end{enumerate}
+	\item Simplify the expression \(A^{\mathsf{c}} \cup (B \cup A)^{\mathsf{c}}\).
+	\item Prove the two Absorption theorem statements are equivalent.
+\end{enumerate}
+
+%\section{Solutions}
+%
+%\begin{enumerate}
+%	\item Valid: \(\{1,2,3\}\). Invalid: \(1,2,3\) (this is invalid because it is missing the \(\{\}\))
+%	\item Let \(S = \{x \mid (\exists k \in \N)[x = 3k]\}\)
+%	\item Consider that \(\N\) contains all of the \textit{counting} numbers. By taking the cardinality, you are simply \textit{counting} the number of elements.
+%	\item The only case when \(|A \cup B| = |A| + |B|\) is if \(A \cap B = \emptyset\). For example, \(|\{1,2,3\} \cup \{3,4,5\}| = |\{1,2,3,4,5\}| = 5 \neq 6 = |\{1,2,3\}| + |\{3,4,5\}|\)
+%	\item Consider each subset as a binary string, where each position in the string represents an element. 1 means the element is in the subset, and 0 means the element is not in the subset. The amount of strings total is \(2^{\text{length of each string}}\). Since the length of each string is just the number of elements in \(A\), we recover that \(|\mathcal{P}(A)| = 2^{|A|}\). The intuition here is to think of each element as being in or out of a subset.
+%	\item No -- each element in a partition must be a set, and 0 is not a set.
+%	\item Yes -- the first set contains all odd naturals, and the second set contains all even naturals. Since there is no overlap between odds and evens, the partition is valid. We will learn about this soon.
+%	\item One possibility: \(T = \{\{0,1,2\}, \{4,5\}, \{3,6,9\}, \{7,8\}, \N^{\geq 10}\}\)
+%	\item 
+%	\begin{enumerate}
+%		\item True
+%		\item False
+%		\item False
+%		\item False
+%		\item True
+%		\item False
+%		\item False
+%	\end{enumerate}
+%	\item 
+%	\begin{align*}
+%	A^{\mathsf{c}} \cup (B \cup A)^{\mathsf{c}} &= A^{\mathsf{c}} \cup (B^{\mathsf{c}} \cap A^{\mathsf{c}}) & \text{De Morgan's} \\
+%	&= A^{\mathsf{c}} \cup (A^{\mathsf{c}} \cap B^{\mathsf{c}}) & \text{Commutativity} \\
+%	&= A^{\mathsf{c}} & \text{Absorption} \\
+%	\end{align*}
+%	\item 
+%	\begin{align*}
+%	A \cup (A \cap B) &= (A \cup A) \cap (A \cup B) & \text{Distributivity} \\
+%	&= A \cap (A \cup B) & \text{Idempotence}
+%	\end{align*}
+%\end{enumerate}
+\end{document}
