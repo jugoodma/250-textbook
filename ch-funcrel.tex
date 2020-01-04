@@ -10,9 +10,129 @@
 
 Sometimes in life you will have two (or more) things that are somehow related. Sometimes people make these relations for you. Sometimes you will be given two things and you have to come up with the relation. Our goal in this section is to give you the tools to solve these problems life throws at you. And remember, when life gets you down, just chuck some lemons back at him.
 
+This chapter begins studying relations, then builds up to define functions.
+
+\section{Relations}
+
+% Relations are a formal way for us to map elements together in a similar fashion to functions. Unlike functions, however, a relation simply gives the \textit{relationship}. Sometimes you can construct a function that yields the relation. Other times, a function that would represent the relation would not be a function by definition.
+
+Relations are a formal way for us to map elements together. You may already be familiar with functions from high-school mathematics courses -- we will build to this. Relations simply give us a \textit{relationship} between elements. We begin with a formal definition, then dive into relation classification.
+
+\begin{defn}[Relation\index{Relation}]
+	For sets \(A\) and \(B\), a relation \(R\) is any subset of the cross product of \(A\) and \(B\): \[R \subseteq \{(a,b) \in A \times B\}\]
+	
+	To specify that two elements relate to each other under a relation \(R\) we say \(xRy\) which means \((x,y) \in R\)
+\end{defn}
+
+Here are a few examples:
+
+\begin{example}
+	An \textit{equality} relation \(\{(a,b) \mid a = b\} \subseteq \R \times \R\). This is a set of pairs where, for any given pair both elements in the pair are equal.
+\end{example}
+
+\begin{example}
+	A \textit{less-than} relation \(\{(a,b) \mid a < b\} \subseteq \N \times \N\). This is a set of pairs where, for any given pair the first element is strictly less-than the second element.
+\end{example}
+
+\begin{rem}
+	We will only consider relations of sets with themselves. We \textit{can} define relations between different sets, however this will make the following definitions significantly more challenging to define.
+\end{rem}
+
+\begin{defn}[Reflexive\index{Reflexive!Relation}]
+	A relation \(R\) on a set \(A\) is reflexive if \[(\forall a \in A)[(a,a) \in R]\]
+\end{defn}
+
+\begin{defn}[Symmetric\index{Symmetric!Relation}]
+	A relation \(R\) on a set \(A\) is symmetric if \[(\forall a,b \in A)[(a,b) \in R \Rightarrow (b,a) \in R]\]
+\end{defn}
+
+\begin{defn}[Transitive\index{Transitive!Relation}]
+	A relation \(R\) on a set \(A\) is transitive if \[(\forall a,b,c \in A)[(a,b) \in R \land (b,c) \in R \Rightarrow (a,c) \in R]\]
+\end{defn}
+
+You will typically be asked to classify whether a relation satisfies the above three properties.
+
+\exsol{
+	% todo
+	Classify the following:
+	
+	\begin{center}
+		\begin{tabular}{lc|c|c|c|c}
+			& & func.\ & inj.\ & surj.\ & bij.\ \\ 
+			\hline
+			\(f(x) = x\) & \(f : \N \mapsto \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(g(x) = x\) & \(g : \Z \mapsto \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(h(x) = x^2\) & \(h : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(i(x) = \floor{x^2}\) & \(i : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(j(x) = x^3-x\) & \(j : \Z \mapsto \R\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\end{tabular}
+	\end{center}
+}{
+	\(\blacklozenge\) indicates YES, \(\lozenge\) indicates NO
+	
+	\begin{center}
+		\begin{tabular}{lc|c|c|c|c}
+			& & func.\ & inj.\ & surj.\ & bij.\ \\ 
+			\hline
+			\(f(x) = x\) & \(f : \N \mapsto \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(g(x) = x\) & \(g : \Z \mapsto \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) \\
+			\(h(x) = x^2\) & \(h : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(i(x) = \floor{x^2}\) & \(i : \R \mapsto \N\) & \(\blacklozenge\) & \(\lozenge\) & \(\blacklozenge\) & \(\lozenge\) \\
+			\(j(x) = x^3-x\) & \(j : \Z \mapsto \R\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\end{tabular}
+	\end{center}
+}
+
+Oftentimes in computer science and mathematics we care about relations that satisfy all three properties. We even give these relations a fancy name, \textit{equality relation}.
+
+\begin{defn}[Equivalence Relation\index{Equivalence Relation!Relation}]
+	A relation that is reflexive, symmetric, and transitive
+\end{defn}
+
+% todo : write an actual application of this
+
+Here are some other cool definitions that probably will not be tested.
+
+\begin{defn}[Antisymmetric\index{Antisymmetric!Relation}]
+	A relation \(R\) on a set \(A\) is antisymmetric if \[(\forall a,b \in A)[(a,b) \in R \land (b,a) \in R \Rightarrow a = b]\]
+\end{defn}
+
+\begin{defn}[Composite of a Relation]
+	If \(R \subseteq A \times B\) and \(S \subseteq B \times C\) are both relations, then the \textit{composite} of \(R\) and \(S\) is \[S \circ R = \{(a,c) \mid a \in A \land c \in C \land (b \in B \Rightarrow (a,b) \in R \land (b,c) \in S)\}\]
+\end{defn}
+
+\begin{defn}[Power of a Relation]
+	If \(R \subseteq A \times A\) then for \(n \in \Z^+\) the \textit{power} \(R^n = R^{n-1} \circ R\) where \(R^1 = R\)
+\end{defn}
+
+\begin{thm}
+	\label{relation-transitive-theorem}
+	\(R \subseteq A \times A\) is transitive iff \(R^n \subseteq R\)
+\end{thm}
+
+The proof of this theorem is left as an exercise.
+
+% todo
+Put something discussing n-ary relations
+
 \section{Functions}
 
-We start simply with the definition.
+Now that we understand relations, we can define a function.
+
+\begin{defn}[Function\index{Function}]
+	A relation \(R \subseteq C \times D\) that satisfies the following properties:
+	\begin{enumerate}
+		\item \((\forall c \in C)(\exists d \in D)[(c,d) \in R]\)
+		\item \((\forall c \in C)(\forall d_1,d_2 \in D)[((c,d_1) \in R \land (c,d_2) \in R) \Rightarrow d_1 = d_2]\)
+	\end{enumerate}
+	
+	If we recall the \textit{exists unique} symbol \(\exists!\), then we can combine the two properties above into one:
+	\begin{enumerate}
+		\item \((\forall c \in C)(\exists! d \in D)[(c,d) \in R]\)
+	\end{enumerate}
+\end{defn}
+
+You may be familiar with the following less-formal definition.
 
 \begin{defn}[Function\index{Function}]
 	An explicit rule, or set of rules, that can be applied to a specified input to yield a specified output. There are two rules that all functions must follow:
@@ -22,7 +142,18 @@ We start simply with the definition.
 	\end{enumerate}
 \end{defn}
 
-Basically, functions allow us to define a \textit{mapping} between sets. Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \mapsto R\]
+Basically, functions give us a \textit{mapping} between sets -- a relation! For any relation \(R \subseteq C \times D\), we let the first set \(C\) be the function \textit{input} and the second set \(D\) be the function \textit{output}. If a pairing \((c,d) \in R\), then the function representing the relation \(R\) means that the function input \(c\) yields the output \(d\).
+
+\exsol{
+	Determine whether the following relations are functions or not.
+	
+}{
+	% todo
+}
+
+% todo
+
+Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \mapsto R\]
 
 \begin{defn}[Domain\index{Domain!Function}]
 	The set of inputs to a function
@@ -322,9 +453,11 @@ Other times we will ask you to find a closed form for a sequence given in genera
 
 Finding a closed-form function that matches a sequence is difficult. It requires a deep understanding of how all mathematical operators work, and requires a knack for finding patterns. There are multiple methods for estimating functions, including polynomial interpolation, piece-wise functions, floor-ceiling interpolation, and least-squares. These methods usually yield a result significantly more complicated than finding a simpler function. However, there are merits to using these methods as a starting-point.
 
-
+% todoo ?
 
 \subsection{Series}
+
+This is a short section, however it still deserves attention. % todo : fix 
 
 \begin{defn}[Series\index{Series}]
 	The sum of all terms in a sequence
@@ -332,67 +465,7 @@ Finding a closed-form function that matches a sequence is difficult. It requires
 
 Typically we try to understand the limiting behavior of infinite series. There are a number of tests you can use to study this behavior, however this topic is typically taught in Calculus II classes. We will thus omit this topic here, however we do recommend at least understanding the idea behind limits. We will come back to infinite objects when we discuss countability in chapter \ref{chapter:countability}.
 
-\section{Relations}
-
-Relations are a formal way for us to map elements together in a similar fashion to functions. Unlike functions, however, a relation simply gives the \textit{relationship}. Sometimes you can construct a function that yields the relation. Other times, a function that would represent the relation would not be a function by definition.
-
-\begin{defn}[Relation\index{Relation}]
-	For sets \(A\) and \(B\), a relation \(R\) is any subset of the cross product of \(A\) and \(B\): \[R \subseteq \{(a,b) \in A \times B\}\]
-	
-	To specify that two elements relate to each other under a relation \(R\) we say \(xRy\) which means \((x,y) \in R\)
-\end{defn}
-
-Here are a few examples:
-
-\begin{example}
-	The \textit{equality} relation \(\{(a,b) \mid a = b\} \subseteq \R \times \R\)
-\end{example}
-
-\begin{rem}
-	We will only consider relations of sets with themselves. We \textit{can} define relations between different sets, however this will make the following definitions significantly more challenging to define.
-\end{rem}
-
-\begin{itemize}
-	\item Relation - (Binary Relation) if $A$ and $B$ are sets, then a Relation from $A$ to $B$ is any subset of $A \times B$. $aRb$ means $(a,b) \in R$ where $a \in A$ and $b \in B$ and $R \subseteq A \times B$. A Relation over a set $A$ is simply a Relation from $A$ to $A$.
-	\item Reflexive - a Relation $R$ on a set $A$ is Reflexive if\\$(\forall a \in A)[(a,a) \in R]$.
-	\item Symmetric - a Relation $R$ on a set $A$ is Symmetric if\\$(\forall a,b \in A)[(a,b) \in R \Rightarrow (b,a) \in R]$.
-	\item Antisymmetric - a Relation $R$ on a set $A$ is Antisymmetric if\\$(\forall a,b \in A)[(a,b) \in R \land (b,a) \in R \Rightarrow a = b]$.
-	\item Transitive - a Relation $R$ on a set $A$ is Transitive if\\$(\forall a,b,c \in A)[(a,b) \in R \land (b,c) \in R \Rightarrow (a,c) \in R]$.
-	\item Composite - (just something cool to note) if $R$ is a Relation from sets $A$ to $B$ and $S$ is a Relation from $B$ to $C$, then the Composite of $R$ and $S$, denoted $S \circ R$, is $\{(a,c) \mid a \in A \land c \in C \land (b \in B \Rightarrow (a,b) \in R \land (b,c) \in S)\}$
-	\item Powers - (just something cool to note) if $R \subseteq A \times A$, then for $n \in \N^{\geq 1}, R^n = R^{n-1} \circ R$ where $R^1 = R$.
-	\subitem $R \subseteq A \times A$ is Transitive iff $R^n \subseteq R$ (this is a theorem from your textbook)
-	\item Equivalence Relation - a Relation $R$ on a set $A$ is an Equivalence Relation if it is Reflexive, Symmetric, and Transitive.
-	\\\end{itemize}
-
-\begin{defn}[Reflexive\index{Reflexive!Relation}]
-	A relation \(R\) on a set \(A\) is reflexive if \[(\forall a \in A)[(a,a) \in R]\]
-\end{defn}
-
-\begin{defn}[Symmetric]
-	
-\end{defn}
-
-\begin{defn}[Transitive]
-	
-\end{defn}
-
-Segway to an example
-
-\exsol{
-	exaples
-}{
-	solutions
-}
-
-Segway to equivalence relations
-
-\begin{defn}[Equivalence Relation\index{Equivalence Relation!Relation}]
-	A relation that is reflexive, symmetric, and transitive
-\end{defn}
-
-I guess done?
-
-Put something discussing n-ary relations
+% todo : example
 
 \section{Summary}
 
@@ -406,6 +479,9 @@ Put something discussing n-ary relations
 
 \begin{enumerate}
 	\item question
+	\item 
+	\item Prove Theorem \ref{relation-transitive-theorem}.
+	\item 
 \end{enumerate}
 
 \end{document}
