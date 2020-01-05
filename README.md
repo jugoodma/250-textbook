@@ -16,12 +16,14 @@ Interesting tool: `apt-file -x search `/algpseudocode.sty$'`
 
 ## Progress
 
+`done` should be taken with a grain of salt. They are "done" as a draft.
+
 * `9/10` Intro
 * `done` Logic
 * `done` Set Theory
 * `7/10` Number Theory
 * `5/10` Combinatorics and Probability
-* `9/10` Functions and Relations
+* `done` Functions and Relations
 * `4/10` Countability
 * `3/10` Graph Theory
 * `4/10` Asymptotic Analysis

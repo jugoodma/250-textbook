@@ -16,12 +16,14 @@ This chapter begins studying relations, then builds up to define functions.
 
 % Relations are a formal way for us to map elements together in a similar fashion to functions. Unlike functions, however, a relation simply gives the \textit{relationship}. Sometimes you can construct a function that yields the relation. Other times, a function that would represent the relation would not be a function by definition.
 
-Relations are a formal way for us to map elements together. You may already be familiar with functions from high-school mathematics courses -- we will build to this. Relations simply give us a \textit{relationship} between elements. We begin with a formal definition, then dive into relation classification.
+Relations are a formal way for us to map elements together -- although this is not apparent at first. You may already be familiar with functions, \textit{mappings}, from high-school mathematics courses. We will build to functions using relations.
+
+Relations simply give us a \textit{relation}ship between elements. We begin with a formal definition, then dive into relation classification.
 
 \begin{defn}[Relation\index{Relation}]
 	For sets \(A\) and \(B\), a relation \(R\) is any subset of the cross product of \(A\) and \(B\): \[R \subseteq \{(a,b) \in A \times B\}\]
 	
-	To specify that two elements relate to each other under a relation \(R\) we say \(xRy\) which means \((x,y) \in R\)
+	To specify that two elements are related under a relation \(R\) we say \(xRy\) which means \((x,y) \in R\)
 \end{defn}
 
 Here are a few examples:
@@ -293,7 +295,7 @@ There exist 3 properties that any function can have.
 	A function that is both an injection and a surjection. Every input is mapped to exactly one unique output
 \end{defn}
 
-You should know how to identify these properties in functions. To test injectivity, perform the horizontal line test -- run a horizontal line vertically along the graph of the function; the function is injective if the horizontal line never touches more than one point. To test surjectivity, you can BLANK. To be bijective, you must both be injective and surjective. A function can be neither injective nor surjective, but still be a function.
+You should know how to identify these properties in functions. To test injectivity, perform the horizontal line test -- run a horizontal line vertically along the graph of the function; the function is injective if the horizontal line never touches more than one point. To test surjectivity, ask yourself if you can ``get to'' every output element. To be bijective, you must both be injective and surjective. A function can be neither injective nor surjective, but still be a function.
 
 We can represent a function by drawing ovals representing the domain and range, drawing points in each oval representing the elements in each set, and drawing arrows between the points representing the function mapping. In this way, we present a visual guide to the above definitions.
 
@@ -508,25 +510,43 @@ Typically we try to understand the limiting behavior of infinite series. There a
 \section{Summary}
 
 \begin{itemize}
-	\item 
-	\item 
-	\item 
+	\item Relations give us a formal way to write out a mathematical relationship between elements in sets.
+	\item Functions are a special kind of binary relation that satisfy \((\forall c \in C)(\exists! d \in D)[(c,d) \in R]\). A function \(f : C \mapsto D\) is then described by the input/output pairs \((c,d) \in R\).
+	\item Sequences have three forms: general, recursive, and closed.
 \end{itemize}
 
 \section{Practice}
 
 \begin{enumerate}
-	% todo
-	\item question
-	\item 
+	\item Write out the \textit{greater than} relation \(R \subseteq \{1,2,3\} \times \{-1,1,3,5\}\)
 	\item Classify the following relations as reflexive, symmetric, and/or transitive:
 	\begin{enumerate}
-		\item 
+		\item \(\{(x,y) \in \N \times \N \mid x \leq \sqrt{y}\}\)
 		\item \(\{(x,y) \in \N \times \N \mid x \equiv y^2 \Mod{4}\}\)
-		\item 
+		\item \(\{(x,y) \in \N \times \N \mid \sqrt{x} \leq y\}\)
 	\end{enumerate}
 	\item Prove Theorem \ref{relation-transitive-theorem}.
-	\item 
+	\item Determine whether the following relations are functions:
+	\begin{enumerate}
+		\item \(\{(x,y) \in \Z^- \times \Z^+ \mid x < y\}\)
+		\item \(\{(x,y) \in \Z^+ \times \Z^- \mid x < y\}\)
+		\item \(\{(x,y) \in \R \times \R \mid y = x + 2\}\)
+	\end{enumerate}
+	\item Why is the relation \(\{(x,y) \in \Z \times \Z \mid x \equiv y \Mod{m}\}\) \textbf{not} a function?
+	\item Determine whether the following are functions. If they are, then classify them as injective, surjective, and/or bijective.
+	\begin{enumerate}
+		\item \(f : \Z \mapsto \Z\) given by \(f(z) = z \% 37\)
+		\item \(f : \Q \mapsto \Q\) given by \(f(q) = \sqrt{q}\)
+		\item \(f : \R \mapsto \Z\) given by \(f(x) = \floor{x}\)
+	\end{enumerate}
+	\item Suppose a function \(f : X \mapsto Y\) is injective and \(h : X \mapsto X\) is bijective. Is the function \(g : X \mapsto Y\) given by \(g(x) = f(h(x))\) also injective? What if \(h\) is only surjective? What if \(h\) is only injective? % is this a stupid question?
+	\item Find closed-forms, or simple rules, that describe the following sequences:
+	\begin{enumerate}
+		\item \(\{-3,-1,1,3,5,\cdots\}\) % odds, shifted back
+		\item \(\{-1, 1, 7, 25, 79, \cdots\}\) % 3^i - 2
+		\item \(\{2,3,5,0,4,\cdots\}\) % primes mod 7
+	\end{enumerate}
+	% todo
 \end{enumerate}
 
 \end{document}
