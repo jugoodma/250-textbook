@@ -34,6 +34,10 @@ Here are a few examples:
 	A \textit{less-than} relation \(\{(a,b) \mid a < b\} \subseteq \N \times \N\). This is a set of pairs where, for any given pair the first element is strictly less-than the second element.
 \end{example}
 
+\begin{example}
+	The following is a relation, with \(A = \{2,4\}\) and \(B = \{6,8,10\}\): \(R = \{(x,y) \in A \times B \mid \frac{y}{x} \in \Z\} = \{(2,6), (2,10), (4,8)\}\)
+\end{example}
+
 \begin{rem}
 	We will only consider relations of sets with themselves. We \textit{can} define relations between different sets, however this will make the following definitions significantly more challenging to define.
 \end{rem}
@@ -53,32 +57,31 @@ Here are a few examples:
 You will typically be asked to classify whether a relation satisfies the above three properties.
 
 \exsol{
-	% todo
 	Classify the following:
 	
 	\begin{center}
-		\begin{tabular}{lc|c|c|c|c}
-			& & func.\ & inj.\ & surj.\ & bij.\ \\ 
+		\begin{tabular}{c|c|c|c}
+			Relation & refl.\ & symm.\ & trans.\ \\ 
 			\hline
-			\(f(x) = x\) & \(f : \N \mapsto \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-			\(g(x) = x\) & \(g : \Z \mapsto \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-			\(h(x) = x^2\) & \(h : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-			\(i(x) = \floor{x^2}\) & \(i : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-			\(j(x) = x^3-x\) & \(j : \Z \mapsto \R\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(1,1), (1,2), (2,1)\} \subseteq \{1,2\}^2\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(1,1), (1,2), (2,2)\} \subseteq \{1,2\}^2\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(x,y) \in \N \times \N \mid \frac{y}{x} \in \Z\}\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(x,y) \in \R^{\geq 1} \times \R^{\geq 1} \mid x < y^2\}\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(x,y) \in \R \times \R \mid (x=y) \lor (x=-y)\}\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
 		\end{tabular}
 	\end{center}
 }{
 	\(\blacklozenge\) indicates YES, \(\lozenge\) indicates NO
 	
 	\begin{center}
-		\begin{tabular}{lc|c|c|c|c}
-			& & func.\ & inj.\ & surj.\ & bij.\ \\ 
+		\begin{tabular}{c|c|c|c}
+			Relation & refl.\ & symm.\ & trans.\ \\ 
 			\hline
-			\(f(x) = x\) & \(f : \N \mapsto \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) \\
-			\(g(x) = x\) & \(g : \Z \mapsto \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) \\
-			\(h(x) = x^2\) & \(h : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-			\(i(x) = \floor{x^2}\) & \(i : \R \mapsto \N\) & \(\blacklozenge\) & \(\lozenge\) & \(\blacklozenge\) & \(\lozenge\) \\
-			\(j(x) = x^3-x\) & \(j : \Z \mapsto \R\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(1,1), (1,2), (2,1)\} \subseteq \{1,2\}^2\) & \(\lozenge\) & \(\blacklozenge\) & \(\lozenge\) \\
+			\(\{(1,1), (1,2), (2,2)\} \subseteq \{1,2\}^2\) & \(\blacklozenge\) & \(\lozenge\) & \(\blacklozenge\) \\
+			\(\{(x,y) \in \N \times \N \mid \frac{y}{x} \in \Z\}\) & \(\lozenge\) & \(\lozenge\) & \(\blacklozenge\) \\
+			\(\{(x,y) \in \R^{\geq 1} \times \R^{\geq 1} \mid x < y^2\}\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+			\(\{(x,y) \in \R \times \R \mid (x=y) \lor (x=-y)\}\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) \\
 		\end{tabular}
 	\end{center}
 }
@@ -89,7 +92,7 @@ Oftentimes in computer science and mathematics we care about relations that sati
 	A relation that is reflexive, symmetric, and transitive
 \end{defn}
 
-% todo : write an actual application of this
+The equivalence relation gives us a notion of \textit{equality}. If a relation \(R\) is an equivalence relation, then if \(xRy\) then we can think of \(x\) being ``equal'' to \(y\). The equals sign \(=\) gives us an equivalence relation on sets of numbers. In linear algebra, an isomorphism \(\cong\) is an equivalence relation on vector spaces. The mod operator \(\equiv\) gives us an equivalence relation on \(\Z\). As a real-life application, modular arithmetic is used in cryptography!
 
 Here are some other cool definitions that probably will not be tested.
 
@@ -112,8 +115,13 @@ Here are some other cool definitions that probably will not be tested.
 
 The proof of this theorem is left as an exercise.
 
-% todo
-Put something discussing n-ary relations
+We have been discussing binary relations -- relations between two sets -- however we can define the notion of an \(n\)-ary relation. An \(n\)-ary relation is a subset of the cross product of \(n\) sets.
+
+\begin{example}
+	Here is a trinary (or \textit{ternary}) relation: \[R = \{(1,a,*), (2,a,+), (1,b,+)\} \subseteq \{1,2,3\} \times \{a,b,c,d\} \times \{*,+\}\]
+\end{example}
+
+The notions of reflexivity, symmetry, and transitivity also abstract to \(n\)-ary relations, as does an equivalence relation. This is outside the scope of this course.
 
 \section{Functions}
 
@@ -145,15 +153,38 @@ You may be familiar with the following less-formal definition.
 Basically, functions give us a \textit{mapping} between sets -- a relation! For any relation \(R \subseteq C \times D\), we let the first set \(C\) be the function \textit{input} and the second set \(D\) be the function \textit{output}. If a pairing \((c,d) \in R\), then the function representing the relation \(R\) means that the function input \(c\) yields the output \(d\).
 
 \exsol{
-	Determine whether the following relations are functions or not.
+	Determine whether the following relations are functions.
 	
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			Relation & is a func.\ & is not a func.\ \\ 
+			\hline
+			\(\{(x,y) \in \R \times \R^{\geq 0} \mid (x=y) \lor (x=-y)\}\) & \(\vartriangle\) & \(\vartriangle\) \\
+			\(\{(x,y) \in \N \times \N \mid \frac{y}{x} \in \Z\}\) & \(\vartriangle\) & \(\vartriangle\) \\
+			\(\{(x,y) \in \N \times \{1\} \mid \frac{x}{y} \in \Z\}\) & \(\vartriangle\) & \(\vartriangle\) \\
+			\(\{(x,y) \in \N \times \{1\} \mid x < y\}\) & \(\vartriangle\) & \(\vartriangle\) \\
+			\(\{(x,y) \in \N \times \{0\} \mid x \geq y\}\) & \(\vartriangle\) & \(\vartriangle\) \\
+		\end{tabular}
+	\end{center}
 }{
-	% todo
+	\(\blacktriangle\) indicates YES, \(\vartriangle\) indicates NO
+	
+	\begin{center}
+		\begin{tabular}{c|c|c}
+			Relation & is a func.\ & is not a func.\ \\ 
+			\hline
+			\(\{(x,y) \in \R \times \R^{\geq 0} \mid (x=y) \lor (x=-y)\}\) & \(\blacktriangle\) & \(\vartriangle\) \\
+			\(\{(x,y) \in \N \times \N \mid \frac{y}{x} \in \Z\}\) & \(\vartriangle\) & \(\blacktriangle\) \\
+			\(\{(x,y) \in \N \times \{1\} \mid \frac{x}{y} \in \Z\}\) & \(\blacktriangle\) & \(\vartriangle\) \\
+			\(\{(x,y) \in \N \times \{1\} \mid x < y\}\) & \(\vartriangle\) & \(\blacktriangle\) \\
+			\(\{(x,y) \in \N \times \{0\} \mid x \geq y\}\) & \(\blacktriangle\) & \(\vartriangle\) \\
+		\end{tabular}
+	\end{center}
 }
 
-% todo
+Every function is a relation, but not every relation is a function. For any function, you can always write out the \((x,f(x))\) pairings -- this is by definition a relation. On the other hand, the above examples show that not every relation is a function.
 
-Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \mapsto R\]
+The above relations are contrived examples. Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \mapsto R\]
 
 \begin{defn}[Domain\index{Domain!Function}]
 	The set of inputs to a function
@@ -453,19 +484,26 @@ Other times we will ask you to find a closed form for a sequence given in genera
 
 Finding a closed-form function that matches a sequence is difficult. It requires a deep understanding of how all mathematical operators work, and requires a knack for finding patterns. There are multiple methods for estimating functions, including polynomial interpolation, piece-wise functions, floor-ceiling interpolation, and least-squares. These methods usually yield a result significantly more complicated than finding a simpler function. However, there are merits to using these methods as a starting-point.
 
-% todoo ?
-
 \subsection{Series}
 
-This is a short section, however it still deserves attention. % todo : fix 
+You may remember series from a calculus course. Series are closely related to sequences.
 
 \begin{defn}[Series\index{Series}]
 	The sum of all terms in a sequence
 \end{defn}
 
+\begin{example}
+	The Geometric Series (\(r \neq 1\)) \[a + ar + ar^2 + \cdots ar^{n-1} = \sum_{i=0}^{n-1} ar^i\]
+	which has the solution \[= a(\frac{1-r^n}{1-r})\]
+\end{example}
+
 Typically we try to understand the limiting behavior of infinite series. There are a number of tests you can use to study this behavior, however this topic is typically taught in Calculus II classes. We will thus omit this topic here, however we do recommend at least understanding the idea behind limits. We will come back to infinite objects when we discuss countability in chapter \ref{chapter:countability}.
 
-% todo : example
+\exsol{
+	Determine whether the series \(\sum_{i=1}^{\infty}\frac{1}{3^{i-1}}\) converges or diverges.
+}{
+	From the geometric series formula above, \(\sum_{i=1}^{n} \frac{1}{3^{i-1}} = \sum_{i=0}^{n-1} \frac{1}{3^i} = \sum_{i=0}^{n-1} \frac{1}{3}^i = \frac{1-\frac{1}{3}^n}{1 - \frac{1}{3}} = \frac{3}{2}(1-\frac{1}{3^n})\). Then we can take the limit as \(n \rightarrow \infty\), which \(= \frac{3}{2}(1 - 0) = \frac{3}{2}\)
+}
 
 \section{Summary}
 
@@ -478,8 +516,15 @@ Typically we try to understand the limiting behavior of infinite series. There a
 \section{Practice}
 
 \begin{enumerate}
+	% todo
 	\item question
 	\item 
+	\item Classify the following relations as reflexive, symmetric, and/or transitive:
+	\begin{enumerate}
+		\item 
+		\item \(\{(x,y) \in \N \times \N \mid x \equiv y^2 \Mod{4}\}\)
+		\item 
+	\end{enumerate}
 	\item Prove Theorem \ref{relation-transitive-theorem}.
 	\item 
 \end{enumerate}
