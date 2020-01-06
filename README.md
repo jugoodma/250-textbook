@@ -21,7 +21,7 @@ Interesting tool: `apt-file -x search `/algpseudocode.sty$'`
 * `9/10` Intro
 * `done` Logic
 * `done` Set Theory
-* `7/10` Number Theory
+* `8/10` Number Theory
 * `5/10` Combinatorics and Probability
 * `done` Functions and Relations
 * `4/10` Countability

@@ -54,6 +54,10 @@ The empty product multiplies to 1 and is denoted, for \(a > b\): \[\prod_{i = a}
 	The sum equals \[\sum_{i = 0}^{n} \frac{i+1}{2^i}\] and for \(n=2\) evaluates to \[\frac{1}{1} + \frac{2}{2} + \frac{3}{4} = 2.75\]
 }
 
+\begin{defn}[Factorial\index{Factorial}]
+	The factorial is the product, denoted \(n!\) for \(n \in \Z^+\), \[n! = \prod_{i=1}^{n} i\]
+\end{defn}
+
 \subsection{Sequences and Series}
 
 We discuss sequences and series in a later chapter, however for now we introduce the basic ideas.
@@ -84,9 +88,61 @@ We discuss sequences and series in a later chapter, however for now we introduce
 	If we give an upper bound, like \(n = 4\), then we can denote and evaluate finite series (which just becomes a summation): \[\sum_{i=1}^{4} a_i = 2(1) + 2(2) + 2(3) + 2(4) = 20\]
 \end{example}
 
+\subsection{Logarithms}
+
+\begin{defn}[Exponentiation\index{Exponentiation}]
+	The act of raising a fixed number \(n\) to a \textit{power} \(x\). You may be familiar with exponentiation with \(n,x \in \Q\) (for example, \(0.25^{0.5} = \frac{1}{\sqrt{4}} = 0.5\)), but in-fact we can define exponentiation on real inputs.
+	
+	Denote \(\exp x = \lim_{n \Rightarrow \infty} (1 + \frac{x}{n})^n = e^x\) with \(e^0 = 1\) and \(e^1 = e\). After defining logarithms below, we see that \(b = e^{\log b}\) so \(b^x = (e^{\log b})^x = e^{x \log b}\) which fully defines exponentiation.
+\end{defn}
+
+\(e = \sum_{n=0}^{\infty} \frac{1}{n!}\), \(e = \lim_{n \rightarrow \infty} (1 + \frac{1}{n})^n\), and \(e^x\) is the unique solution to the differential equation \(f(x) = f'(x)\) with \(f(0) = 1\).
+
+\begin{defn}[Logarithm\index{Logarithm}]
+	The function \(\log x\) is the inverse function of the exponential function \(e^x\). The logarithm satisfies \(\log 1 = 0\) and \(\log e = 1\). You may know this as the \textit{natural logarithm} \(\ln x = \log_e x\). If no base is given, assume the base is Euler's Number \(e\).
+\end{defn}
+
+Denote the \textit{base} \(b\) of a logarithm as \[\log_b x = \frac{\log x}{\log b}\]
+
+\begin{prop}
+	\[\log_b x + \log_b y = \log_b (x \cdot y)\]
+\end{prop}
+
+\begin{prop}
+	\[a\log_b x = \log_b (x^a)\]
+\end{prop}
+
+\begin{prop}
+	\[\log_b x - \log_b y = \log_b (xy^{-1}) = \log_b (\frac{x}{y})\]
+\end{prop}
+
+\begin{prop}
+	\[a^{\log_b x} = x^{\log_b a}\]
+\end{prop}
+
 \subsection{Floors and Ceilings}
 
-% todo
+\begin{defn}[Floor\index{Floor}]
+	The greatest integer less than or equal to the input real number. For \(x \in \R\), we denote the floor of \(x\) as \(\floor{x} = m \in \Z\) where \(m \leq x\) and \(m+1 > x\). So \[\floor{x} \leq x < \floor{x} + 1\]
+	Equivalently, \[0 \leq x - \floor{x} < 1\] which means we can write \(x = \floor{x} + \epsilon\) with some \(\epsilon \in [0,1)\).
+\end{defn}
+
+\begin{defn}
+	The smallest integer greater than or equal to the input real number. For \(x \in \R\), we denote the ceiling of \(x\) as \(\ceil{x} = n \in \Z\) where \(n \geq x\) and \(n-1 < x\). So \[\ceil{x} - 1 < x \leq \ceil{x}\]
+	Equivalently, \[- 1 < x - \ceil{x} \leq 0\] which means we can write \(x = \ceil{x} + \epsilon\) with some \(\epsilon \in (-1,0]\). By negating \(\epsilon\), then \(x = \ceil{x} - \epsilon\) with some \(\epsilon \in [0,1)\).
+\end{defn}
+
+\exproof{
+	Show that \(\floor{x+n} = \floor{x} + n\) for all \(x \in \R\) and \(n \in \Z\).
+}{
+	We can use any definition of the floor to prove this. The easiest proof comes from the second form.
+	
+	Denote \(\floor{x} = m \in \Z\). Then \(\floor{x} + n = m + n\) and \(\floor{x+n} = \floor{m + \epsilon + n} = \floor{m+n + \epsilon]} = m+n\) since \(m+n \in \Z\) by closure of integers under addition (this is discussed below).
+}
+
+\begin{rem}
+	Similarly, \(\ceil{x+n} = \ceil{x} + n\).
+\end{rem}
 
 \subsection{Closure}
 
@@ -158,7 +214,7 @@ Closure can be of \textbf{any} set and \textbf{any} operation. We can get fancy 
 	\begin{center}
 		\begin{tabular}{c|cccc}
 			& \(a\) & \(b\) & \(c\) & \(d\) \\
-			\hline
+			\midrule
 			\(a\) & \(d\) & \(c\) & \(b\) & \(a\) \\
 			\(b\) & \(b\) & \(d\) & \(a\) & \(c\) \\
 			\(c\) & \(c\) & \(a\) & \(d\) & \(b\) \\
@@ -229,7 +285,6 @@ Previously we showed that the integers are \textbf{not} closed under division. H
 	\[b \mid a \Leftrightarrow \frac{a}{b} \in \Z \Leftrightarrow (\exists x \in \Z)[a = bx]\]
 \end{defn}
 
-% TODO fix this rotation arrow?
 \begin{rem}
 	We like to think of \(b \mid a \Leftrightarrow \frac{a}{b}\) as a rotation counterclockwise: \[\circarrowleft{$b \mid a$} \mapsto \frac{a}{b}\]
 \end{rem}
@@ -742,9 +797,7 @@ Putting these two structures, the half adder and full adder, together, we can co
 	\end{center}
 \end{boxx}
 
-This solves our 2-bit addition problem. What if we want to add 3-bit numbers? 4-bit numbers? \(n\)-bit numbers? Well, after the first bit column (adding two bits) we must add three bits. After this second column, we get a sum bit and a carry bit. If we tack on another column, which would make a 3-bit adder, then we add in the previous carry to the two new bits. This same process repeats for all further columns. So, tacking on another bit solely entails tacking on another full adder!
-
-% todo -- show the n-bit adder abstraction?
+This solves our 2-bit addition problem. What if we want to add 3-bit numbers? 4-bit numbers? \(n\)-bit numbers? Well, after the first bit column (adding two bits) we must add three bits. After this second column, we get a sum bit and a carry bit. If we tack on another column, which would make a 3-bit adder, then we add in the previous carry to the two new bits. This same process repeats for all further columns. So, tacking on another bit solely entails tacking on another full adder! \textit{Picture omitted}.
 
 \exsol{
 	How many half adders are required for an \(n\)-bit adder?
@@ -938,7 +991,7 @@ where \(t\) is a tautology (ie something that is always true -- for example, \(p
 \begin{center}
 	\begin{tabular}{cc|c|c}
 		\(p\) & \(\lnot p\) & \(t\) & \(t \Rightarrow p\) \\
-		\hline
+		\midrule
 		F & T & T & F \\
 		T & F & \textbf{T} & \textbf{T}
 	\end{tabular}
@@ -1034,9 +1087,14 @@ The proof of this is out of scope for this book. It requires fundamental theorem
 We leave the \textit{existential} part of the Unique Prime Factorization Theorem for later sections in this chapter. Below, we prove the \textit{uniqueness}.
 
 \begin{proof}
-	Suppose the factorization of some integer \(z\) is \textbf{not} unique, so it has two factorizations. To make things easier, 
+	Assume we have proved the existence part of UPFT.
 	
-	% todo
+	Suppose the factorization of some integer \(z\) is \textbf{not} unique, so it has two factorizations. Assume further that \(z\) is the \textit{smallest} such integer. To make things easier, let's just write out each prime in both factorizations without powers (for example, we would write \(24 = 2 \cdot 2 \cdot 2 \cdot 3\)). So we have the factorizations \[z = p_1 p_2 \cdots p_i = q_1 q_2 \cdots q_j\]
+	with \(i,j \geq 2\).
+	
+	By definition of divisibility, \(p_1 \mid q_1 q_2 \cdots q_j\), so by Euclid's Lemma, \(p_1\) divides one of the \(q\)'s. WLOG, let \(p_1 \mid q_1\). Then, since \(p_1\) and \(q_1\) are both prime, it necessarily follows that \(p_1 = q_1\).
+	
+	In our factorizations, we can then cancel out \(p_1 = q_1\) to get \(p_2 \cdots p_i = q_2 \cdots q_j\). This is a new non-unique factorization of an integer necessarily smaller than \(z\). This contradicts our assumption that \(z\) is the smallest such integer with a non-unique factorization.
 \end{proof}
 
 Now we can use the unique factorization theorem:
@@ -1089,18 +1147,31 @@ Historically induction is difficult for students to learn, \textit{at first}. We
 
 We hope our explanations allow you to fall in the first category.
 
-\begin{defn}[Weak Induction\index{Weak Induction!Induction}]
-	A proof technique to show that some predicate, mathematical statement, \(P(n)\) is true for all \(n\) in a discrete lower-bounded increasing set. Typically \(n \in \N\).
+\begin{defn}[Induction\index{Induction}]
+	A proof technique to show that some predicate, mathematical statement, \(P(n)\) is true for all \(n\) in a discrete lower-bounded increasing set. Typically \(n \in \N\). 
+	
+	Induction generally works in two steps. First, we generate some true knowledge about the predicate \(P\). Then, we prove a general method true that given knowledge about \(P\) allows us to generate new knowledge about \(n\).
 \end{defn}
+
+There are four big techniques of induction:
+
+\begin{enumerate}
+	\item Weak induction
+	\item Strong induction
+	\item Structural induction
+	\item Constructive induction
+\end{enumerate}
+
+\sectionbreak
 
 The proof technique of weak induction is entirely based on the following theorem:
 
-\begin{thm}{The Principle of (weak) Mathematical Induction \label{pmi-1}}
+\begin{thm}{The Principle of (weak) Mathematical Induction \label{pmi-1}\index{Weak Induction!Induction}}
 	\begin{center}
 		\begin{tabular}{rl}
 			& \(P(0)\) \\
 			& \((\forall n \in \N)[P(n) \Rightarrow P(n+1)]\) \\
-			\hline
+			\midrule
 			\(\therefore\) & \((\forall n \in \N)[P(n)]\) \\
 		\end{tabular}
 	\end{center}
@@ -1113,7 +1184,7 @@ Included below is an equivalent definition (note the only difference is the seco
 		\begin{tabular}{rl}
 			& \(P(0)\) \\
 			& \((\forall n \in \N^{\geq 1})[P(n-1) \Rightarrow P(n)]\) \\
-			\hline
+			\midrule
 			\(\therefore\) & \((\forall n \in \N)[P(n)]\) \\
 		\end{tabular}
 	\end{center}
@@ -1247,28 +1318,181 @@ We can prove any sort of statement with \(n\) in a discrete lower-bounded increa
 
 \sectionbreak
 
-Weak induction is great, however in its current form 
+Weak induction is great, however in its current form it is not useful enough to prove some mathematical statements.
 
-\begin{defn}[Strong Induction\index{Strong Induction!Induction}]
+\begin{example}
+	\label{first-strong-proof}
+	Show that \(a_n \leq 3^n\) for all \(n \in \N\) where \[a_n = \begin{cases} 1 & n=0 \\ 2 & n=1 \\ 3 & n=2 \\ a_{n-1} + a_{n-2} + a_{n-3} & n \geq 3 \end{cases}\].
 	
-\end{defn}
+	Consider how a proof using weak induction might go. There is one base case in a weak induction proof, however there are 3 base cases in the sequence \(a_n\). If we want to prove \(P(n)\), then the hypothesis tells us \(P(n-1)\) is true, so we have \(a_{n-1} \leq 3^{n-1}\). This does not help us, though, since in the inductive step we will have to use \(a_n = a_{n-1} + a_{n-2} + a_{n-3}\) but the hypothesis gives us nothing about \(a_{n-2}\) and \(a_{n-3}\).
+	
+	What should we do, then? Strong induction to the rescue!
+\end{example}
+
+\begin{thm}{The Principle of (strong) Mathematical Induction \label{psi}\index{Strong Induction!Induction}}
+	\begin{center}
+		\begin{tabular}{rl}
+			& \(P(0) \land P(1) \land \cdots \land P(k)\) \\
+			& \((\forall n \in \N^{> k})[(\bigwedge_{i=0}^{n-1} P(i)) \Rightarrow P(n)]\) \\
+			\midrule
+			\(\therefore\) & \((\forall n \in \N)[P(n)]\) \\
+		\end{tabular}
+	\end{center}
+\end{thm}
+
+\begin{rem}
+	We can ``go from'' \(n\) to \(n+1\) as we did in Theorem \ref{pmi-1}.
+\end{rem}
+
+As a rule-of-thumb, we use strong induction when we think we might need multiple hypothesis values to prove \(P(n)\) instead of needing just \(P(n-1)\).
 
 \exproof{
-Prove the existence part of the UPFT -- ie prove that every integer above 1 can be factored into a product of primes.
+	Show Example \ref{first-strong-proof} using strong induction.
 }{
-
+	We proceed using the principle of mathematical induction (\ref{psi}).
+	
+	\textbf{Base Case}: We show the statement is true for \(n = 0,1,2\).
+	
+	For \(n=0\), \(a_0 = 1 \leq 1 = 3^0\)
+	
+	For \(n=1\), \(a_1 = 2 \leq 3 = 3^1\)
+	
+	For \(n=2\), \(a_2 = 3 \leq 9 = 3^2\)
+	
+	\textbf{Hypothesis}: Assume the statement is true for all \(i \in \{0,1,\cdots,n-1\}\) for some arbitrary \(n-1 \geq 2\). That is, \[a_i \leq 3^i\]
+	
+	\textbf{Step}: Prove the implication. That is, using the hypothesis, show that \(a_n \leq 3^n\)
+	
+	From the hypothesis, \(n-1 \geq 2\) so \(n \geq 3\) and we can apply the recursive definition to get \(a_n = a_{n-1} + a_{n-2} + a_{n-3}\). Quite clearly, all of the indices \(n-1\), \(n-2\), and \(n-3\) fall in the induction hypothesis bounds, so \(a_{n-1} \leq 3^{n-1}\), \(a_{n-2} \leq 3^{n-2}\), and \(a_{n-3} \leq 3^{n-3}\). All together, and using rules of inequalities, we have:
+	
+	\begin{align*}
+	a_n &= a_{n-1} + a_{n-2} + a_{n-3} \\
+	&< 3^{n-1} + 3^{n-2} + 3^{n-3} & \text{hypothesis} \\
+	&= 3^{n-3}(3^2 + 3^1 + 3^0) \\
+	&= 3^{n-3}(13) \\
+	&< 3^{n-3}(27) & \text{since } n-3 > 0 \\
+	&= 3^{n-3} \cdot 3^3 = 3^n
+	\end{align*}
+	
+	Therefore, by the principle of mathematical induction we conclude the statement holds \(\forall n \in \N\)
 }
+
+Compare this proof to one using weak induction. Notice how we proved multiple base cases instead of just one, and notice how we used \(i\) instead of \(n\) in the hypothesis ``that is'' part. The step was essentially the same, but we used multiple hypothesis substitutions.
+
+\exproof{
+	Prove the existence part of the UPFT -- ie prove that every integer above 1 can be factored into a product of primes.
+}{
+	We proceed using the principle of mathematical induction (\ref{psi}).
+	
+	\textbf{Base Case}: We show the statement is true for \(n = 2\). Indeed, 2 is prime so we are done.
+	
+	\textbf{Hypothesis}: Assume the statement is true for all \(i \in \{2,3,\cdots,n-1\}\) for some arbitrary \(n-1 \geq 2\). That is, \(i\) has a prime factorization.
+	
+	\textbf{Step}: Prove the implication. That is, using the hypothesis, show that \(n\) has a prime factorization.
+	
+	We break into cases. If \(n\) is prime, then we are done. Otherwise, \(n\) is composite and can be written as \(n = ab\) for some integers \(a\) and \(b\). Necessarily \(2 \leq a,b < n\) so by the induction hypothesis \(a\) and \(b\) have prime factorizations. Then, \(n\)'s factorization is the product of \(a\) and \(b\)'s factorizations.
+	
+	Therefore, by the principle of mathematical induction we conclude the statement holds \(\forall n > 1\)
+}
+
+In our previous weak induction proofs, we typically used the hypothesis without much thought. This is fine when the hypothesis constraints are obviously satisfied. If it is not obvious that some element satisfies the hypothesis constraints, then you need to prove why you can apply the hypothesis. This was done in the above proof, and is showcased in the proof below.
+
+\exproof{
+	Prove that \(a_n \equiv 2 \Mod{5}\) for all \(n \in \N\) where \[a_n = \begin{cases} 12 & n=0 \\ 17 & n=1 \\ 4a_{\floor{\log_2 n}} + 2a_{\ceil{n/2}} & n \geq 2 \end{cases}\]
+}{
+	We proceed using the principle of mathematical induction (\ref{psi}).
+	
+	\textbf{Base Case}: We show the statement is true for \(n = 0,1\).
+	
+	For \(n=0\), \(a_0 = 12 \equiv 7 \equiv 2 \Mod{5}\)
+	
+	For \(n=1\), \(a_1 = 17 \equiv 12 \equiv 2 \Mod{5}\)
+	
+	\textbf{Hypothesis}: Assume the statement is true for all \(i \in \{0,1,\cdots,n-1\}\) for some arbitrary \(n-1 \geq 1\). That is, \[a_i \equiv 2 \Mod{5}\]
+	
+	\textbf{Step}: Prove the implication. That is, using the hypothesis, show that \(a_n \equiv 2 \Mod{5}\)
+	
+	From the hypothesis, \(n-1 \geq 1\) so \(n \geq 2\) and we can apply the recursive definition to get \(a_n = 4a_{\floor{\log_2 n}} + 2a_{\ceil{n/2}}\).
+	
+	We now need to show that both indices \(\floor{\log_2 n}\) and \(\ceil{n/2}\) fall in the induction hypothesis bounds. Clearly both indices are integers because of the floor and ceiling functions, so it suffices to show that \(0 \leq \floor{\log_2 n}, \ceil{n/2} \leq n-1\).
+	
+	First, \(2 \leq n \Leftrightarrow \log_2 2 \leq \log_2 n \Rightarrow \floor{1} \leq \floor{\log_2 n}\) and since \(0 \leq 1 = \floor{1}\) then \(0 \leq \floor{\log_2 n}\).
+	
+	Second, since \(\floor{\log_2 n} \leq \log_2 n\) and \(n \leq 2^{n-1} \Leftrightarrow \log_2 n \leq n-1\) then \(\floor{\log_2 n} \leq n-1\). Note: \(n \leq 2^{n-1}\) only works when \(n > 0\), but we have that \(n \geq 2\) so we are good.
+		
+	Third, \(2 \leq n \Leftrightarrow 1 \leq n/2 \Rightarrow \ceil{1} \leq \ceil{n/2}\) and since \(0 \leq 1 = \ceil{1}\) then \(0 \leq \ceil{n/2}\).
+	
+	Fourth, \(\ceil{n/2} < n/2 + 1 = \frac{n+2}{2} \leq n-1\) if \(n+2 \leq 2n-2 \Leftrightarrow 4 \leq n\). But we have \(2 \geq n\). So we need to show the original inequality holds for \(n=2,3\). If \(n=2\) then \(\ceil{2/2} = 1 \leq 2-1 = 1\). If \(n=3\) then \(\ceil{3/2} = 2 \leq 3-1 = 2\). So we are good.
+	
+	Thus, by the induction hypothesis, \(a_{n-1} \equiv 2 \Mod{5}\) and \(a_{n-2} \equiv 2 \Mod{5}\). All together, and using rules of modular arithmetic, we have:
+	
+	\begin{align*}
+	a_n &= 4a_{\floor{\log_2 n}} + 2a_{\ceil{n/2}} \\
+	&\equiv 4 \cdot 2 + 2 \cdot 2 & \text{hypothesis} \\
+	&= 12 \equiv 2 \Mod{5}
+	\end{align*}
+	
+	Therefore, by the principle of mathematical induction we conclude the statement holds \(\forall n \in \N\)
+}
+
+\begin{rem}
+	You should prove to yourself that \(x \leq y \Rightarrow \floor{x} < \floor{y}\) and similarly for the ceiling.
+\end{rem}
+
+\exproof{
+	Show that any amount of dollars at least 12 can be made exclusively from 3 and 7 dollar bills. In other words show \((\forall n \geq 12)(\exists x,y \in \N)[n = 3x+7y]\)
+}{
+	We can prove this with weak induction, but for this example we will prove it with strong induction.
+	
+	We proceed using the principle of mathematical induction (\ref{psi}).
+	
+	\textbf{Base Case}: We show the statement is true for \(n = 12,13,14\).
+	
+	\(12 = 3 \cdot 4 + 7 \cdot 0\)
+	
+	\(13 = 3 \cdot 2 + 7 \cdot 1\)
+	
+	\(14 = 3 \cdot 0 + 7 \cdot 2\)
+	
+	\textbf{Hypothesis}: Assume the statement is true for all \(i \in \{12,13,\cdots,n-1\}\) for some arbitrary \(n-1 \geq 14\). That is, \[(\exists x,y \in \N)[i = 3x+7y]\]
+	
+	\textbf{Step}: Prove the implication. That is, using the hypothesis, show that \((\exists x,y \in \N)[n = 3x+7y]\)
+	
+	From the hypothesis, \((\exists x,y \in \N)[n-3 = 3x+7y]\). Then \(n - 3 + 3 = n = 3x + 7y = 3(x+1) + 7y\) and since \(x+1 \in \Z\) by closure we are done.
+	
+	Therefore, by the principle of mathematical induction we conclude the statement holds \(\forall n \geq 12\)
+}
+
+Interestingly, strong induction and weak induction are equivalent techniques. Any proof by weak induction can be done by strong induction, and vice versa.
+
+\begin{thm}[Induction Equivalence]
+	\label{ind-equiv}
+	Strong induction \(\Leftrightarrow\) Weak induction.
+\end{thm}
+
+\begin{proof}
+	\(\Leftarrow\) Assume we have shown that \((\forall n \ in \Z^+) [P(n-1) \Rightarrow P(n)]\). Then necessarily \((P(0) \land P(1) \land \cdots \land P(n-1)) \Rightarrow P(n)\) (logic exercise).
+	
+	\(\Rightarrow\) Assume we can show \(P(n)\) using strong induction. Then, let \(Q(n) \equiv P(0) \land P(1) \land \cdots \land P(n)\). We know that \((\forall n)[P(n)] \equiv (\forall n)[Q(n)]\) (logic exercise). Then it suffices to prove \(Q(n)\) for all \(n\) using weak induction.
+	
+	This is left as an exercise for the reader. % Q(n-1) -> Q(n) well we know P(n) so Q(n-1) \land P(n) = Q(n)
+\end{proof}
+
+Usually, though, one technique will be significantly easier than the other. In this case, use the easier technique. In higher level mathematics, we are less formal about using induction. Typically the induction hypothesis is not written, and trivial base cases are hand-waved. We recommend being explicit in your induction proofs until you fully understand what is going on. Once you do, then you can use induction as one simple idea, and most of your induction proofs will under-the-hood be ``strong'' induction proofs.
 
 \sectionbreak
 
-\begin{defn}[Structural Induction\index{Structural Induction!Induction}]
-	
-\end{defn}
+\index{Structural Induction!Induction}
+Our next induction technique is structural induction. There is no formal theorem for structural induction since it is essentially equivalent to our previous forms of induction. Interestingly, all forms of induction are equivalent to the \textit{well-ordering principle}, however this is outside the scope of this book.
+
+Structural induction differs from the other forms in that we are proving mathematical statements on recursively-defined \textit{structures} instead of on a sequence of increasing integers. For example, we can induct on binary trees, linked lists, sets, fractals, and others. Since these structures are recursively defined, they must have base cases, which are the smallest possible sub-structures that build up the main structure.
+
+% todo -- fill in from study guide
 
 \sectionbreak
 
 \begin{defn}[Constructive Induction\index{Constructive Induction!Induction}]
-	
+	% todo
 \end{defn}
 
 \subsubsection{Combination of Techniques}
@@ -1308,9 +1532,9 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 \section{Summary}
 
 \begin{itemize}
-	\item one
-	\item two
-	\item three
+	\item There are many definitions and concepts in number theory.
+	\item There are many proof techniques in number theory.
+	\item To be good at proofs, you must internalize all definitions, think outside the box, and practice a lot.
 \end{itemize}
 
 \section{Practice}
@@ -1318,23 +1542,25 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 \begin{enumerate}
 	\item Re-write the following sum as a summation: \[1-4+7-10+13-16+19-22+ \cdots \pm (3n-2)\]
 	\item Re-write the following product as a product: \[n^{1/2} \times (2n)^{1/4} \times (3n)^{1/6} \times (4n)^{1/8} \times \cdots \]
-	\item 
+	\item Calculate \(\log_2 3 \times \log_3 4 \times \cdots \times \log_{31} 32\) without a calculator.
+	\item Show that \(\floor{x} + \floor{y} \leq \floor{x+y} \leq \floor{x} + \floor{y} + 1\) for all \(x,y \in \R\).
+	\item Show that \(\floor{x} = x \Leftrightarrow x \in \Z\) (the \(\Leftarrow\) direction is more difficult).
 	\item Explain the difference between \(\equiv\) (congruence) and \(\%\).
+	\item Show that \((\forall m,n \in \Z^{\neq 0})[(n \mid m \land m \mid n) \Rightarrow m = \pm n]\).
+	\item Come up with a rule for \(\Mod{4}\) and \(\Mod{11}\).
 	\item Fill in the following number-base translation table:
 	
 	\begin{tabular}{c|c|c|c}
 		Base 2 & Base 8 & Base 16 & Base 10 \\
-		\hline
+		\midrule
 		10110 & & & \\
-		\hline
+		\midrule
 		& 703 & & \\
-		\hline
+		\midrule
 		& & 0xDAB & \\
-		\hline
+		\midrule
 		& & & 1000
 	\end{tabular}
-	\item Come up with a rule for \(\Mod{4}\) and \(\Mod{11}\).
-	\item Show that \((\forall m,n \in \Z^{\neq 0})[(n \mid m \land m \mid n) \Rightarrow m = \pm n]\)
 	
 	\item Prove there is no smallest integer.
 	\item Prove \(7 \mid a^2 \Rightarrow 7 \mid a\) for any \(a \in \Z\).
@@ -1342,6 +1568,11 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 	\item Generalize the lemmas used in the root-irrationality proofs -- namely, prove that for any prime \(p\), integer \(a\), and integer \(n > 1\), \(p \mid a^n \Rightarrow p \mid a\). Then, prove the general claim that \(\sqrt[n]{p} \not\in \Q\) by the Euclidean Argument and by UPFT.
 	\item Prove that \(\sqrt[n]{n} < 2 - \frac{1}{n}\) for all \(n \geq 2\).
 	\item Prove \(\forall x \neq 0,\ \forall n \in \N^{>1}\) that \(x^2 \mid ((x+1)^n - nx - 1)\)
+	\item 
+	\item Prove \(\big(\bigwedge_{i=1}^{n-1} (p_i \Rightarrow p_{i+1})\big) \Rightarrow \big( (\bigwedge_{i=1}^{n-1} p_i) \Rightarrow p_n \big)\)
+	\item 
+	\item 
+	\item Find the lower bound for the amount of dollars we can make using strictly 3, 7, and 15 dollar bills. This should be done with constructive induction. Then, prove your result is correct using either weak or strong induction.
 	\item 
 \end{enumerate}
 
