@@ -21,7 +21,7 @@ Interesting tool: `apt-file -x search '/algpseudocode.sty$'`
 * `9/10` Intro
 * `done` Logic
 * `done` Set Theory
-* `9/10` Number Theory
+* `done` Number Theory
 * `5/10` Combinatorics and Probability
 * `done` Functions and Relations
 * `4/10` Countability
@@ -31,4 +31,4 @@ Interesting tool: `apt-file -x search '/algpseudocode.sty$'`
 
 Need to figure out how to compile each chapter individually. [sol?](https://tex.stackexchange.com/questions/31334/how-to-create-individual-chapter-pdfs-from-included-texs) [maybe?](https://tex.stackexchange.com/questions/231861/how-do-i-get-consecutive-section-numbering-for-an-entire-document-using-subfiles)
 
-Also, maybe re-structure Number Theory chapter.
+Also, maybe re-structure Number Theory chapter. It's really long

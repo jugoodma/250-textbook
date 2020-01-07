@@ -1633,25 +1633,142 @@ Sometimes you will be presented a proposition with unknowns. In a linear equatio
 The above example was easy to guess without constructive induction, however this will not always be the case.
 
 \exproof{
-	Find constants \(a,b,c,d \in \R\) such that \((\forall n \in \N)[\sum_{i=0}^{n} i^2 = an^3 + bn^2 + cn + d]\)
+	Find constants \(a,b,c,d \in \R\) such that \[(\forall n \in \N)[\sum_{i=0}^{n} i^2 = an^3 + bn^2 + cn + d]\]
 }{
-	% todo
+	We proceed via a proof by constructive weak induction.
+	
+	\textbf{Base}: \(n=0\), then we have \(\sum_{i=0}^{0} i^2 0^2 = 0\) and \(a0^3 + b0^2 + c0 + d = d\). For the induction to work, we need the left-hand side to equal the right-hand side. Thus, \(d = 0\)
+	
+	\textbf{Hypo}: Assume for some arbitrary \(n \in \N\) that \(\sum_{i=0}^{n} i^2 = an^3 + bn^2 + cn\)
+	
+	\textbf{Step}: Show that \(\sum_{i=0}^{n+1} i^2 = a(n+1)^3 + b(n+1)^2 + c(n+1)\).
+	
+	We proceed like normal weak induction.
+	
+	\begin{align*}
+	\sum_{i=0}^{n+1} i^2 &= (\sum_{i=0}^{n} i^2) + (n+1)^2 \\
+	&= (an^3 + bn^2 + cn) + (n+1)^2 & \text{hypothesis}
+	\end{align*}
+	
+	At this point, we would do some algebra and simplify to get our equation to \(= a(n+1)^3 + b(n+1)^2 + c(n+1)\). Unfortunately, we do not know what \(a,b,c\) are. This is where constructive induction comes to play -- we set the equality in question and find values of \(a,b,c\) that make the equality work!
+	
+	\[an^3 + bn^2 + cn + (n+1)^2 = a(n+1)^3 + b(n+1)^2 + c(n+1)\]
+	
+	If we expand out terms we get:
+	
+	LHS: \(an^3 + bn^2 + cn + n^2 + 2n + 1\)
+	
+	RHS: \(a(n^3 + 3n^2 + 3n + 1) + b(n^2 + 2n + 1) + c(n+1)\)
+	
+	Then if we match up the \(n^3\), \(n^2\), \(n^1\), and \(n^0\) terms, we get a system of equations:
+	
+	\begin{align*}
+	an^3 &= an^3 \\
+	bn^2 + n^2 &= a3n^2 + bn^2 \\
+	cn + 2n &= a3n + b2n + cn \\
+	1 &= a + b + c
+	\end{align*}
+	
+	If we divide out the \(n\)'s and solve, we get:
+	
+	\begin{align*}
+	1 &= 1 \\
+	b+1 &= 3a + b  &\Rightarrow a &= \frac{1}{3} \\
+	c + 2 &= 3a + 2b + c &\Rightarrow b &= \frac{2 - 3a}{2} = \frac{1}{2} \\
+	1 &= a + b + c &\Rightarrow c &= 1 - a - b = \frac{1}{6}
+	\end{align*}
+	
+	So we get \[\sum_{i=0}^{n} i^2 = \frac{1}{3}n^3 + \frac{1}{2}n^2 + \frac{1}{6}n\]
 }
+
+\begin{rem}
+	The reader should verify that the above solution agrees with the known-solution
+	\[\sum_{i=0}^{n} i^2 = \frac{(n)(n+1)(2n+1)}{6}\]
+\end{rem}
 
 Constructive induction is most valuable for proving upper and lower bounds on recurrences. We will discuss this in a later chapter. For now, problems like this will look as follows.
 
 \exproof{
 	Find the smallest possible \(c \in \R^+\) and \(d \in \N\) such that \(a_n \leq cd^n\) where \[a_n = \begin{cases} 2 & n = 0 \\ 4 & n=1 \\ 4a_{n-1} + 3a_{n-2} & n \geq 2 \end{cases}\]
 }{
-	% todo
+	We proceed via a proof by constructive strong induction.
+	
+	\textbf{Base}:
+	
+	\(n=0\), then we need \(a_0 \leq cd^0\) so we get \(2 \leq c\)
+	
+	\(n=1\), then we need \(a_1 \leq cd^1\) so we get \(4 \leq cd\)
+	
+	\textbf{Hypo}: Assume for all \(0 \leq i < n\) for some arbitrary \(n > 1\) that \(a_i \leq cd^i\)
+	
+	\textbf{Step}: Show that \(a_n \leq cd^n\).
+	
+	\begin{align*}
+	a_n &= 4a_{n-1} + 3a_{n-2} \\
+	&\leq 4cd^{n-1} + 3cd^{n-2} & \text{hypothesis}
+	\end{align*}
+	
+	To make the induction work, we then need \(4cd^{n-1} + 3cd^{n-2} \leq cd^n\). So, we simplify this inequality and minimize our constants.
+	
+	\begin{align*}
+	4cd^{n-1} + 3cd^{n-2} &\leq cd^n \\
+	4d + 3 &\leq d^2 \\
+	0 &\leq d^2 - 4d - 3
+	\end{align*}
+	
+	Since \(d \in \N\) then we can plug in values of \(d\) into our polynomial until the inequality holds:
+	\begin{center}
+		\begin{tabular}{c|ccccccc}
+			\(d\) & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+			\midrule
+			\(d^2 - 4d - 3\) & \(-3\) & \(-6\) & \(-7\) & \(-6\) & \(-3\) & 2 & 9 \\
+		\end{tabular}
+	\end{center}
+	
+	So to minimize \(d \in \N\) and still make the inequality \(0 \leq d^2 - 4d - 3\) work we let \(d=5\).
+	
+	Knowing this, we go back to the base case and satisfy the constraints \(2 \leq c\) and \(4 \leq cd \Rightarrow \frac{4}{5} \leq c\). So the minimal \(c \in \R^+\) that satisfies both constraints is \(c=2\).
+	
+	So we get \[a_n \leq 2 \cdot 5^n\]
 }
+
+\begin{rem}
+	We could have used the quadratic formula to find the exact roots, then chosen the ceiling of the positive root.
+\end{rem}
 
 Sometimes the unknown may be in a different place.
 
 \exproof{
 	Find the largest possible \(x \in \N\) such that \(a_n \leq 20n\) where \[a_n = \begin{cases} 0 & n = 0 \\ a_{\floor{n/3}} + a_{\floor{2n/5}} + xn & n > 0 \end{cases}\]
 }{
-	% todo
+	We proceed via a proof by constructive strong induction.
+	
+	\textbf{Base}:
+	
+	\(n=0\), then we have \(a_0 = 0 \leq 0 = 20 \cdot 0\). We learn nothing from the base case.
+	
+	\textbf{Hypo}: Assume for all \(0 \leq i < n\) for some arbitrary \(n > 0\) that \(a_i \leq 20i\)
+	
+	\textbf{Step}: Show that \(a_n \leq 20n\). During the process, we will find a value for \(x\).
+	
+	\begin{align*}
+	a_n &= a_{\floor{n/3}} + a_{\floor{2n/5}} + xn \\
+	&\leq 20\floor{n/3} + 20\floor{2n/5} + xn & \text{hypothesis} \\
+	&\leq 20\frac{n}{3} + 20\frac{2n}{5} + xn & \text{floor defn.} \\
+	&\leq 20n
+	\end{align*}
+	
+	To make the induction work, we simplify the inequality:
+	
+	\begin{align*}
+	20\frac{n}{3} + 20\frac{2n}{5} + xn &\leq 20n \\
+	\frac{20}{3} + \frac{40}{5} + x &\leq 20 \\
+	20 + 3 \cdot 8 + 3x &\leq 60 \\
+	3x &\leq 60 - 20 - 24 \\
+	x \leq \frac{16}{3} = 5 + \frac{1}{3}
+	\end{align*}
+	
+	Since \(x \in \N\) the largest value of \(x\) that works is \(5\). So we get \[x = 5\]
 }
 
 \sectionbreak
