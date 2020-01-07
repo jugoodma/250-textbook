@@ -1440,6 +1440,7 @@ In our previous weak induction proofs, we typically used the hypothesis without 
 \end{rem}
 
 \exproof{
+	\label{2coin-problem}
 	Show that any amount of dollars at least 12 can be made exclusively from 3 and 7 dollar bills. In other words show \((\forall n \geq 12)(\exists x,y \in \N)[n = 3x+7y]\)
 }{
 	We can prove this with weak induction, but for this example we will prove it with strong induction.
@@ -1487,13 +1488,253 @@ Our next induction technique is structural induction. There is no formal theorem
 
 Structural induction differs from the other forms in that we are proving mathematical statements on recursively-defined \textit{structures} instead of on a sequence of increasing integers. For example, we can induct on binary trees, linked lists, sets, fractals, and others. Since these structures are recursively defined, they must have base cases, which are the smallest possible sub-structures that build up the main structure.
 
-% todo -- fill in from study guide
+\exproof{
+	A \textbf{Non-Empty Full Binary Tree} is either:
+	\begin{itemize}
+		\item a root node \(r\) with no children, or
+		\item a root node \(r\) with 2 children, \(T_L\) and \(T_R\), both Non-Empty Full Binary Trees
+	\end{itemize}
+	
+	Prove \(V(T) = E(T) + 1\) for all Non-Empty Full Binary Trees \(T\)
+}{
+	We show \(V(T) = E(T) + 1\) via structural induction on \(T\).
+	
+	\textbf{Base Case}:
+	\begin{multicols}{2}
+		\(T\) has a single node \(r\) with no children:
+		
+		\columnbreak
+		
+		\begin{center}
+			\begin{tikzpicture}
+			\node [circle,draw] {\(r\)};
+			\end{tikzpicture}
+		\end{center}
+	\end{multicols}
+	\(T\) contains one node and no edges, so \(V(T) = 1\) and \(E(T) = 0\). Plug these into the proposition and we see \(1 = 0 + 1\), so the proposition holds for the base case.\\
+	
+	\textbf{Step}:
+	\begin{multicols}{2}
+		We recursively construct a new tree \(T_{new}\) by taking a root node \(r\) and pointing the left child to \(T_L\) and the right child to \(T_R\). \(T_L\) and \(T_R\) are both Non-Empty Full Binary Trees that maintain the property \(V(T) = E(T) + 1\). Here's how it looks:
+		
+		\columnbreak
+		
+		\begin{center}
+			\begin{tikzpicture}[level distance=2.5cm, level 1/.style={sibling distance=3cm}]
+			\node [circle,draw] {\(r\)}
+			child {node [itria] {\(T_L\)}}
+			child {node [itria] {\(T_R\)}};
+			\end{tikzpicture}
+		\end{center}
+	\end{multicols}
+	
+	We now show that \(V(T_{new}) = E(T_{new}) + 1\). Well,
+	
+	\begin{center}
+		\begin{tabular}{rcll}
+			\(V(T_{new})\) & \(=\) & \(1 + V(T_L) + V(T_R)\) & by definition \\
+			& \(=\) & \(1 + E(T_L) + 1 + E(T_R) + 1\) & by inductive hypothesis \\
+			& \(=\) & \(E(T_L) + E(T_R) + 1 + 1 + 1\) & re-arranging for readability \\
+			& \(=\) & \(E(T_L) + E(T_R) + 2 + 1\) & algebra \\
+			& \(=\) & \(E(T_{new}) + 1\) & by definition \\
+		\end{tabular}
+	\end{center}
+	
+	The inductive step shows that by applying the recursive definition of Non-Empty Full Binary Trees the property holds true, hence \(V(T) = E(T) + 1\) by structural induction.
+}
+
+Essentially the main idea of induction is the same. We use the recursive definition, or previous element, to construct the new one, and then show the new thing maintains the proposition.
+
+\exproof{
+	A \textbf{Language} \(\mathcal{L}\) has the alphabet \(\Sigma = \{a,b,c\}\). Strings in the language are generated as follows:
+	\begin{itemize}
+		\item the empty string \(\epsilon \in \mathcal{L}\)
+		\item \((\forall \sigma \in \mathcal{L})[ ba \sigma ab^3 \in \mathcal{L} \land cb \sigma ba^2c \in \mathcal{L} ]\)
+	\end{itemize}
+	
+	Prove that all strings in \(\mathcal{L}\) contain an even number of \(a\)'s, \(b\)'s, and \(c\)'s.
+}{
+	We show the proposition via structural induction on \(\sigma\).
+	
+	\textbf{Base Case}:
+	\begin{multicols}{2}	
+		\(\sigma = \epsilon\) is the empty string:
+		
+		\columnbreak
+		
+		\begin{center}
+			``''
+		\end{center}
+	\end{multicols}
+	\(\sigma\) contains zero \(a\)'s, \(b\)'s, and \(c\)'s. Zero is even, so we are done.\\
+	
+	\textbf{Step}:
+	\begin{multicols}{2}
+		We recursively construct a new string \(\sigma_{new}\) using either of the two rules defined above, where \(\sigma \in \mathcal{L}\) is a string that maintains the proposition (ie falls in the induction hypothesis):
+		
+		\columnbreak
+		
+		\begin{enumerate}
+			\item \(\sigma_{new} = ba \sigma ab^3\)
+			\item \(\sigma_{new} = cb \sigma ba^2c\)
+		\end{enumerate}
+	\end{multicols}
+	
+	We now show that both new strings have even numbers of \(a\)'s, \(b\)'s, and \(c\)'s.
+	
+	Denote \(N(\sigma, \cdot) \equiv\) the number of input \(\cdot\) characters in \(\sigma\). The induction hypothesis tells us that \((\forall * \in \{a,b,c\})[2 \mid N(\sigma, *)]\).
+	
+	(1)
+	
+	\(N(\sigma_{new}, a) = 1 + N(\sigma, a) + 1\) is even by definition.
+	
+	\(N(\sigma_{new}, b) = 1 + N(\sigma, b) + 3\) is even by definition.
+	
+	\(N(\sigma_{new}, c) = 0 + N(\sigma, c)\) is even by definition.
+	
+	(2)
+	
+	\(N(\sigma_{new}, a) = N(\sigma, a) + 2\) is even by definition.
+	
+	\(N(\sigma_{new}, b) = 1 + N(\sigma, b) + 1\) is even by definition.
+	
+	\(N(\sigma_{new}, c) = 1 + N(\sigma, c) + 1\) is even by definition.
+	
+	The inductive step shows that by applying the recursive definition of \(\mathcal{L}\) the property holds true, hence every string in \(\mathcal{L}\) has an even numbers of \(a\)'s, \(b\)'s, and \(c\)'s by structural induction.
+}
 
 \sectionbreak
 
-\begin{defn}[Constructive Induction\index{Constructive Induction!Induction}]
+\index{Constructive Induction!Induction}
+Our final induction technique is constructive induction. Like structural induction, there is no formal theorem for constructive induction. Instead, constructive induction utilizes the previous induction techniques.
+
+Sometimes you will be presented a proposition with unknowns. In a linear equation, for example \(5 = 2x + 3\), you would solve for \(x\). In a proposition, for example \[(\forall n \in \N)[ 4 \mid (cn - 2)^d ]\] you would solve for \(c\) and \(d\). Constructive induction is simply doing a proof by induction to find constants that make a proposition true. In a constructive induction proof, you proceed through a regular induction proof as if your unknowns are \textit{known}. After the inductive step, you will have a handful of constraints on your unknowns. Then, you simply find actual values that satisfy your constraints.
+
+\exproof{
+	Find \(c,d \in \Z^+\) such that \((\forall n \in \N)[ 4 \mid (cn - 2)^d ]\).
+}{
+	We proceed via a proof by constructive weak induction.
+	
+	\textbf{Base}: \(n=0\), then we need \(4 \mid (c \cdot 0 - 2)^d\) which tells us that \(4 \mid (-2)^d\), and since the sign has no effect on divisibility, then \(4 \mid 2^d\) so (by UPFT) we need \(d \geq 2\).
+	
+	\textbf{Hypo}: Assume for some arbitrary \(n \geq 0\) that \(4 \mid (cn - 2)^d\).
+	
+	\textbf{Step}: Show that \(4 \mid (c(n+1) - 2)^d\).
+	
+	For ease, we guess that \(d = 2\). If it does not, then the induction will not work. If it does, then we were lucky!
+	
+	\((c(n+1)-2)^2 = (cn+c-2)(cn+c-2) = c^2n^2 + c^2n -2cn + c^2n + c^2 - 2c - 2cn - 2c + 4 = (c^2n^2 - 4cn + 4) + 2c^2n + c^2 - 4c\) and from the hypothesis \(4 \mid c^2n^2 - 4cn + 4\) so thus we need \(4 \mid 2c^2n + c^2 - 4c\). Since \(4 \mid -4c\) then we only need \(4 \mid 2c^2n + c^2\).
+	
+	Quite easily we can see that \(c=2\) makes the induction work. Therefore, our original guess that \(d=2\) worked!
+	
+	So our final proposition is \(4 \mid (2n-2)^2\) for all \(n \in \N\).
+}
+
+The above example was easy to guess without constructive induction, however this will not always be the case.
+
+\exproof{
+	Find constants \(a,b,c,d \in \R\) such that \((\forall n \in \N)[\sum_{i=0}^{n} i^2 = an^3 + bn^2 + cn + d]\)
+}{
 	% todo
-\end{defn}
+}
+
+Constructive induction is most valuable for proving upper and lower bounds on recurrences. We will discuss this in a later chapter. For now, problems like this will look as follows.
+
+\exproof{
+	Find the smallest possible \(c \in \R^+\) and \(d \in \N\) such that \(a_n \leq cd^n\) where \[a_n = \begin{cases} 2 & n = 0 \\ 4 & n=1 \\ 4a_{n-1} + 3a_{n-2} & n \geq 2 \end{cases}\]
+}{
+	% todo
+}
+
+Sometimes the unknown may be in a different place.
+
+\exproof{
+	Find the largest possible \(x \in \N\) such that \(a_n \leq 20n\) where \[a_n = \begin{cases} 0 & n = 0 \\ a_{\floor{n/3}} + a_{\floor{2n/5}} + xn & n > 0 \end{cases}\]
+}{
+	% todo
+}
+
+\sectionbreak
+
+Here are some templates we use for induction proofs. These should be used as a starting point until you fully understand what is going on. Some professors may do induction proofs differently -- follow their style.
+
+\textbf{Weak Induction}
+
+\textit{Style 1}
+\begin{proof}
+	Let \(P(n)\) be the proposition \textit{insert statement here}. We proceed via W.M.I.\ on \(n\).
+	
+	\textbf{Base}: Prove \(P(\text{\textit{lowest base case index}})\)
+	
+	\textit{insert math here that shows the proposition is true for the lowest base case}
+	
+	\textbf{Hypo}: Assume \(P(n)\) is true for arbitrary \(n \geq \text{\textit{lowest base case index}}\), i.e.: \textit{plug \(n\) into the proposition}
+	
+	\textbf{Step}: Show \(P(n) \Rightarrow P(n+1)\), i.e.: \textit{plug \(n+1\) into the proposition}
+	
+	\textit{insert math here, making sure you \textbf{use the IH}}
+	
+	The IS is true, hence by the P.M.I.\ \textit{insert full proposition} is true.
+\end{proof}
+
+\textit{Style 2}
+\begin{proof}
+	Let \(P(n)\) be the proposition \textit{insert statement here}. We proceed via W.M.I.\ on \(n\).
+	
+	\textbf{Base}: Prove \(P(\text{\textit{lowest base case index}})\)
+	
+	\textit{insert math here that shows the proposition is true for the lowest base case}
+	
+	\textbf{Hypo}: Assume \(P(n-1)\) is true for arbitrary \(n > \text{\textit{lowest base case index}}\), i.e.: \textit{plug \(n-1\) into the proposition}
+	
+	\textbf{Step}: Show \(P(n-1) \Rightarrow P(n)\), i.e.: \textit{plug \(n\) into the proposition}
+	
+	\textit{insert math here, making sure you \textbf{use the IH}}
+	
+	The IS is true, hence by the P.M.I.\ \textit{insert full proposition} is true.
+\end{proof}
+
+\textbf{Strong Induction}
+
+\begin{proof}
+	Let \(P(n)\) be the proposition \textit{insert statement here}. We proceed via S.M.I.\ on \(n\).
+	
+	\textbf{Base}: Prove \(P(k)\) for all \(k\) base case indices
+	
+	\textit{insert math here that shows the proposition is true for every base case}
+	
+	\textbf{Hypo}: Assume \(P(i)\) is true for all \(\text{\textit{lowest base index}} \leq i \leq n-1\) for arbitrary \(n-1 \geq \text{\textit{highest base case index}}\), i.e.: \textit{plug \(i\) into the proposition}
+	
+	\textbf{Step}: Show \(P(n)\), i.e.: \textit{plug \(n\) into the proposition}
+	
+	\textit{insert math here, making sure you \textbf{use the IH}}
+	
+	The IS is true, hence by the P.M.I.\ \textit{insert full proposition} is true.
+\end{proof}
+
+\textbf{Structural Induction}
+
+\begin{proof}
+	We show \textit{insert statement here} via Structural Induction on \textit{the variable that represents the structure}.
+	
+	\textbf{Base}: \textit{show the statement holds for every base case laid out in the recursively-defined structure}
+	
+	\textit{insert math here}
+	
+	\textbf{Hypo}: \textit{okay to omit}
+	
+	\textbf{Step}: We recursively construct a new \textit{object} by \textit{precisely follow the recursive definition}. The \textit{recursive} part(s) of the new object fall in the inductive hypothesis, so satisfy the property \textit{plug those recursive parts into the statement}. \textit{show a picture of the new structure}. We now show the property holds for our new structure.
+	
+	\textit{insert math here, making sure you \textbf{use the IH}}
+	
+	The IS is true, hence by Structural Induction \textit{insert full proposition} is true.
+\end{proof}
+
+\textbf{Constructive Induction}
+
+Just follow the previous techniques. At the end of the step, usually you will be solving some form of algebraic system.
+
+\sectionbreak
 
 \subsubsection{Combination of Techniques}
 
@@ -1544,8 +1785,8 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 	\item Re-write the following product as a product: \[n^{1/2} \times (2n)^{1/4} \times (3n)^{1/6} \times (4n)^{1/8} \times \cdots \]
 	\item Calculate \(\log_2 3 \times \log_3 4 \times \cdots \times \log_{31} 32\) without a calculator.
 	\item Show that \(\floor{x} + \floor{y} \leq \floor{x+y} \leq \floor{x} + \floor{y} + 1\) for all \(x,y \in \R\).
-	\item Show that \(\floor{x} = x \Leftrightarrow x \in \Z\) (the \(\Leftarrow\) direction is more difficult).
-	\item Explain the difference between \(\equiv\) (congruence) and \(\%\).
+	\item Show that \(\floor{x} = x \Leftrightarrow x \in \Z\).
+	\item Explain the difference between \(\equiv\) (congruence) and \(\%\) (remainder).
 	\item Show that \((\forall m,n \in \Z^{\neq 0})[(n \mid m \land m \mid n) \Rightarrow m = \pm n]\).
 	\item Come up with a rule for \(\Mod{4}\) and \(\Mod{11}\).
 	\item Fill in the following number-base translation table:
@@ -1566,14 +1807,49 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 	\item Prove \(7 \mid a^2 \Rightarrow 7 \mid a\) for any \(a \in \Z\).
 	\item Prove \(2 \mid a^3 \Rightarrow 2 \mid a\) for any \(a \in \Z\). Then prove that \(\sqrt[3]{2} \not\in \Q\) by the Euclidean Argument and by UPFT.
 	\item Generalize the lemmas used in the root-irrationality proofs -- namely, prove that for any prime \(p\), integer \(a\), and integer \(n > 1\), \(p \mid a^n \Rightarrow p \mid a\). Then, prove the general claim that \(\sqrt[n]{p} \not\in \Q\) by the Euclidean Argument and by UPFT.
+	
+	\item Show that \(2 \mid n(n+1)\) using a direct proof and using weak induction.
+	\item Show that for any \(n \times n\) matrix \(A\) with \(n > 1\) that \[\sum_{i=2}^{n} \sum_{j=1}^{i-1} A_{ij} = \sum_{j=1}^{n-1} \sum_{i=j+1}^{n} A_{ij}\] where \(A_{ij}\) is the value of \(A\) in the \(i\)-th row and \(j\)-th column.
+	
 	\item Prove that \(\sqrt[n]{n} < 2 - \frac{1}{n}\) for all \(n \geq 2\).
 	\item Prove \(\forall x \neq 0,\ \forall n \in \N^{>1}\) that \(x^2 \mid ((x+1)^n - nx - 1)\)
-	\item 
-	\item Prove \(\big(\bigwedge_{i=1}^{n-1} (p_i \Rightarrow p_{i+1})\big) \Rightarrow \big( (\bigwedge_{i=1}^{n-1} p_i) \Rightarrow p_n \big)\)
-	\item 
-	\item 
-	\item Find the lower bound for the amount of dollars we can make using strictly 3, 7, and 15 dollar bills. This should be done with constructive induction. Then, prove your result is correct using either weak or strong induction.
-	\item 
+	\item Prove the coin problem in Example \ref{2coin-problem} using weak induction. % todo fix this example, it shows 3.3.2 but that's wrong i think
+	\item Prove \(\big(\bigwedge_{i=1}^{n-1} (p_i \Rightarrow p_{i+1})\big) \Rightarrow \big( (\bigwedge_{i=1}^{n-1} p_i) \Rightarrow p_n \big)\) for all \(n > 1\)
+	
+	\item Prove that \((\forall n \in \N)[s_n \equiv 0 \Mod{2}]\) where \[s_n = \begin{cases} 2, & n = 0 \\ 4, & n = 1 \\ 3s_{n-1} + s_{n-2},& n \geq 2 \end{cases}\]
+	\item Solve the quadratic equation \(x^2 - x - 1 = 0\) -- name the larger root \(\phi\) and the smaller root \(\psi\). Then, justify why \(\phi^2 = \phi + 1\) and \(\psi^2 = \psi + 1\). Finally, use these to show that \(f_n = \frac{\sqrt{5}}{5}(\phi^n - \psi^n)\) where \[f_n = \begin{cases} 0 & n=0 \\ 1 & n=1 \\ f_{n-1} + f_{n-2} & n \geq 2 \end{cases}\]
+	\item Let \[l_n = \begin{cases} 2 & n=0 \\ 1 & n=1 \\ l_{n-1} + l_{n-2} & n \geq 2 \end{cases}\]
+	Show that \(l_n = \phi^n + \psi^n\)
+	
+	\item Let \(S \subset \Z^2\) be defined recursively as:
+	\begin{itemize}
+		\item\((0,0) \in S\)
+		\item \((\forall (x,y) \in S)[(x,y+1) \in S \land (x+1,y+1) \in S \land (x+2,y+1) \in S]\)
+	\end{itemize}
+	Prove that \((\forall (x,y) \in T)[x \leq 2y]\)
+	\item Show that every Non-Empty Full Binary Tree \(T\) satisfies
+	\begin{enumerate}
+		\item \(l(T) = I(T) + 1\)
+		\item \(EXT(T) = INT(T) + N(T) - 1\)
+	\end{enumerate}
+	where
+	\begin{itemize}
+		\item \(l(T) = \) the number of leaf nodes (nodes without children) in \(T\)
+		\item \(I(T) = \) the number of internal nodes (nodes with children) in \(T\)
+		\item \(EXT(T) = \) the sum of all external path lengths in \(T\). An external path is a path from the root node to any leaf node, and the length is the number of edges in that path
+		\item \(INT(T) = \) the sum of all internal path lengths in \(T\). An internal path is a path from the root node to any internal node
+	\end{itemize}
+	\item Show that the number of nodes in a perfect \(k\)-ary tree is \(\sum_{i=0}^{h} k^i\) (which, by the geometric series \(= \frac{k^{h+1}-1}{k-1}\)) where \(h =\) the height of the tree, and \(k\) is the branching factor of the tree. Define height as the maximal external path length. Define a perfect \(k\)-ary tree as follows:
+	\begin{itemize}
+		\item \(h = 0\): a single root node
+		\item \(h > 0\): a root node with exactly \(k\) children (each of which is a perfect \(k\)-ary tree of height \(h-1\)
+	\end{itemize}
+	
+	\item Prove \((\exists a,b \in \N)(\forall n \in \N)[7 \mid a^n + b]\)
+	\item Find constants \(a,b,c,d,e \in \R\) such that \[(\forall n \in \N)[\sum_{i=0}^{n} i^3 = an^4 + bn^3 + cn^2 + dn + e]\]
+	\item Prove that \(t_n \leq n \log_b n\) where \[t_n = \begin{cases} 0, & n = 0 \\ 2T(\floor{\frac{n}{2}}) + n - 1, & n > 0 \end{cases}\] \textit{you will need to select a base \(b \in \Z^+\) during the step that makes the induction easy}
+	\item Find the lower bound for the amount of dollars we can make using strictly 5 and 6 dollar bills. Do this with constructive induction. Verify your result is correct by proving it with both weak and strong induction. % >= 20
+	\item Repeat the previous problem with strictly 3, 7, and 15 dollar bills.
 \end{enumerate}
 
 %\section{Solutions}
