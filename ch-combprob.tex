@@ -14,19 +14,47 @@ Let's put some more text here for now
 
 \section{Combinatorics}
 
-Imagine you are a software developer for a large company, \textit{Macrosoft}. Your manager assigned you to a project that needs test cases written. Your test cases must cover all execution paths. At first this seems like a daunting task, however you took discrete mathematics and bleh bleh 
-
-(just say a story that shows that counting techniques are useful for creating test cases)
+Imagine you are a software developer for a large company, \textit{Macrosoft}. Your manager assigned you to a project that needs testing. Your test cases must cover all execution paths. At first this seems like a daunting task, however you took discrete mathematics and learned about combinatorics. You can calculate exactly how many test cases you need. And so you do -- only to find out that you need \(9! = 362880\) test cases. In the fine words of JonTron, ``that's a lot of damage.''
 
 \begin{defn}[Combinatorics\index{Combinatorics}]
+	The area of mathematics dealing with counting
+\end{defn}
+
+\exsol{
+	Count the number of elements in the following set: \[\{\emptyset, \{a\}, \{b\}, \{a,b\}\}\]
+}{
+	There are two ways to solve this problem. First, you can visually count the number of elements -- 1, 2, 3, 4. Otherwise, you can notice that the given set is the powerset of \(\{a,b\}\), which is a set of size 2. We know that \(|\mathcal{P}(A)| = 2^{|A|}\), so the number of elements is \(2^2 = 4\).
+}
+
+\begin{rem}
+	There are almost always multiple valid ways to solve combinatorics problems. Some ways are better than others, though, because they can abstract out to larger inputs.
+\end{rem}
+
+\exsol{
+	How many different orderings of the letters \textit{abc} can we create?
+}{
+	We can list all the possible orderings and count them: \textit{abc}, \textit{acb}, \textit{bac}, \textit{bca}, \textit{cab}, \textit{cba}.
+	
+	Alternatively, we can view this as a 3-letter word where we need to place letters in each of the three positions.
+	
+	\begin{center}
+		\vspace{5mm}
+		\rule{1cm}{1pt} \hspace{3mm} \rule{1cm}{1pt} \hspace{3mm} \rule{1cm}{1pt}
+		\vspace{5mm}
+	\end{center}
+	
+	For the first position, we have three possibilities: \textit{a}, \textit{b}, or \textit{c}. Then, we place that letter and move on to the second position where we can place one of the two remaining letters. In the last position, we place the remaining letter.
+	
+	So, \textit{for each} possibility in the first position, we have all possibilities for the second and third positions. So there are \(3 \times \) \textit{second/third position possibilities} total orderings. Then, journey into the second and third positions. There are two remaining letters, so there are \(2 \times \) \textit{third position possibilities} sub-orderings. There is one option in the last position, so putting this all together we get \(3 \times 2 \times 1 = 3! = 6\) total orderings.
+}
+
+In the example above, we listed out all of the \textit{permutations} of the letters \textit{abc}.
+
+\begin{defn}[Permutations\index{Combinatorics!Permutations}]
 	
 \end{defn}
 
-\begin{example}
-	A problem here
-\end{example}
-
-\begin{defn}[Permutations\index{Combinatorics!Permutations}]
+\begin{defn}[\(r\)-Permutation\index{Combinatorics!r-Permutations}]
 	
 \end{defn}
 
@@ -42,14 +70,29 @@ Imagine you are a software developer for a large company, \textit{Macrosoft}. Yo
 	A problem here
 \end{example}
 
+% todo
 A mini-discussion on the differences between ordering and replacement.
 
-Insert that one table here.
+\begin{figure}[H]
+	\centering
+	\begin{tabular}{ccc}
+		& With Replacement & Without Replacement \\
+		\midrule
+		Order Matters & \(n^k\) & \(P(n,k) = \frac{n!}{(n-k)!}\) \\
+		\midrule
+		Order Does Not Matter & \(\binom{n+k-1}{n-1}\) & \(\binom{n}{k} = \frac{n!}{k!(n-k)!}\) \\
+	\end{tabular}
+	\caption{Ordering and Replacement -- picking \(k\) elements from \(n\) total elements}
+\end{figure}
+
+\begin{rem}
+	For explanation on unordered sampling with replacement, \href{https://www.probabilitycourse.com/chapter2/2_1_4_unordered_with_replacement.php}{see here}.
+\end{rem}
 
 \section{The Inclusion-Exclusion Principle}
 
 \begin{thm}[The Inclusion-Exclusion Principle]
-	...
+	
 \end{thm}
 
 

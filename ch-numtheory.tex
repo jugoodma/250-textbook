@@ -1166,7 +1166,7 @@ There are four big techniques of induction:
 
 The proof technique of weak induction is entirely based on the following theorem:
 
-\begin{thm}{The Principle of (weak) Mathematical Induction \label{pmi-1}\index{Weak Induction!Induction}}
+\begin{thm}{The Principle of (weak) Mathematical Induction \label{pmi-1}\index{Induction!Weak Induction}}
 	\begin{center}
 		\begin{tabular}{rl}
 			& \(P(0)\) \\
@@ -1329,7 +1329,7 @@ Weak induction is great, however in its current form it is not useful enough to 
 	What should we do, then? Strong induction to the rescue!
 \end{example}
 
-\begin{thm}{The Principle of (strong) Mathematical Induction \label{psi}\index{Strong Induction!Induction}}
+\begin{thm}{The Principle of (strong) Mathematical Induction \label{psi}\index{Induction!Strong Induction}}
 	\begin{center}
 		\begin{tabular}{rl}
 			& \(P(0) \land P(1) \land \cdots \land P(k)\) \\
@@ -1483,7 +1483,7 @@ Usually, though, one technique will be significantly easier than the other. In t
 
 \sectionbreak
 
-\index{Structural Induction!Induction}
+\index{Induction!Structural Induction}
 Our next induction technique is structural induction. There is no formal theorem for structural induction since it is essentially equivalent to our previous forms of induction. Interestingly, all forms of induction are equivalent to the \textit{well-ordering principle}, however this is outside the scope of this book.
 
 Structural induction differs from the other forms in that we are proving mathematical statements on recursively-defined \textit{structures} instead of on a sequence of increasing integers. For example, we can induct on binary trees, linked lists, sets, fractals, and others. Since these structures are recursively defined, they must have base cases, which are the smallest possible sub-structures that build up the main structure.
@@ -1605,7 +1605,7 @@ Essentially the main idea of induction is the same. We use the recursive definit
 
 \sectionbreak
 
-\index{Constructive Induction!Induction}
+\index{Induction!Constructive Induction}
 Our final induction technique is constructive induction. Like structural induction, there is no formal theorem for constructive induction. Instead, constructive induction utilizes the previous induction techniques.
 
 Sometimes you will be presented a proposition with unknowns. In a linear equation, for example \(5 = 2x + 3\), you would solve for \(x\). In a proposition, for example \[(\forall n \in \N)[ 4 \mid (cn - 2)^d ]\] you would solve for \(c\) and \(d\). Constructive induction is simply doing a proof by induction to find constants that make a proposition true. In a constructive induction proof, you proceed through a regular induction proof as if your unknowns are \textit{known}. After the inductive step, you will have a handful of constraints on your unknowns. Then, you simply find actual values that satisfy your constraints.
@@ -1765,7 +1765,7 @@ Sometimes the unknown may be in a different place.
 	\frac{20}{3} + \frac{40}{5} + x &\leq 20 \\
 	20 + 3 \cdot 8 + 3x &\leq 60 \\
 	3x &\leq 60 - 20 - 24 \\
-	x \leq \frac{16}{3} = 5 + \frac{1}{3}
+	x &\leq \frac{16}{3} = 5 + \frac{1}{3}
 	\end{align*}
 	
 	Since \(x \in \N\) the largest value of \(x\) that works is \(5\). So we get \[x = 5\]
