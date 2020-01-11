@@ -44,15 +44,15 @@ Here are a few examples:
 	We will only consider relations of sets with themselves. We \textit{can} define relations between different sets, however this will make the following definitions significantly more challenging to define.
 \end{rem}
 
-\begin{defn}[Reflexive\index{Reflexive!Relation}]
+\begin{defn}[Reflexive\index{Relation!Reflexive}]
 	A relation \(R\) on a set \(A\) is reflexive if \[(\forall a \in A)[(a,a) \in R]\]
 \end{defn}
 
-\begin{defn}[Symmetric\index{Symmetric!Relation}]
+\begin{defn}[Symmetric\index{Relation!Symmetric}]
 	A relation \(R\) on a set \(A\) is symmetric if \[(\forall a,b \in A)[(a,b) \in R \Rightarrow (b,a) \in R]\]
 \end{defn}
 
-\begin{defn}[Transitive\index{Transitive!Relation}]
+\begin{defn}[Transitive\index{Relation!Transitive}]
 	A relation \(R\) on a set \(A\) is transitive if \[(\forall a,b,c \in A)[(a,b) \in R \land (b,c) \in R \Rightarrow (a,c) \in R]\]
 \end{defn}
 
@@ -90,7 +90,7 @@ You will typically be asked to classify whether a relation satisfies the above t
 
 Oftentimes in computer science and mathematics we care about relations that satisfy all three properties. We even give these relations a fancy name, \textit{equality relation}.
 
-\begin{defn}[Equivalence Relation\index{Equivalence Relation!Relation}]
+\begin{defn}[Equivalence Relation\index{Relation!Equivalence Relation}]
 	A relation that is reflexive, symmetric, and transitive
 \end{defn}
 
@@ -98,7 +98,7 @@ The equivalence relation gives us a notion of \textit{equality}. If a relation \
 
 Here are some other cool definitions that probably will not be tested.
 
-\begin{defn}[Antisymmetric\index{Antisymmetric!Relation}]
+\begin{defn}[Antisymmetric\index{Relation!Antisymmetric}]
 	A relation \(R\) on a set \(A\) is antisymmetric if \[(\forall a,b \in A)[(a,b) \in R \land (b,a) \in R \Rightarrow a = b]\]
 \end{defn}
 
@@ -188,15 +188,15 @@ Every function is a relation, but not every relation is a function. For any func
 
 The above relations are contrived examples. Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \mapsto R\]
 
-\begin{defn}[Domain\index{Domain!Function}]
+\begin{defn}[Domain\index{Function!Domain}]
 	The set of inputs to a function
 \end{defn}
 
-\begin{defn}[Range\index{Range!Function}]
+\begin{defn}[Range\index{Function!Range}]
 	The set containing all outputs to a function. This may also be called the \textit{co-domain}
 \end{defn}
 
-\begin{defn}[Image\index{Image!Function}]
+\begin{defn}[Image\index{Function!Image}]
 	The set of all outputs to a function. This may be a subset of the function's range
 \end{defn}
 
@@ -282,16 +282,16 @@ You should check both of these requirements. For the first, recall that to dis-p
 
 There exist 3 properties that any function can have.
 
-\begin{defn}[Injection (One-to-One)]
+\begin{defn}[Injection (One-to-One)\index{Function!Injective}]
 	A function where each co-domain (range) value is mapped to by at most one value in the domain. In other words, each value in the range has either 0 or 1 pointers from the domain. Formally, \(f : D \mapsto R\) is injective iff \[(\forall x_1,x_2 \in D)[f(x_1) = f(x_2) \Rightarrow x_1 = x_2]\]
 	The horizontal line test can be used to see if a function is injective
 \end{defn}
 
-\begin{defn}[Surjection (Onto)]
+\begin{defn}[Surjection (Onto)\index{Function!Surjective}]
 	A function where each co-domain (range) value is mapped to by at least one value in the domain. In other words, there are no un-mapped values in the range. Formally, \(f : D \mapsto R\) is surjective iff \[(\forall y \in R)(\exists x \in D)[y = f(x)]\]
 \end{defn}
 
-\begin{defn}[Bijection (One-to-One Correspondence)]
+\begin{defn}[Bijection (One-to-One Correspondence)\index{Function!Bijective}]
 	A function that is both an injection and a surjection. Every input is mapped to exactly one unique output
 \end{defn}
 
@@ -417,15 +417,15 @@ For the purposes of this class, you can think of a sequence as a mapping between
 
 We have explicit names for the notation types in the previous example.
 
-\begin{defn}[General Form\index{General Form!Sequence}]
+\begin{defn}[General Form\index{Sequence!General Form}]
 	A written list of the elements of a sequence, in order, typically with \(\dots\) at the end (and at the beginning, if your sequence elements start in the middle -- typically this does not happen). Sometimes mathematicians put curly braces \(\{\}\) around their general-form sequences -- try not to get this confused with a set! Other times mathematicians will give you a rule, written in plain English, for generating sequence terms
 \end{defn}
 
-\begin{defn}[Recursive Form\index{Recursive Form!Sequence}]
+\begin{defn}[Recursive Form\index{Sequence!Recursive Form}]
 	An explicit formula that depends on previous elements in the sequence, and necessarily has one or more base cases. Typically this is expressed as \[x_n = \begin{cases} \text{base case(s)} &, n \in \{\text{some set}\} \\ \text{some formula dependent on } n &, n \not\in \{\text{the previous set}\} \end{cases}\]
 \end{defn}
 
-\begin{defn}[Closed Form\index{Closed Form!Sequence}]
+\begin{defn}[Closed Form\index{Sequence!Closed Form}]
 	An explicit formula to generate a specific term in a sequence. This formula is solely dependent on a given index. Typically this is expressed as \[y_k = \text{some formula dependent on } k\]
 \end{defn}
 
