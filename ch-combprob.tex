@@ -51,30 +51,50 @@ Imagine you are a software developer for a large company, \textit{Macrosoft}. Yo
 %In the example above, we listed out all of the \textit{permutations} of the letters \textit{abc}.
 
 \begin{defn}[Multiplication Rule\index{Combinatorics!Multiplication Rule}]
-	Given some procedure \(E\) that can be broken down into a sequence of two tasks, if there are \(n_1\) ways to do the first task and for each of those ways there are \(n_2\) ways to do the second task, then the total number of ways to do procedure \(E\) is \(n_1 \times n_2\).
+	Given some procedure \(E\) that can be broken down into a sequence of two tasks, if there are \(n_1\) ways to do the first task and for each of those ways there are \(n_2\) ways to do the second task, then the total number of ways to do procedure \(E\) is \(n_1 \times n_2\)
 \end{defn}
 
 we applied the mult rule to the previous example?
 
 \begin{defn}[Permutations\index{Combinatorics!Permutations}]
-	
+	\textbf{Ordered} arrangements of \textit{all} elements in a set of size \(n\). By the multiplication rule, the total amount of permutations equals \[n!\]
 \end{defn}
 
 \begin{defn}[\(r\)-Permutation\index{Combinatorics!r-Permutations}]
-	
+	\textbf{Ordered} arrangements of \(r\) elements in a set of size \(n\). The total amount of \(r\)-permutations is denoted and equals \[P(n,r) = \frac{n!}{(n-r)!}\]
 \end{defn}
 
-\begin{example}
-	A problem here
-\end{example}
-
-\begin{defn}[Combinations\index{Combinatorics!Combinations}]
+\exsol{
+	We are a combinatorics photographer. A group of 7 students walked into our office asking for all different possible pictures of them with only 3 people. Since we charge per-photo, how many such photos will we take?
+}{
+	We \textit{could} count out all of the options, but that might be too much work. Instead, we can translate the problem into a string problem like before. We want all possibilities of 3 people in a row:
 	
+	\begin{center}
+		\vspace{5mm}
+		\rule{1cm}{1pt} \hspace{3mm} \rule{1cm}{1pt} \hspace{3mm} \rule{1cm}{1pt}
+		\vspace{5mm}
+	\end{center}
+	
+	In the first position, we have 7 possibilities. Then, in the second position, we have 6 possibilities. Finally, in the third position, we have 5 possibilities. Thus, in total, we can make \(7 \times 6 \times 5\) photos.
+	
+	Alternatively, we could have used \(r\)-permutations. In this case, \(r = 3\) and \(n = 7\). So we are finding all 3-permutations of a set of size 7. This is \[P(7,3) = \frac{7!}{(7-3)!} = \frac{7!}{4!} = 7 \times 6 \times 5\]
+}
+
+\begin{defn}[\(r\)-Combinations\index{Combinatorics!Combinations}]
+	(or just \textit{Combinations}) \textbf{Unordered} arrangements of \(r\) elements in a set of size \(n\). Alternatively, it is the number of \(r\)-sized subsets of a \(n\)-sized set. The total amount of combinations is denoted and equals \[C(n,r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}\]
 \end{defn}
 
-\begin{example}
-	A problem here
-\end{example}
+\exsol{
+	How many student committees of size 3 can we make from a student population of 7?
+}{
+	There is no notion of \textit{order} within a committee, so we want the number of 3-combinations from a set of size 7. So the answer is \[\binom{7}{3} = \frac{7!}{3!4!}\]
+	
+	Alternatively, we could first solve the problem as-if we care about the committee ordering, and then \textit{divide out} all of the different possible orderings per committee. For example, the ordered committees \(a,b,c\) and \(b,c,a\) should be counted as the same. So, how many orderings \textit{per-committee} can we make? \(3!\). Then, the total amount of ordered committees is \(P(7,3) = \frac{7!}{4!}\). So if we divide out \(3!\) we get \[\frac{P(7,3)}{3!} = \frac{7!}{3!4!} = \binom{7}{3}\]
+}
+
+\begin{rem}
+	The previous example shows the relationship between permutations and combinations. % todo
+\end{rem}
 
 % todo
 A mini-discussion on the differences between ordering and replacement.
