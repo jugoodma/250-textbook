@@ -77,9 +77,99 @@ Fourth, yeah right.
 
 Fifth, you keep telling yourself that while the top programmers at Google use mathematical reasoning to create super-fast mapping algorithms.
 
+\section{An Exercise in Proof}
+
+Maybe you are not convinced that proof is useful and necessary. Well, consider the following problem.
+
+\begin{boxx}
+	Draw a circle and place \(n\) points on the edge of the circle. Draw a line between each possible pair of points. This will yield closed regions within the circle. How many such regions are there for \(n \geq 1\) points?
+\end{boxx}
+
+Try it for \(n = 1,2,3,4,5\). We will ignore \(n=0\) for this exercise. You should get:
+
+\begin{center}
+	\begin{tabular}{c|ccccc}
+		\(n\) & 1 & 2 & 3 & 4 & 5 \\
+		Regions & 1 & 2 & 4 & 8 & 16 \\
+	\end{tabular}
+\end{center}
+
+There's a clear pattern here -- the number of regions for \(n\) points looks like \(2^{n-1}\). Go ahead and try this formula for the values of \(n\) we have -- it works!
+
+\begin{center}
+	\textit{How confident are you in this formula?}
+\end{center}
+
+Draw out a circle with \(n=6\) points, and compare your answer to the formula we came up with.
+
+\begin{center}
+\begin{tikzpicture} % change these lines to a for-loop ?
+\draw (0,0) circle[radius=2cm];
+% top bot
+\fill (0,2) circle[radius=2pt] node (t1) {};
+\fill (0,-2) circle[radius=2pt] node (b1) {};
+% left
+\fill (-1.414,1.414) circle[radius=2pt] node (lt1) {};
+\fill (-1.414,-1.414) circle[radius=2pt] node (lb1) {};
+% right
+\fill (1.414,1.414) circle[radius=2pt] node (rt1) {};
+\fill (1.414,-1.414) circle[radius=2pt] node (rb1) {};
+% lines
+\draw (t1) -- (b1);
+\draw (t1) -- (lt1);
+\draw (t1) -- (lb1);
+\draw (t1) -- (rt1);
+\draw (t1) -- (rb1);
+\draw (b1) -- (lt1);
+\draw (b1) -- (lb1);
+\draw (b1) -- (rt1);
+\draw (b1) -- (rb1);
+\draw (lt1) -- (lb1);
+\draw (lt1) -- (rt1);
+\draw (lt1) -- (rb1);
+\draw (lb1) -- (rt1);
+\draw (lb1) -- (rb1);
+\draw (rt1) -- (rb1);
+% regions
+\draw (0,-2.5) node {30 Regions};
+
+\draw (5,0) circle[radius=2cm];
+% top bot
+\fill (5,2) circle[radius=2pt] node (t2) {};
+\fill (5,-2) circle[radius=2pt] node (b2) {};
+% left
+\fill (3.586,1.414) circle[radius=2pt] node (lt2) {};
+\fill (3.586,-1.414) circle[radius=2pt] node (lb2) {};
+% right
+\fill (6.414,1.414) circle[radius=2pt] node (rt2) {};
+\fill (7,0) circle[radius=2pt] node (rb2) {};
+% lines
+\draw (t2) -- (b2);
+\draw (t2) -- (lt2);
+\draw (t2) -- (lb2);
+\draw (t2) -- (rt2);
+\draw (t2) -- (rb2);
+\draw (b2) -- (lt2);
+\draw (b2) -- (lb2);
+\draw (b2) -- (rt2);
+\draw (b2) -- (rb2);
+\draw (lt2) -- (lb2);
+\draw (lt2) -- (rt2);
+\draw (lt2) -- (rb2);
+\draw (lb2) -- (rt2);
+\draw (lb2) -- (rb2);
+\draw (rt2) -- (rb2);
+% regions
+\draw (5,-2.5) node {31 Regions};
+\end{tikzpicture}
+\end{center}
+
+Are you still not convinced that our formula is wrong? Try drawing a circle for \(n=7\) and \(n=8\), and compare your regions to your formula.
+
 \section{Thinking Mathematically}
 
-Well, hopefully at the end of the course you will be able to answer this question for yourself. Our goal is to teach you how to think mathematically. We want you to ask and answer questions based on logic. We want you to have sound reasoning. We want you to be able to back-up your answers with solid proof. We want your explanations to make sense, and we want to be convinced. In the real-world, no one is going to just \textit{accept} things you say unless you have good \textit{evidence} to back your claims. Our goal is to teach you how to (1) formally write your claims, and (2) provide proof for your claims. Mathematical thinking comes naturally for some, however for others it may take a whole semester. Keep working at it until you succeed.
+%Well, hopefully at the end of the course you will be able to answer this question for yourself.
+Our goal is to teach you how to think mathematically. We want you to ask and answer questions based on logic. We want you to have sound reasoning. We want you to be able to back-up your answers with solid proof. We want your explanations to make sense, and we want to be convinced. In the real-world, no one is going to just \textit{accept} things you say unless you have good \textit{evidence} to back your claims. Our goal is to teach you how to (1) formally write your claims, and (2) provide proof for your claims. Mathematical thinking comes naturally for some, however for others it may take a whole semester. Keep working at it until you succeed.
 
 \section{How to Succeed in this Course}
 
