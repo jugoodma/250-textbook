@@ -27,7 +27,7 @@ Interesting tool: `apt-file -x search '/algpseudocode.sty$'`
 * `4/10` Countability
 * `3/10` Graph Theory
 * `4/10` Asymptotic Analysis
-* `1/10` Conclusion
+* `4/10` Conclusion
 
 Need to figure out how to compile each chapter individually. [sol?](https://tex.stackexchange.com/questions/31334/how-to-create-individual-chapter-pdfs-from-included-texs) [maybe?](https://tex.stackexchange.com/questions/231861/how-do-i-get-consecutive-section-numbering-for-an-entire-document-using-subfiles)
 
