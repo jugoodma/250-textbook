@@ -144,6 +144,34 @@ Denote the \textit{base} \(b\) of a logarithm as \[\log_b x = \frac{\log x}{\log
 	Similarly, \(\ceil{x+n} = \ceil{x} + n\).
 \end{rem}
 
+As a closing note, we should consider an interesting example in real analysis that uses floors to break intuition.
+
+\exsol{
+	\(\floor{0.9} = 0\), \(\floor{0.99} = 0\), \(\floor{0.999} = 0\), \(\floor{0.999\cdots9} = 0\). So what about \(\floor{0.\bar{9}}\)?
+}{
+	Intuitively, you might think that \(0.\bar{9} < 1\) which would mean \(\floor{0.\bar{9}} = 0\). This is incorrect, because by definition \(0.\bar{9} = 1\). This comes from how we define the bar operator, which means an infinite repetition of whatever is under it.
+	\begin{align*}
+		0.\bar{9} &= 0.9 + 0.09 + 0.009 + 0.0009 + \cdots \\
+		&= 9(0.1 + 0.01 + 0.001 + 0.0001 + \cdots) \\
+		&= 9(\frac{1}{10} + \frac{1}{100} + \frac{1}{1000} + \frac{1}{10000} + \cdots) \\
+		&= 9\sum_{k=1}^{\infty} (\frac{1}{10})^k \\
+		&= 9 \lim\limits_{n \rightarrow \infty} \sum_{k=1}^{n} (\frac{1}{10})^k \\
+		&= 9 \lim\limits_{n \rightarrow \infty} [\sum_{k=0}^{n} (\frac{1}{10})^k - 1] \\
+		&= 9 \lim\limits_{n \rightarrow \infty} [\frac{1 - (\frac{1}{10})^{n+1}}{1 - \frac{1}{10}} - 1] \\
+		&= 9 \lim\limits_{n \rightarrow \infty} [\frac{10}{9}(1 - (\frac{1}{10})^{n+1}) - 1] \\
+		&= 9 \lim\limits_{n \rightarrow \infty} [\frac{10}{9} - \frac{10}{9}(\frac{1}{10})^{n+1} - 1] \\
+		&= 9 [ \frac{10}{9} - \frac{9}{9} - \frac{10}{9}\frac{1}{10} \lim\limits_{n \rightarrow \infty} (\frac{1}{10})^{n} ] \\
+		&= 1 - \lim\limits_{n \rightarrow \infty} \frac{1}{10^n} = 1 - 0 = 1 \\
+	\end{align*}
+	Another way to see this, \[0.\bar{9} = 9 \cdot 0.\bar{1} = 9 \cdot \frac{1}{9} = 1\]
+	
+	Thus \[\floor{0.\bar{9}} = \floor{1} = 1\]
+}
+
+\begin{rem}
+	This example uses a definition from real analysis. This book is on discrete mathematics. You do not need to know the definition of \(0.\bar{x}\)
+\end{rem}
+
 \subsection{Closure}
 
 Closure has two parts: a \textbf{set}, and an \textbf{operation}. Closure is a \textit{property} of a set paired with the given operation. The basic idea is that if you take \textbf{any} two elements (or however are required for the operation -- typically two) and apply the given operation to those elements, then the result will be an element also in the set. Some examples will be helpful to illustrate the point here.
@@ -852,6 +880,43 @@ The ``\textit{Proof.}'' header clearly signifies the following text will be a pr
 The ending square is shorthand for the latin phrase \textit{quod erot demonstrandum} which, used in this context, roughly means \textit{it is shown/demonstrated}. You may put any of the following at the end of your proofs: QED, \(\blacksquare\), \(\square\).
 
 This general structure is easy to read, easy to adapt, and is easily formal. It is \textit{absolutely fine} to deviate from our structure, \textbf{so long as} your proof is still easy to read and makes clear it \textbf{is} a proof.
+
+\exproof{ % todo -- move somewhere else?
+	Pythagoras' Theorem states that for any right-triangle, the square of the hypotenuse equals the sum of the squares of the other two sides. More familiarly, \[a^2 + b^2 = c^2\]
+	Prove it.
+}{
+	Make 4 copies of a right triangle, and arrange them like so:
+	\begin{center}
+		\begin{tikzpicture}
+		% outer square
+		\draw (0,0) -- (5,0);
+		\draw (0,0) -- (0,5);
+		\draw (0,5) -- (5,5);
+		\draw (5,0) -- (5,5);
+		% inner square
+		\draw (0,4) -- (4,5);
+		\draw (4,5) -- (5,1);
+		\draw (5,1) -- (1,0);
+		\draw (1,0) -- (0,4);
+		% letters
+		\draw (-0.25,4.5) node {\(a\)};
+		\draw (2,5.25) node {\(b\)};
+		\draw (4.5,5.25) node {\(a\)};
+		\draw (5.25,3) node {\(b\)};
+		\draw (5.25,0.5) node {\(a\)};
+		\draw (3,-0.25) node {\(b\)};
+		\draw (0.5,-0.25) node {\(a\)};
+		\draw (-0.25,2) node {\(b\)};
+		\end{tikzpicture}
+	\end{center}
+	The area of the inner square is then \[(a+b)^2 - 4(\frac{1}{2}ab) = a^2 + 2ab + b^2 - 2ab = a^2 + b^2\]
+	
+	Denote the side length of each edge of the inner square \(c\) -- which is also the hypotenuse of each right-triangle. Then \(c^2\) is the area of the inner square, so \[c^2 = a^2 +  b^2\]
+}
+
+\begin{rem}
+	We do not expect you to know how to prove Pythagoras' Theorem -- this is just an interesting proof example.
+\end{rem}
 
 \subsection{Techniques}
 
@@ -1962,9 +2027,10 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 		\item \(h > 0\): a root node with exactly \(k\) children (each of which is a perfect \(k\)-ary tree of height \(h-1\)
 	\end{itemize}
 	
+	\item Prove that \((\forall n \in \N^{\geq n_0})[2^n > \frac{1}{24}(n^4 - 6n^3 + 23n^2 - 18n + 24)]\), then use your proof to find \(n_0 \in \N\)
 	\item Prove \((\exists a,b \in \N)(\forall n \in \N)[7 \mid a^n + b]\)
 	\item Find constants \(a,b,c,d,e \in \R\) such that \[(\forall n \in \N)[\sum_{i=0}^{n} i^3 = an^4 + bn^3 + cn^2 + dn + e]\]
-	\item Prove that \(t_n \leq n \log_b n\) where \[t_n = \begin{cases} 0, & n = 0 \\ 2T(\floor{\frac{n}{2}}) + n - 1, & n > 0 \end{cases}\] \textit{you will need to select a base \(b \in \Z^+\) during the step that makes the induction easy}
+	\item Prove that \(t_n \leq n \log_b n\) where \[t_n = \begin{cases} 0, & n = 0 \\ 2t_{\floor{\frac{n}{2}}} + n - 1, & n > 0 \end{cases}\] \textit{you will need to select a base \(b \in \Z^+\) during the step that makes the induction easy}
 	\item Find the lower bound for the amount of dollars we can make using strictly 5 and 6 dollar bills. Do this with constructive induction. Verify your result is correct by proving it with both weak and strong induction. % >= 20
 	\item Repeat the previous problem with strictly 3, 7, and 15 dollar bills.
 \end{enumerate}
