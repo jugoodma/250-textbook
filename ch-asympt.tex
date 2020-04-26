@@ -38,34 +38,32 @@ Our motivation here is to describe the \textit{growth-rate} of functions. The gr
 
 We can express algorithms in terms of functions. The function input is typically \(n\), the number of elements inputted into the algorithm, and the function output is typically time. Usually \textit{time} will be the number of certain operations performed during the algorithm.
 
-\begin{example}
+\exsol{
 	Come up with a function \(T(n)\) that describes the run-time of the following algorithm. Define run-time as the number of conditional evaluations. In the following algorithm, \(L\) is a list of integers of length \(n\).
 	\begin{algorithmic}[1]
 		\Function{GetMax}{\(L\), \(n\)\@}
-			\State \(M \gets -\infty\)
-			\State \(i \gets 0\)
-			\While{\(i < n\)}
-				\If{\(L[i] > M\)}
-					\State \(M \gets L[i]\)
-				\EndIf
-				\State \(i \gets i+1\)
-			\EndWhile
-			\State \Return \(M\)
+		\State \(M \gets -\infty\)
+		\State \(i \gets 0\)
+		\While{\(i < n\)}
+		\If{\(L[i] > M\)}
+		\State \(M \gets L[i]\)
+		\EndIf
+		\State \(i \gets i+1\)
+		\EndWhile
+		\State \Return \(M\)
 		\EndFunction
 	\end{algorithmic}
-	
-	\begin{sol}
-		We evaluate the if-statement in line 5 exactly \(n\) times, and we evaluate the while-loop condition exactly \(n+1\) times (the last time is when we break out of the loop). Thus, \(T(n) = n + n + 1 = 2n + 1\)
-	\end{sol}
-	
+}{
+	We evaluate the if-statement in line 5 exactly \(n\) times, and we evaluate the while-loop condition exactly \(n+1\) times (the last time is when we break out of the loop). Thus, \(T(n) = n + n + 1 = 2n + 1\)
+}
+
+\exsol{
 	Now come up with a function \(U(n)\) that outputs the number of \(\gets\) operations. Compare \(T(n)\) to \(U(n)\).
+}{
+	We have two initial stores from lines 1 and 2. Each while-loop iteration has a store command in line 8. The while-loop runs exactly \(n\) times, so this gives us \(n\) stores. Line 6 has a store command which is run \(\leq n\) times. We can model this using a natural number \(c \leq n\) where \(c\) is the number of times line 5 evaluates to true. Our function is thus \(U(n) = n + c + 2\)
 	
-	\begin{sol}
-		We have two initial stores from lines 1 and 2. Each while-loop iteration has a store command in line 8. The while-loop runs exactly \(n\) times, so this gives us \(n\) stores. Line 6 has a store command which is run \(\leq n\) times. We can model this using a natural number \(c \leq n\) where \(c\) is the number of times line 5 evaluates to true. Our function is thus \(U(n) = n + c + 2\)
-		
-		Since \(c \leq n\) we have that \(U(n) \leq T(n)\) for all \(n > 1\). Note that when \(n = 1\) we have \(T(n) = 3\) and \(U(n) = 4\) (since \(c = 1\)). In any case, we have that the growth-rates of both functions are solely dependent on \(n\) and are hence the same. Both functions are in \(\Theta(n)\)
-	\end{sol}
-\end{example}
+	Since \(c \leq n\) we have that \(U(n) \leq T(n)\) for all \(n > 1\). Note that when \(n = 1\) we have \(T(n) = 3\) and \(U(n) = 4\) (since \(c = 1\)). In any case, we have that the growth-rates of both functions are solely dependent on \(n\) and are hence the same. Both functions are in \(\Theta(n)\)
+}
 
 \begin{defn}[The Loop-Heuristic]
 	(algorithm analysis) For each nested loop in an algorithm, multiply \(n\) by the number of nested levels. This can be helpful in an initial analysis, however it will only take you so far.
@@ -77,49 +75,47 @@ We can express algorithms in terms of functions. The function input is typically
 
 It is important to think about what is going on during the algorithm instead of blindly following the loop-heuristic. We present a few related examples.
 
-\begin{example}
+\exsol{
 	Analyze the following algorithm:
 	\begin{algorithmic}[1]
 		\Function{AnalyzeList}{\(L\), \(n\)\@}
-			\State \(M \gets 0\)
-			\For{\(i \gets 0\); \(i < n\); \(i \gets i + 1\)}
-				\State \(k \gets L[i]\)
-				\For{\(j \gets i\); \(j < n\); \(j \gets j + 1\)}
-					\State \(k \gets k * L[j]\)
-				\EndFor
-				\State \(M \gets M + k\)
-			\EndFor
-			\State \Return \(M\)
+		\State \(M \gets 0\)
+		\For{\(i \gets 0\); \(i < n\); \(i \gets i + 1\)}
+		\State \(k \gets L[i]\)
+		\For{\(j \gets i\); \(j < n\); \(j \gets j + 1\)}
+		\State \(k \gets k * L[j]\)
+		\EndFor
+		\State \(M \gets M + k\)
+		\EndFor
+		\State \Return \(M\)
 		\EndFunction
 	\end{algorithmic}
-	
-	\begin{sol}
-		The algorithm contains 2 nested loops, so by the loop-heuristic our run-time is \(n^2\). We examine further. The outer loop goes through the list \(n\) times. For each iteration \(i\), we have a loop that goes through the list \(n - i\) times. The actual \textit{work} is done in the inner loop. Thus, the amount of work equals \(1 + 2 + 3 + \cdots + n = \frac{n(n+1)}{2} = \frac{1}{2}n^2 + \frac{1}{2}n\) by the Gaussian sum. This has a growth rate of \(n^2\), so we see that the loop-heuristic worked and the algorithm runs in \(\Oh(n^2)\). In fact, the amount of work does not change with respect to different input ordering, so the algorithm runs in \(\Theta(n^2)\)
-	\end{sol}
-\end{example}
+}{
+	The algorithm contains 2 nested loops, so by the loop-heuristic our run-time is \(n^2\). We examine further. The outer loop goes through the list \(n\) times. For each iteration \(i\), we have a loop that goes through the list \(n - i\) times. The actual \textit{work} is done in the inner loop. Thus, the amount of work equals \(1 + 2 + 3 + \cdots + n = \frac{n(n+1)}{2} = \frac{1}{2}n^2 + \frac{1}{2}n\) by the Gaussian sum. This has a growth rate of \(n^2\), so we see that the loop-heuristic worked and the algorithm runs in \(\Oh(n^2)\). In fact, the amount of work does not change with respect to different input ordering, so the algorithm runs in \(\Theta(n^2)\)
+}
 
-\begin{example}
+\exsol{
 	Examine the following algorithm:
 	\begin{algorithmic}[1]
 		\Function{AnalyzeGraph}{\(G = (V,E)\)\@}
-			\State \(c \gets 0\)
-			\For{\(v \in V\)}
-				\For{\(w \in \text{Neighbors}(v)\)}
-					\State \(c \gets c + 1\)
-				\EndFor
-			\EndFor
-			\State \Return \(c\)
+		\State \(c \gets 0\)
+		\For{\(v \in V\)}
+		\For{\(w \in \text{Neighbors}(v)\)}
+		\State \(c \gets c + 1\)
+		\EndFor
+		\EndFor
+		\State \Return \(c\)
 		\EndFunction
 	\end{algorithmic}
-	
-	\begin{sol}
-		\(G\) represents a graph
-	\end{sol}
-\end{example}
+}{
+	\(G\) represents a graph
+}
 
-\begin{example}
-	
-\end{example}
+\exsol{
+
+}{
+
+}
 
 \subsection{Solving Recurrences}
 
@@ -149,6 +145,10 @@ There are a handful of common run-time complexities that you should be familiar 
 \begin{defn}[Exponential]
 	\[\Theta(c^n),\ c > 1\]
 \end{defn}
+
+\section{P vs NP}
+
+Big discussion time % todo
 
 \section{Summary}
 

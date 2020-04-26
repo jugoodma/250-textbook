@@ -8,11 +8,9 @@
 
 \section{Introduction}
 
-Combinatorics and probability offer us both a way of thinking and a handful of tools to solve interesting problems. These topics are more real-world focused since they have more direct and obvious applications. 
+Combinatorics and probability offer us both a way of thinking and a handful of tools to solve interesting problems. These topics are more real-world focused since they have more direct and obvious applications. The combinatorics mindset can be difficult for some students -- hang in there, you can do it.
 
-This is \textit{Discrete} Mathematics, so we will be focusing on \textit{discrete} probability.
-
-Let's put some more text here for now
+This section discusses combinatorics, or \textit{counting arguments}, followed by probability theory and basic statistics. The two topics are related, as you will see later. Probability theory includes discussions on \textit{continuous} probability, however we are exclusively concerned with \textit{discrete} probability (re: the name of this course).
 
 \section{Combinatorics}
 
@@ -56,15 +54,81 @@ Imagine you are a software developer for a large company, \textit{Macrosoft}. Yo
 	Given some procedure \(E\) that can be broken down into a sequence of two tasks, if there are \(n_1\) ways to do the first task and for each of those ways there are \(n_2\) ways to do the second task, then the total number of ways to do procedure \(E\) is \(n_1 \times n_2\)
 \end{defn}
 
-we applied the mult rule to the previous example?
+\begin{rem}
+	This is a highly technical definition that just abstracts the procedure we did the previous example.
+\end{rem}
 
 \begin{defn}[Permutations\index{Combinatorics!Permutations}]
-	\textbf{Ordered} arrangements of \textit{all} elements in a set of size \(n\). By the multiplication rule, the total amount of permutations equals \[n!\]
+	\textbf{Ordered} arrangements of \textit{all} elements from a set of size \(n\). By the multiplication rule, the total amount of permutations equals \[n!\]
 \end{defn}
 
+\begin{rem}
+	\(0! = 1\) -- come back to this later and see if you can make sense of this combinatorially!
+\end{rem}
+
+\exsol{
+	How many permutations can we make of the string ``rock''?
+}{
+	By definition, there are \(4! = 24\) permutations. If you do not believe me, list them out! In fact, let's do that right now.
+	
+	\begin{center}
+		\textit{rock}, \textit{rokc}, \textit{rcok}, \textit{rcko}, \textit{rkoc}, \textit{rkco},
+		
+		\textit{orck}, \textit{orkc}, \textit{ocrk}, \textit{ockr}, \textit{okrc}, \textit{okcr},
+		
+		\textit{crok}, \textit{crko}, \textit{cork}, \textit{cokr}, \textit{ckro}, \textit{ckor},
+		
+		\textit{kroc}, \textit{krco}, \textit{korc}, \textit{kocr}, \textit{kcro}, \textit{kcor}
+	\end{center}
+	
+	Feel free to check this against the multiplication rule!
+}
+
+\begin{rem}
+	In larger examples, we will have analogously large answers. For example, the string ``hardest'' has \(7! = 5040\) permutations. \textit{You do not have time to list out that many permutations}.
+\end{rem}
+
+This is not the whole story of permutations. What happens when we have repeat objects in our set (which, would not be a set by definition, but bear with us)?
+
+\exsol{
+	How many permutations can we make of the string ``rook''?
+}{
+	Let's list them out, the same way as we did before with ``rock''.
+	
+	\begin{center}
+		\textit{rook}, \textit{roko}, \textit{rook}, \textit{roko}, \textit{rkoo}, \textit{rkoo},
+		
+		\textit{orok}, \textit{orko}, \textit{oork}, \textit{ookr}, \textit{okro}, \textit{okor},
+		
+		\textit{orok}, \textit{orko}, \textit{oork}, \textit{ookr}, \textit{okro}, \textit{okor},
+		
+		\textit{kroo}, \textit{kroo}, \textit{koro}, \textit{koor}, \textit{koro}, \textit{koor}
+	\end{center}
+	
+	Notice that the first row and last row each contain three, instead of six, unique strings -- half the amount. Further, the second and fourth row are duplicates of each other. Now, we will not count \textit{roko} and \textit{roko} (seen as \textit{ro\textsubscript{1}ko\textsubscript{2}} and \textit{ro\textsubscript{2}ko\textsubscript{1}}) as different strings. So there are \(\frac{4!}{2} = 12\) permutations of ``rook''.
+}
+
+\begin{rem}
+	Notice that we have two instances of the letter `o'. In the original string, we can order the `o' letters in two ways -- \textit{o\textsubscript{1}} comes first in the string, and \textit{o\textsubscript{2}} second, or \textit{o\textsubscript{2}} comes first and \textit{o\textsubscript{1}} second. This ordering is what we are dividing out, since each of these different orderings of \textit{o\textsubscript{1}} and \textit{o\textsubscript{2}} yields the same string.
+\end{rem}
+
+\exsol{
+	Now consider the string ``ooopp''. How many permutations can we make of this string?
+}{
+	Recall the idea of dividing out the number of orderings of each repeated letter. We group those duplicate strings together, and count that as one unique permutation. We have 3 `o' letters, and 2 `p' letters. There are 5 total letters, so we have \(\frac{5!}{3!2!}\) permutations.
+	
+	Let's examine one uniquely defined permutation, ``opopo''. We know that \textit{op\textsubscript{1}op\textsubscript{2}o} is the same as \textit{op\textsubscript{2}op\textsubscript{1}o}. But now we have three instances of `o'. For each of the previous orderings, we have \textit{o\textsubscript{1}po\textsubscript{2}po\textsubscript{3}}, \textit{o\textsubscript{1}po\textsubscript{3}po\textsubscript{2}}, \textit{o\textsubscript{2}po\textsubscript{1}po\textsubscript{3}}, \textit{o\textsubscript{2}po\textsubscript{3}po\textsubscript{1}}, \textit{o\textsubscript{3}po\textsubscript{1}po\textsubscript{2}}, \textit{o\textsubscript{3}po\textsubscript{2}po\textsubscript{1}}. So by the multiplication rule, we have \(2 \times 6 = 2! \times 3!\) different ``orderings'' of the same word. So for each permutation of ``ooopp'', we can group \(2! \times 3! = 12\) of those permutations into the same string. So we divide out this amount from the entire permutation.
+}
+
 \begin{defn}[\(r\)-Permutation\index{Combinatorics!r-Permutations}]
-	\textbf{Ordered} arrangements of \(r\) elements in a set of size \(n\). The total amount of \(r\)-permutations is denoted and equals \[P(n,r) = \frac{n!}{(n-r)!}\]
+	\textbf{Ordered} arrangements of \(r\) elements from a set of size \(n\). The total amount of \(r\)-permutations is denoted, and equals, \[P(n,r) = \frac{n!}{(n-r)!}\]
 \end{defn}
+
+Why does this formula work? Well, use our previous definition of a permutation to permute a set of size \(n\). Then, consider our \(r\) elements as unique letters in a string, and consider the other \(n-r\) elements as the same letter. Then use the previous idea to conclude that there are \(\frac{n!}{(n-r)!}\) permutations.
+
+\begin{rem}
+	In the previous paragraph, we gave a \textit{combinatorial argument}.
+\end{rem}
 
 \exsol{
 	We are a combinatorics photographer. A group of 7 students walked into our office asking for all different possible pictures of them with only 3 people. Since we charge per-photo, how many such photos will we take?
@@ -83,8 +147,12 @@ we applied the mult rule to the previous example?
 }
 
 \begin{defn}[\(r\)-Combinations\index{Combinatorics!Combinations}]
-	(or just \textit{Combinations}) \textbf{Unordered} arrangements of \(r\) elements in a set of size \(n\). Alternatively, it is the number of \(r\)-sized subsets of a \(n\)-sized set. The total amount of combinations is denoted and equals \[C(n,r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}\]
+	(or just \textit{Combinations}) \textbf{Unordered} arrangements of \(r\) elements from a set of size \(n\). Alternatively, it is the number of \(r\)-sized subsets of a \(n\)-sized set. The total amount of combinations is denoted and equals \[C(n,r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}\]
 \end{defn}
+
+\begin{rem}
+	\(\binom{n}{r}\) is often called a \textit{binomial coefficient}.
+\end{rem}
 
 \exsol{
 	How many student committees of size 3 can we make from a student population of 7?
@@ -95,11 +163,24 @@ we applied the mult rule to the previous example?
 }
 
 \begin{rem}
-	The previous example shows the relationship between permutations and combinations. % todo
+	The previous example shows the relationship between permutations and combinations by showing an easy-to-abstract combinatorial argument.
 \end{rem}
 
-% todo
-A mini-discussion on the differences between ordering and replacement.
+There are slight differences between the notion of \textit{with replacement} and \textit{without replacement}. In the former, one would sample a set, record their observation, and put their sample back and keep going. In the latter, one would sample a set, record their observation, \textbf{not} put the sample back, and continue. Keeping this difference in mind will help you tremendously in choosing the correct counting technique to solve a given problem.
+
+\exsol{
+	\begin{enumerate}
+		\item How many passwords of length 10 can we create if we can only use lowercase English characters?
+		
+		\item What if we are not allowed to use the same character more than once?
+	\end{enumerate}
+}{
+	In the first problem, we can write out 10 slots with 26 options per slot. The multiplication rule tells us we have \(26^{10}\) possible passwords.
+	
+	In the second problem, we cannot re-use characters. So we choose the first character (26 options), then choose the second character (25 options -- we cannot use the first chosen character again!), and keep going. This gives us \(26 \times 25 \times \cdots \times 17 = \frac{26!}{(26-10)!}\) possible passwords.
+	
+	In the first problem, we are allowed to \textit{re-use} each character -- we sample characters \textit{with replacement}. In the second, we are not -- \textit{without replacement}.
+}
 
 \begin{figure}[H]
 	\centering
@@ -117,27 +198,328 @@ A mini-discussion on the differences between ordering and replacement.
 	For explanation on unordered sampling with replacement, \href{https://www.probabilitycourse.com/chapter2/2_1_4_unordered_with_replacement.php}{see here}.
 \end{rem}
 
-\section{The Inclusion-Exclusion Principle}
+\begin{defn}[Combinatorial Argument\index{Combinatorics!Combinatorial Argument}]
+	A counting proof that typically shows a cominatorial identity (an equality) by providing two separate interpretations 
+\end{defn}
 
-\begin{thm}[The Inclusion-Exclusion Principle]
+A combinatorial argument aims to show that \(X = Y\) typically by:
+\begin{enumerate}
+	\item Finding a counting problem that can be solved in at least two ways
+	\item Explaining that counting via \(X\) will solve the problem
+	\item Explaining that counting via \(Y\) will also solve the problem
+	\item Concluding that, since both ways solve the same problem, the solutions are equal
+\end{enumerate}
+
+\exproof{
+	Use a cominatorial argument to show \[2^n = \binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{n} = \sum_{i=0}^{n} \binom{n}{i}\]
+}{
+	Consider the problem of counting the number of bit-strings of length \(n\).
 	
+	We can solve this problem one way by writing out \(n\) slots and for each slot choosing one of two options: \(\{0,1\}\). The multiplication rule tells us this yields \(2^n\) bit-strings.
+	
+	We can also solve this problem by counting the number of bit-strings that contain zero 1s, one 1, two 1s, three 1s, all the way to \(n\) 1s. This indeed counts all of the bit-strings. There are \(\binom{n}{0}\) bit-strings of length \(n\) with zero 1s. There are \(\binom{n}{1}\) bit-strings of length \(n\) with one 1. Et cetera, there are \(\binom{n}{n}\) bit-strings of length \(n\) with \(n\) 1s. The denominator in each binomial represents the number of slots in the string we are selecting to be a 1. Each of these groups are disjoint, so the total number of bit-strings is their sum: \(\binom{n}{0} + \binom{n}{1} + \cdots + \binom{n}{n}\).
+	
+	Both counting techniques solve the same problem, so they must be equivalent. Thus \(2^n = \sum_{i=0}^{n} \binom{n}{i}\).
+}
+
+\begin{defn}[Algebraic Argument\index{Combinatorics!Algebraic Argument}]
+	A proof that argues the correctness of (typically) a combinatorial identity using algebra.
+\end{defn}
+
+\exproof{
+	Show that \[\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}\]
+}{
+	\begin{align*}
+	\binom{n-1}{k-1} + \binom{n-1}{k} &= \frac{(n-1)!}{(k-1)!(n-1-(k-1))!} + \frac{(n-1)!}{k!(n-1-k)!} \\
+	&= \frac{(n-1)!}{(k-1)!(n-k)!} + \frac{(n-1)!}{k!(n-k-1)!} \\
+	&= \frac{(n-1)!}{(k-1)!(n-k)!}\cdot\frac{k}{k} + \frac{(n-1)!}{k!(n-k-1)!}\cdot\frac{n-k}{n-k} \\
+	&= \frac{(n-1)!k + (n-1)!(n-k)}{k!(n-k)!} \\
+	&= \frac{(n-1)!(k + (n-k))}{k!(n-k)!} \\
+	&= \frac{(n-1)!(n)}{k!(n-k)!} \\
+	&= \frac{n!}{k!(n-k)!} = \binom{n}{k}
+	\end{align*}
+}
+
+The previous example can be shown using a combinatorial argument, however the reader should try this on their own. Usually both argument techniques can show a counting-type identity, however often one technique is better than the other.
+
+\exproof{
+	Explain why \(\binom{n}{0} = \binom{n}{n} = 1\).
+}{
+	We will first show a combinatorial argument, followed by an algebraic argument.
+	
+	Consider the \textit{meaning} of the binomial coefficient. \(\binom{n}{0}\) means we are choosing 0 elements out of a set of size \(n\). How many ways can we do this? 1 way -- we just pick nothing and leave. Now consider \(\binom{n}{n}\), choosing \(n\) elements out of a set of size \(n\). How many ways can we do this? 1 way -- pull out the entire set (unordered!) and leave. Notice that both outcomes are the same, so they are equal.
+	
+	Alternatively, consider that \(\binom{n}{0} = \frac{n!}{0!(n-0)!} = \frac{n!}{n!} = 1 = \frac{n!}{n!} = \frac{n!}{n!0!} = \frac{n!}{n!(n-n)!} = \binom{n}{n}\)
+}
+
+\begin{thm}[The Binomial Theorem\index{Combinatorics!Binomial Theorem}]
+	For \(n \in \N\), \[(x+y)^n = \binom{n}{0}x^n + \binom{n}{1}n^{n-1}y + \binom{n}{2}x^{n-2}y^2 + \cdots + \binom{n}{n-1}xy^{n-1} + \binom{n}{n}y^n\] \[= \sum_{i=0}^{n} \binom{n}{i} x^{n-i}y^i\]
 \end{thm}
 
+\begin{proof}
+	We offer a quick proof by induction on \(n\). Consider \(n=0\), then \((x+y)^0 = 1\), and \(\sum_{i=0}^{0} \binom{n}{i} x^{n-i}y^i = \binom{0}{0} x^0y^0 = 1\), so they are the same.
+	
+	Let our hypothesis be for \(n>0\), \((x+y)^{n-1} = \sum_{i=0}^{n-1} \binom{n-1}{i} x^{n-1-i}y^i\).
+	
+	The step is a bit tricky, so hold on tight. Notice when we use our identity \(\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}\).
+	\begin{align*}
+	\sum_{i=0}^{n} \binom{n}{i} x^{n-i}y^i &= \binom{n}{0} x^n + \sum_{i=1}^{n-1} \binom{n}{i} x^{n-i}y^i + \binom{n}{n} y^n \\
+	&= x^n + ( \binom{n}{1}x^{n-1}y + \cdots + \binom{n}{n-1}xy^{n-1} ) + y^n \\
+	&= x^n + ( (\binom{n-1}{0} + \binom{n-1}{1})x^{n-1}y + \\
+	& \cdots + (\binom{n-1}{n-2} + \binom{n-1}{n-1})xy^{n-1} ) + y^n \\
+	&= x^n + ( (\binom{n-1}{0}x^{n-1}y + \binom{n-1}{1}x^{n-1}y) + \\
+	& \cdots + (\binom{n-1}{n-2}xy^{n-1} + \binom{n-1}{n-1}xy^{n-1}) ) + y^n \\
+	&= x^n + (\sum_{i=0}^{n-2} \binom{n-1}{i} x^{n-1-i}y^{i+1}) \\
+	& + (\sum_{i=1}^{n-1} \binom{n-1}{i} x^{n-1-i+1}y^{i}) + y^n \\
+	&= x^n + y(\sum_{i=0}^{n-2} \binom{n-1}{i} x^{n-1-i}y^{i}) \\
+	& + x(\sum_{i=1}^{n-1} \binom{n-1}{i} x^{n-1-i}y^{i}) + y^n \\
+	&\stackrel{\text{IH}}{=} x^n + y((x+y)^{n-1} - \binom{n-1}{n-1}y^{n-1}) \\
+	& + x((x+y)^{n-1} - \binom{n-1}{0}x^{n-1}) + y^n \\
+	&= x^n + y(x+y)^{n-1} - y^{n} + x(x+y)^{n-1} - x^{n} + y^n \\
+	&= y(x+y)^{n-1} + x(x+y)^{n-1} \\
+	&= (y+x)(x+y)^{n-1} = (x+y)(x+y)^{n-1} \\
+	&= (x+y)^n \\
+	\end{align*}
+\end{proof}
 
+\begin{rem}
+	With this theorem, we can prove that \(2^n = \sum_{i=0}^{n} \binom{n}{i}\). \textit{Hint}: set explicit values for \(x\) and \(y\).
+\end{rem}
+
+\exsol{
+	Expand \((x-2)^3\).
+}{
+	\((x-2)^3 = (x+(-2))^3 = \binom{3}{0}x^3(-2)^0 + \binom{3}{1}x^2(-2)^1 + \binom{3}{2}x^1(-2)^2 + \binom{3}{3}x^0(-2)^3 = x^3 - 6x^2 + 12x - 8\)
+}
+
+The Binomial Theorem is helpful in computing the coefficients in a binomial expansion, as seen above. However, remembering the formula may be a hassle. This is where the idea of \textit{Pascal's Triangle} comes into play. We will use the previously-shown identity \(\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}\) to help us explain the triangle.
+
+\begin{defn}[Pascal's Triangle\index{Combinatorics!Pascal's Triangle}]
+	Construct a discrete triangle of numbers as follows:
+	\begin{itemize}
+		\item The zero\textsuperscript{th} row is the single number 1
+		\item The \(n\)\textsuperscript{th} row consists of \(n\) numbers, where the first and last numbers are a 1, and every in-between number is the sum of the two adjacent numbers in the row above it
+	\end{itemize}
+\end{defn}
+
+The first 5 rows look like this:
+\begin{center}
+	\begin{tabular}{ccccccccc}
+		&&&& 1 &&&& \\
+		&&& 1 && 1 &&& \\
+		&& 1 && 2 && 1 && \\
+		& 1 && 3 && 3 && 1 & \\
+		1 && 4 && 6 && 4 && 1 \\
+	\end{tabular}
+\end{center}
+
+A keen eye will notice that each number can be expressed as a binomial coefficient dependent on its row and column position:
+\begin{center}
+	\begin{tabular}{ccccccccc}
+		&&&& \(\binom{0}{0}\) &&&& \\
+		&&& \(\binom{1}{0}\) && \(\binom{1}{1}\) &&& \\
+		&& \(\binom{2}{0}\) && \(\binom{2}{1}\) && \(\binom{2}{2}\) && \\
+		& \(\binom{3}{0}\) && \(\binom{3}{1}\) && \(\binom{3}{2}\) && \(\binom{3}{3}\) & \\
+		\(\binom{4}{0}\) && \(\binom{4}{1}\) && \(\binom{4}{2}\) && \(\binom{4}{3}\) && \(\binom{4}{4}\) \\
+	\end{tabular}
+\end{center}
+
+This pattern is explained by our identity \(\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}\). Think about what this identity says -- the current binomial coefficient is the sum of two adjacent binomial coefficients in the row above it. To see this, write Pascal's Triangle as a triangular matrix, let the rows be \(n\) and columns be \(k\), and let the first column be \(\binom{n}{0} = 1\) and the diagonal be \(\binom{n}{n} = 1\):
+\begin{center}
+	\bgroup
+	\renewcommand{\arraystretch}{1.5}
+	\begin{tabular}{ccccc}
+		\(\binom{0}{0}\) & & & & \\
+		\(\binom{1}{0}\) & \(\binom{1}{1}\) & & & \\
+		\(\binom{2}{0}\) & \(\binom{2}{1}\) & \(\binom{2}{2}\) & & \\
+		\(\binom{3}{0}\) & \(\binom{3}{1}\) & \(\binom{3}{2}\) & \(\binom{3}{3}\) & \\
+		\(\binom{4}{0}\) & \(\binom{4}{1}\) & \(\binom{4}{2}\) & \(\binom{4}{3}\) & \(\binom{4}{4}\) \\
+	\end{tabular}
+	\hspace{0.5cm}
+	\(=\)
+	\hspace{0.5cm}
+	\begin{tabular}{ccccc}
+		1 & & & & \\
+		1 & 1 & & & \\
+		1 & 2 & 1 & & \\
+		1 & 3 & 3 & 1 & \\
+		1 & 4 & 6 & 4 & 1 \\
+	\end{tabular}
+	\egroup
+\end{center}
+
+\begin{thm}[The Multinomial Theorem\index{Combinatorics!Multinomial Theorem}]
+	\[(x_1+x_2+\cdots+x_k)^n = \sum_{\substack{i_1, i_2, \cdots, i_k \geq 0 \\ i_1 + i_2 + \cdots + i_k = n}}^{n} \frac{n!}{i_1! i_2! \cdots i_k!} x_1^{i_1} x_2^{i_2} \cdots x_k^{i_k}\]
+\end{thm}
+
+We omit the proof on this one, however it is essentially a generalization of the proof for the Binomial Theorem.
+
+\exsol{
+	Expand \((x-1+y)^3\).
+}{
+	Our exponent possibilities are \((0,0,3), (0,3,0), (3,0,0),\\ (1,2,0), (1,0,2), (2,1,0), (0,1,2), (0,2,1), (2,0,1), (1,1,1)\). Thus
+	
+	\((x-1+y)^3
+	= \frac{3!}{0!0!3!}x^0(-1)^0y^3
+	+ \frac{3!}{0!3!0!}x^0(-1)^3y^0
+	+ \frac{3!}{3!0!0!}x^3(-1)^0y^0
+	+ \frac{3!}{1!2!0!}x^1(-1)^2y^0
+	+ \frac{3!}{1!0!2!}x^1(-1)^0y^2
+	+ \frac{3!}{2!1!0!}x^2(-1)^1y^0
+	+ \frac{3!}{0!1!2!}x^0(-1)^1y^2
+	+ \frac{3!}{0!2!1!}x^0(-1)^2y^1
+	+ \frac{3!}{2!0!1!}x^2(-1)^0y^1
+	+ \frac{3!}{1!1!1!}x^1(-1)^1y^1\)
+	
+	\(= y^3 -1 +x^3 +3x + 3xy^2 -3x^2 -3y^2 + 3y + 3x^2y -6xy\)
+}
+
+\section{The Inclusion-Exclusion Principle}
+
+Combinatorics deals with counting things. Often we care about counting sizes of sets. Sometimes even when sets overlap, as in a set intersection. The Inclusion-Exclusion Principle helps us tackle situations when we know \textit{almost} all information about two sets.
+
+\begin{example}
+	Suppose we have 30 students in a class. 10 of them received an A on the first assignment, and 15 of them received an A on the second assignment. 13 students received an A on \textit{both} assignments. How many students have received \textit{at least one} A?
+	
+	We can visualize this by drawing a Venn-diagram.
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\draw (0,0) circle (1.5cm) node[left] {\(A\)};
+		\draw (0:2cm) circle (1.5cm) node[right] {\(B\)};
+		
+		\end{tikzpicture}
+	\end{center}
+	
+	We have \(A = \) the students who received an A on the first assignment, and \(B = \) the students who received an A on the second. Then \(|A| = 10\), \(|B| = 15\), and their intersection \(|A \cap B| = 13\). But we are interested in the union -- how can we calculate it?
+	
+	Well, from the Venn-diagram, we want to find the size of the entire diagram shaded in. How can we use what we know to get \textit{close} to this? Let's try adding \(|A| + |B|\) -- what happens?
+	
+	\begin{center}
+		\begin{tikzpicture}
+		\fill[red, opacity=0.5] (0,0) circle (1.5cm);
+		\draw (0,0) circle (1.5cm) node[left] {\(A\)};
+		\draw (0:2cm) node  {\(+\)};
+		\fill[blue, opacity=0.5] (0:4cm) circle (1.5cm);
+		\draw (0:4cm) circle (1.5cm) node[right] {\(B\)};
+		\begin{scope}
+			\clip (0,0) circle (1.5cm);
+			\fill[purple, opacity=0.5] (0:2cm) circle (1.5cm);
+		\end{scope}
+		\begin{scope}
+			\clip (0:4cm) circle (1.5cm);
+			\fill[purple, opacity=0.5] (0:2cm) circle (1.5cm);
+		\end{scope}
+		\end{tikzpicture}
+	\end{center}
+	
+	Since \(A \cap B \subseteq A\) and \(A \cap B \subseteq B\), then when we add \(|A| + |B|\) we get the entire shaded Venn-diagram \(A \cup B\)! \(\dots\) plus an extra copy of the middle bit \(A \cap B\) \(\dots\).
+	
+	So just subtract off that extra copy! Then we get \[|A \cup B| = |A| + |B| - |A \cap B|\]
+	Now plug in and find that the number of students who received an A is \[10 + 15 - 13 = 12\]
+\end{example}
+
+The Inclusion-Exclusion Principle is precisely a generalization of this exact situation. The idea is that we \textit{include} some sets, while we \textit{exclude} some other sets.
+
+\begin{thm}[The Inclusion-Exclusion Principle]
+	The size of the union of \(n\) sets equals
+	\begin{enumerate}
+		\item the inclusion of the sizes of every set
+		\item the exclusion of the sizes of every pairwise set intersection
+		\item the inclusion of the sizes of every triple-wise set intersection
+		\item \textit{and so on}
+	\end{enumerate}
+	
+	More abstractly, for the sets \(A_1,A_2,\cdots,A_n\) we have \[|\bigcup_{i=1}^{n} A_i| =\]\[\sum_{1 \leq i \leq n} |A_i| - \sum_{1 \leq i,j \leq n} |A_i \cap A_j| + \sum_{1 \leq i,j,k \leq n} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n-1}|A_1 \cap \cdots \cap A_n|\]
+\end{thm}
+
+\begin{rem}
+	The proof of this theorem is essentially the 2-set case but generalized.
+\end{rem}
+
+\exsol{
+	Calculate the number of students who received \textit{below} an A in all of their first three assignments, given the following information:
+	\begin{itemize}
+		\item There are 30 students in the class
+		\item 8 received an A on assignment 1
+		\item 8 received an A on assignment 2
+		\item 8 received an A on assignment 3
+		\item 6 received an A on assignment 1 and 2
+		\item 2 received an A on assignment 1 and 3
+		\item 4 received an A on assignment 2 and 3
+		\item 1 received an A on all three assignments
+	\end{itemize}
+}{
+	We apply The Inclusion-Exclusion Principle to first calculate the number of people who received an A in any of the first three assignments.
+	\begin{align*}
+	|A_1 \cup A_2 \cup A_3| &= |A_1| + |A_2| + |A_3| \\
+	& - |A_1 \cap A_2| - |A_1  \cap A_3| - |A_2 \cap A_3| \\
+	& + |A_1 \cap A_2 \cap A_3| \\
+	&= 8+8+8-6-2-4+1 = 13
+	\end{align*}
+	
+	Then the number of people who \textit{did not} get an A is just the total number of students minus those who received an A. \(|(A_1 \cup A_2 \cup A_3)^{c}| = 30 - 13 = 17\)
+}
 
 \section{Pigeonhole Principle}
 
+Let us imagine a situation where we have 6 books and 4 bookshelves. Try placing the books on the bookshelves such that each bookshelf only has one book.
+
+\begin{center}
+	\textit{Go ahead, I'll wait.}
+\end{center}
+
+You can try and try and try, but to no avail. You cannot arrange the books on the shelves such that each shelf contains only one book! Or, equivalently, you know that at least one bookshelf holds more than one book. We formalize this idea as the Pigeonhole Principle -- the books become pigeons and the bookshelves become pigeonholes.
+
 \begin{thm}[The Pigeonhole Principle]
-	
+	If \(n\) pigeons are placed into \(k\) pigeonholes, and \(n > k\), then at least one pigeonhole contains more than one pigeon.
 \end{thm}
 
+\begin{rem}
+	This theorem is somewhat intuitive. Start by placing one pigeon into each hole, then you will have some leftover pigeons. Specifically, you are left with \(n-k\) pigeons. Since \(n > k\) then \(n-k > 0\). So your leftover pigeons have to go somewhere, but all pigeonholes already have a pigeon!
+\end{rem}
+
+\begin{proof}
+	By contraposition, let all \(k\) containers hold \(\leq 1\) pigeon. Then we add up the total number of pigeons. Denote \(H_i\) to be the number of pigeons in pigeonhole \(i\). The total number of pigeons is \(n = \sum_{i=1}^{k} H_i\). But \(H_i \leq 1\), so \(n = \sum_{i=1}^{k} H_i \leq \sum_{i=1}^{k} 1 = (k-1+1) = k\). So \(n \leq k\).
+\end{proof}
+
+\exsol{
+	Your birth-month is the month in which you were born. There are 12 birth-months. How many people do we need to gather before we are guaranteed that two of them share a birth-month?
+}{
+	We use the Pigeonhole Principle. The pigeons are the people we need to gather, and the pigeonholes are the birth-months. Then we need the number of people \(n > 12\). So we need at least 13 people.
+}
+
 \begin{thm}[Generalized Pigeonhole Principle]
-	
+	If \(n\) objects are placed into \(k\) boxes, then there is at least one box containing at least \(\ceil{\frac{n}{k}}\) objects.
 \end{thm}
+
+\begin{proof}
+	By contradiction, assume all \(k\) boxes contain \(< \ceil{\frac{n}{k}}\) objects. This is the same as saying that all boxes contain \(\leq \ceil{\frac{n}{k}}-1\) objects. Denote the number of objects in each box \(B_i\). Then the total number of objects is \(n = \sum_{i=1}^{k} B_i \leq \sum_{i=1}^{k} (\ceil{\frac{n}{k}} - 1) = (\ceil{\frac{n}{k}} - 1)(k-1+1) = k(\ceil{\frac{n}{k}} - 1) < k(\frac{n}{k} + 1 - 1) = n\). So \(n < n\), which is a contradiction.
+\end{proof}
+
+\begin{rem}
+	Suppose you place \(n\) objects into \(k\) boxes one-by-one, wrapping around to the first box once you reach the end. Then if \(n > k\) we must have that the first box contains more than \(\frac{n}{k}\) objects -- all we have done is grouped the objects into \(k\) groups. Then the ceiling \(\ceil{\frac{n}{k}}\) corresponds to that \textit{plus one} as in the original Pigeonhole Principle.
+\end{rem}
+
+\exsol{
+	Suppose we have a standard deck of cards -- 13 ranks, 4 suits, which yields \(13 \times 4 = 52\) cards. How many cards must we draw to guarantee that our hand contains at least three cards of all the same suit?
+}{
+	Intuitively, we can try to ``minimize'' the number of like-suit cards we draw. There are four suits, so first pick 4 cards each with a different suit. Then do it again. Then the suit of the next card will already have been chosen twice, which means we will have three cards of the same suit. This is \(2 \times 4 + 1 = 9\) cards.
+	
+	This is not rigorous though! It might make intuitive sense, but we should apply our proven theorems. In this case, we will use the Generalized Pigeonhole Principle. Let the number of cards we draw be the objects, and the suits be the boxes. Then we need one of our boxes to contain at least 3 objects. So that box contains at least \(\ceil{\frac{n}{4}} = 3\) objects. Then the smallest \(n\) that satisfies this equation is \(n=9\), because \(\ceil{\frac{9}{4}} = \ceil{2.25} = 3\) but \(\ceil{\frac{8}{4}} = \ceil{2} = 2 \neq 3\).
+}
+
+\exsol{
+	Assume the same deck of cards as before. How many cards must we draw to guarantee that our hand contains cards from all four suits?
+}{
+	Intuitively, we can try to ``minimize'' the number of suits we draw, until we are forced to draw the final fourth suit. This means we would draw every card from the first three suits, and then the next card we pick must be from the fourth suit. This yields \(13 \times 3 + 1 = 40\) cards.
+	
+	Formally, as in the Generalized Pigeonhole Principle, let the objects be the number of cards we draw, and the holes be the \textit{ranks}. Then we need one of our boxes to contain at least four objects (each a different suit of that box's rank). So that box contains at least \(\ceil{\frac{n}{13}} = 4\) objects. Then the smallest \(n\) that satisfies this equation is \(n=40\), because \(\ceil{\frac{40}{13}} = \ceil{3.0769\cdots} = 4\) but \(\ceil{\frac{39}{13}} = \ceil{3} = 3 \neq 4\).
+}
 
 \section{Discrete Probability}
 
-Intro text here
+Bottom text here
 
 \begin{defn}[Probability\index{Probability}]
 	The likelihood (percent chance) that an event occurs. Probabilities of every possible event should add to 1
@@ -193,6 +575,10 @@ Sometimes students confuse \textit{expected value} with \textit{average}. First,
 	
 \end{defn}
 
+% Uniform distribution -- flat line / dice roll / coin flip
+
+% Standard distribution -- bell curve
+
 \section{Summary}
 
 \begin{itemize}
@@ -204,9 +590,25 @@ Sometimes students confuse \textit{expected value} with \textit{average}. First,
 \section{Practice}
 
 \begin{enumerate}
-	\item q
-	\item 2 of 20 light-bulbs are defective. You select 2 light-bulbs at random. What is the probability that neither bulb selected is defective?
-	% (18/20) * (17/19)
-	\item q
+	\item counting
+	\item counting
+	\item counting
+	\item counting
+	\item Show that \(\binom{n}{k} =  \binom{n}{n-k}\) using a cominatorial argument and an algebraic argument.
+	\item Use the Binomial Theorem to show that \(2^0\binom{n}{0} + 2^1\binom{n}{1} + \cdots + 2^n\binom{n}{n} = 3^n\). Use this idea to abstract out and show that \(\sum_{i=0}^{n} r^i \binom{n}{i} = (r+1)^n\) for any \(n \in \Z^+\).
+	\item combinatorial argument
+	\item algebraic argument
+	\item either or
+	\item inclusion exclusion
+	\item inclusion exclusion, harder
+	\item PHP
+	\item PHP
+	\item GPHP
+	\item GPHP
+	\item 2 of 20 light-bulbs are defective. You select 2 light-bulbs at random. What is the probability that neither bulb selected is defective? % (18/20) * (17/19)
+	\item probability involving combinatorics
+	\item Rand Var
+	\item Rand Var
+	\item ONE MORE???
 \end{enumerate}
 \end{document}

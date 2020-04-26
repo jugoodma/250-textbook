@@ -186,7 +186,9 @@ Basically, functions give us a \textit{mapping} between sets -- a relation! For 
 
 Every function is a relation, but not every relation is a function. For any function, you can always write out the \((x,f(x))\) pairings -- this is by definition a relation. On the other hand, the above examples show that not every relation is a function.
 
-The above relations are contrived examples. Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \mapsto R\]
+The above relations are contrived examples. Typically we define functions on sets of numbers (we will restrict it to subsets of \(\R\)). We use the following notation to denote a function \(f\): \[f(x) = \text{some rules}\] and we pair the input/output sets as follows: \[f : D \rightarrow R\]
+
+We might also notate functions by saying \(f : D \rightarrow R\) given by \(f : d \mapsto r\).
 
 \begin{defn}[Domain\index{Function!Domain}]
 	The set of inputs to a function
@@ -203,7 +205,7 @@ The above relations are contrived examples. Typically we define functions on set
 Let's look at some basic examples. First are some graphs of functions. Hopefully you learned how to plot 2-dimensional functions in previous math classes.
 
 \begin{example}
-	Here is a graph of the function \(f(x) = x\) where \(f : \R \mapsto \R\)
+	Here is a graph of the function \(f(x) = x\) where \(f : \R \rightarrow \R\)
 	
 	\begin{center}
 		\begin{tikzpicture}
@@ -226,7 +228,7 @@ Let's look at some basic examples. First are some graphs of functions. Hopefully
 \end{example}
 
 \begin{example}
-	Here is a graph of the function \[f(x) = \begin{cases} x, & x > 2 \\ 1, & -2 \leq x \leq 2 \\ -x, & x < -2 \end{cases}\] where \(f : \R \mapsto \R\)
+	Here is a graph of the function \[f(x) = \begin{cases} x, & x > 2 \\ 1, & -2 \leq x \leq 2 \\ -x, & x < -2 \end{cases}\] where \(f : \R \rightarrow \R\)
 	
 	\begin{center}
 		\begin{tikzpicture}
@@ -264,11 +266,11 @@ You should check both of these requirements. For the first, recall that to dis-p
 	Which of the following are functions? For the non-functions, change them such that they become functions.
 	
 	\begin{enumerate}[label=(\alph*)]
-		\item \(a(x) = x\) where \(a : \Z \mapsto \R\)
-		\item \(b(x) = \sqrt{x}\) where \(b : \Z \mapsto \R\)
-		\item \(c(y) = \log_2(y)\) where \(c : \N \mapsto \Z\)
-		\item \(d(y) = y^2\) where \(d : \Z \mapsto \N\)
-		\item \(e(z) = \begin{cases} z + 1 & z \geq 0 \\ z - 1 & z \leq 0 \end{cases}\) where \(e : \R \mapsto \Z\)
+		\item \(a(x) = x\) where \(a : \Z \rightarrow \R\)
+		\item \(b(x) = \sqrt{x}\) where \(b : \Z \rightarrow \R\)
+		\item \(c(y) = \log_2(y)\) where \(c : \N \rightarrow \Z\)
+		\item \(d(y) = y^2\) where \(d : \Z \rightarrow \N\)
+		\item \(e(z) = \begin{cases} z + 1 & z \geq 0 \\ z - 1 & z \leq 0 \end{cases}\) where \(e : \R \rightarrow \Z\)
 	\end{enumerate}
 }{
 	\begin{enumerate}[label=(\alph*)]
@@ -370,11 +372,11 @@ We can represent a function by drawing ovals representing the domain and range, 
 	\begin{tabular}{lc|c|c|c|c}
 		& & func.\ & inj.\ & surj.\ & bij.\ \\ 
 		\hline
-		\(f(x) = x\) & \(f : \N \mapsto \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-		\(g(x) = x\) & \(g : \Z \mapsto \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-		\(h(x) = x^2\) & \(h : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-		\(i(x) = \floor{x^2}\) & \(i : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-		\(j(x) = x^3-x\) & \(j : \Z \mapsto \R\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(f(x) = x\) & \(f : \N \rightarrow \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(g(x) = x\) & \(g : \Z \rightarrow \Z\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(h(x) = x^2\) & \(h : \R \rightarrow \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(i(x) = \floor{x^2}\) & \(i : \R \rightarrow \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(j(x) = x^3-x\) & \(j : \Z \rightarrow \R\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
 	\end{tabular}
 	\end{center}
 }{
@@ -384,16 +386,46 @@ We can represent a function by drawing ovals representing the domain and range, 
 	\begin{tabular}{lc|c|c|c|c}
 		& & func.\ & inj.\ & surj.\ & bij.\ \\ 
 		\hline
-		\(f(x) = x\) & \(f : \N \mapsto \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) \\
-		\(g(x) = x\) & \(g : \Z \mapsto \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) \\
-		\(h(x) = x^2\) & \(h : \R \mapsto \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
-		\(i(x) = \floor{x^2}\) & \(i : \R \mapsto \N\) & \(\blacklozenge\) & \(\lozenge\) & \(\blacklozenge\) & \(\lozenge\) \\
-		\(j(x) = x^3-x\) & \(j : \Z \mapsto \R\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(f(x) = x\) & \(f : \N \rightarrow \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(g(x) = x\) & \(g : \Z \rightarrow \Z\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) & \(\blacklozenge\) \\
+		\(h(x) = x^2\) & \(h : \R \rightarrow \N\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
+		\(i(x) = \floor{x^2}\) & \(i : \R \rightarrow \N\) & \(\blacklozenge\) & \(\lozenge\) & \(\blacklozenge\) & \(\lozenge\) \\
+		\(j(x) = x^3-x\) & \(j : \Z \rightarrow \R\) & \(\blacklozenge\) & \(\lozenge\) & \(\lozenge\) & \(\lozenge\) \\
 	\end{tabular}
 	\end{center}
 }
 
 Hash tables are an important application of functions in computer science. A hash table is a data structure; it is a fancy array. A hash table has an internal array, and a hash function. This hash function maps table elements (some set of objects) to indices (\(\N\)). The modulus of the hash function output, with respect to the table size, is taken as the input object's key. This is where the object is stored in the table. Ideally, you want your hash function to be an injection on the set of indices.
+
+\begin{thm}
+	A bijection \(f : A \rightarrow B\) is invertible, and the inverse, denoted \(f^{-1} : B \rightarrow A\), is also a bijection.
+\end{thm}
+
+\begin{proof}
+	First note that \textit{inverse} simply means that \(f^{-1}(f(a)) = a\). With this in mind, then we note that \(f^{-1}(b) = a\) such that \(f(a) = b\). Then since \(f\) is a bijection, \(b\) is the one-and-only output that \(a\) maps to. Then \(a\) is the one-and-only output that \(b\) maps to in \(f^{-1}\). So it is a bijection.
+	
+	We can show this more formally by showing \(f^{-1}\) is an injection and a surjection.
+	
+	\textbf{1-1}: Let \(f^{-1}(b_1) = f^{-1}(b_2)\), then \(f(f^{-1}(b_1)) = f(f^{-1}(b_2)) \Rightarrow b_1 = b_2\).
+	
+	\textbf{onto}: Let \(f^{-1}(b) = a\), then \(b = f(a)\) which exists because \(f\) is a bijection.
+	
+	You should prove on your own that indeed \(f^{-1}\) is a function!
+\end{proof}
+
+\begin{thm}
+	The composition of bijective functions is a bijection.
+\end{thm}
+
+\begin{proof}
+	Let \(f,g\) be the bijections \(f : A \mapsto B\) and \(g : B \mapsto C\). Then by the previous theorem \(f,g\) have inverses which are also bijections.
+	
+	Define \(h : A \mapsto C\) given by \(h : a \mapsto g(f(a)) = (g \circ f)(a)\).
+	
+	\textbf{1-1}: Let \(h(a_1) = h(a_2)\), then \(g(f(a_1)) = g(f(a_2)) \Rightarrow f^{-1}(g^{-1}(g(f(a_1)))) = f^{-1}(g^{-1}(g(f(a_2)))) \Rightarrow a_1 = a_2\)
+	
+	\textbf{onto}: Let \(h(a) = c\), then \(g(f(a)) = c\) so \(a = f^{-1}(g^{-1}(c))\) exists.
+\end{proof}
 
 \section{Sequences}
 
@@ -477,10 +509,10 @@ Other times we will ask you to find a closed form for a sequence given in genera
 	
 	\begin{enumerate}[label=(\alph*)]
 		\item The pattern here is squares. Each sequence number is the square of its index
-		\item \(f(n) = 3(n+1)\) where \(f : \N \mapsto \Z\)
+		\item \(f(n) = 3(n+1)\) where \(f : \N \rightarrow \Z\)
 		\item Hopefully you still had the first sequence in mind -- squares modulo 10
-		\item Notice a pattern with the indices -- specifically look at the index where there is a switch. Index 1 starts the 1s, index 4 starts the 2s, index 9 starts the 3s, index 16 starts the 4s. What is the relationship between these numbers? Take the square root of the index. Then realize that square roots maintain inequalities -- \(1 = \sqrt{1} < \{\sqrt{2}, \sqrt{3}\} < \sqrt{4} = 2\), so look towards floors and ceilings to yield integers. Thus, \(f(n) = \floor{\sqrt{n}}\) where \(f : \Z^+ \mapsto \Z^+\)
-		\item This one can have multiple answers. One solution: \(f(n) = 3n-1 \Mod{11}\) (taking least positive remainder) where \(f : \Z^+ \mapsto \Z^+\). Typically if you see a somewhat circular sequence, especially if there is a zero, then consider applying a modulus. Start at the zero and look forward until the sequence reverts. In this case, we have \(0,3,6,9\) which is simply \(f(n) = 3n\). Then play around with the start point and the modulus
+		\item Notice a pattern with the indices -- specifically look at the index where there is a switch. Index 1 starts the 1s, index 4 starts the 2s, index 9 starts the 3s, index 16 starts the 4s. What is the relationship between these numbers? Take the square root of the index. Then realize that square roots maintain inequalities -- \(1 = \sqrt{1} < \{\sqrt{2}, \sqrt{3}\} < \sqrt{4} = 2\), so look towards floors and ceilings to yield integers. Thus, \(f(n) = \floor{\sqrt{n}}\) where \(f : \Z^+ \rightarrow \Z^+\)
+		\item This one can have multiple answers. One solution: \(f(n) = 3n-1 \Mod{11}\) (taking least positive remainder) where \(f : \Z^+ \rightarrow \Z^+\). Typically if you see a somewhat circular sequence, especially if there is a zero, then consider applying a modulus. Start at the zero and look forward until the sequence reverts. In this case, we have \(0,3,6,9\) which is simply \(f(n) = 3n\). Then play around with the start point and the modulus
 	\end{enumerate}
 }
 
@@ -530,16 +562,16 @@ Typically we try to understand the limiting behavior of infinite series. There a
 	\begin{enumerate}
 		\item \(\{(x,y) \in \Z^- \times \Z^+ \mid x < y\}\)
 		\item \(\{(x,y) \in \Z^+ \times \Z^- \mid x < y\}\)
-		\item \(\{(x,y) \in \R \times \R \mid y = x + 2\}\)
+		\item \(\{(x,y) \in \R   \times \R   \mid y = x + 2\}\)
 	\end{enumerate}
 	\item Why is the relation \(\{(x,y) \in \Z \times \Z \mid x \equiv y \Mod{m}\}\) \textbf{not} a function?
 	\item Determine whether the following are functions. If they are, then classify them as injective, surjective, and/or bijective.
 	\begin{enumerate}
-		\item \(f : \Z \mapsto \Z\) given by \(f(z) = z \% 37\)
-		\item \(f : \Q \mapsto \Q\) given by \(f(q) = \sqrt{q}\)
-		\item \(f : \R \mapsto \Z\) given by \(f(x) = \floor{x}\)
+		\item \(f : \Z \rightarrow \Z\) given by \(f : z \mapsto \% 37\)
+		\item \(f : \Q \rightarrow \Q\) given by \(f : q \mapsto \sqrt{q}\)
+		\item \(f : \R \rightarrow \Z\) given by \(f : x \mapsto \floor{x}\)
 	\end{enumerate}
-	\item Suppose a function \(f : X \mapsto Y\) is injective and \(h : X \mapsto X\) is bijective. Is the function \(g : X \mapsto Y\) given by \(g(x) = f(h(x))\) also injective? What if \(h\) is only surjective? What if \(h\) is only injective? % is this a stupid question?
+	\item Suppose a function \(f : X \rightarrow Y\) is injective and \(h : X \rightarrow X\) is bijective. Is the function \(g : X \rightarrow Y\) given by \(g(x) = f(h(x))\) also injective? What if \(h\) is only surjective? What if \(h\) is only injective? % is this a stupid question?
 	\item Find closed-forms, or simple rules, that describe the following sequences:
 	\begin{enumerate}
 		\item \(\{-3,-1,1,3,5,\cdots\}\) % odds, shifted back

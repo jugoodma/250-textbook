@@ -1,10 +1,5 @@
 \documentclass{book}
 
-% title stuff
-\title{Discrete Structures}
-\author{Justin Goodman}
-\date{Updated \today}
-
 % math stuff
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -295,11 +290,90 @@
 % allow align to span pages
 \allowdisplaybreaks
 
+
+
+% title stuff
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
+\makeatletter
+	\def\printtitle{{\titlefont \@title \par \par}}
+\makeatother
+\title{Discrete Structures}
+\makeatletter
+	\def\printauthor{{\large \@author}}
+\makeatother
+\author{
+	Justin Goodman \\
+	{\normalsize University of Maryland}\\
+	{\small Dept.\ Computer Science} \\
+	{\small Dept.\ Mathematics} \\
+	{\footnotesize \texttt{\href{mailto:jugoodma@umd.edu}{jugoodma@umd.edu}}}
+	%\vspace{20pt} \\
+	%Author 2 name \\
+	%Department name \\
+	%\texttt{email2@example.com}
+}
+\makeatletter
+	\def\printdate{\@date}
+\makeatother
+\date{Updated \\ \today}
+% title page code
+% stolen ;) from: https://tex.stackexchange.com/a/85989
+%\renewcommand\epigraphflush{flushright} % this is the default
+%\renewcommand\epigraphsize{\normalsize} % this is the default
+\definecolor{titlepagecolor}{cmyk}{0.00, 0.91, 0.76, 0.06} % UMD red
+
 \begin{document}
 
 \frontmatter
 
-\maketitle
+%\maketitle
+\begin{titlepage}
+	\noindent
+	\printtitle
+	\vspace{1cm}
+	\setlength\epigraphwidth{0.75\textwidth}
+	\epigraph{I always wondered why math textbooks put strange abstract art on the cover. I get it now -- it's just a prank, bro.}{\textit{Somewhere}\\\textsc{Someone}}
+	\setlength\epigraphwidth{0.325\textwidth} % 0.4 original
+	\null\vfill
+	\vspace*{1cm}
+	\noindent
+	\hfill
+	\setlength{\columnseprule}{1pt}
+	\begin{multicols}{2}
+		\begin{flushright}
+			\printauthor
+		\end{flushright}
+		\columnbreak
+		\begin{flushleft}
+			\mbox{}\\[1.15em]
+			\printdate
+		\end{flushleft}
+	\end{multicols}
+	\setlength{\columnseprule}{0pt}
+	% The following code is borrowed from: https://tex.stackexchange.com/a/86310/10898
+	\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+	
+	\coordinate (aux1) at ([xshift=0pt,yshift=-100pt]current page.north east);
+	\coordinate (aux2) at ([yshift=100pt]current page.south east);
+	\coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
+	
+	% (x:y) x degrees, y radius
+	\begin{scope}[gray!30,line width=12pt,rounded corners=12pt]
+		%\draw [black,line width=5pt] (aux1) -- ++(225:3) -- ++(240:3) -- ++(200:5) -- ++(190:10) -- ++(110:8) -- ++(75:4.5);
+		\draw (aux1) to[out=180,in=100] ++(225:3) to[out=280,in=50,bend left] ++(240:3) to[out=210,in=15] ++(200:5) to[out=190,in=-30] ++(190:10) to[out=150,in=-75,bend right] ++(110:8) to[out=80,in=270] ++(55:5);
+	\end{scope}
+	
+	\draw[titlepagecolor,line width=41pt] ([xshift=-5pt,yshift=-16.6cm]current page.north west) -- ([yshift=-10.6cm]current page.north east);
+	\draw[titlepagecolor!70,line width=30pt] ([xshift=-5pt,yshift=-18cm]current page.north west) -- ([yshift=-12cm]current page.north east);
+	\draw[titlepagecolor!40,line width=20pt] ([xshift=-5pt,yshift=-19cm]current page.north west) -- ([yshift=-13cm]current page.north east);
+	
+	\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+		\draw[shorten <= -10pt] (aux2) -- ++(225:3) coordinate[pos=0.45] (c) -- ++(-45:3.1);
+		\draw (aux2) -- (c) -- ++(135:2.5) -- ++(45:2.5) -- ++(-45:2.5) coordinate[pos=0.3] (d);   
+		\draw (d) -- +(45:1);
+	\end{scope}
+	\end{tikzpicture}
+\end{titlepage}
 
 \begin{dedication}
 	Mom, I never thought you were bad at math

@@ -15,158 +15,316 @@ Additional reading: \href{https://youtu.be/s86-Z-CbaHA}{The Banach-Tarski Parado
 
 \section{Definitions}
 
-\begin{defn}[Enumeration of a Set]
-	A specified ordering of a set
+\begin{defn}[Enumeration of a Set\index{Enumeration}]
+	A specified ordering of a set. Enumerations should be described in such a way that given a partial listing, you can always find the next element.
 \end{defn}
+
+\begin{example}
+	We could enumerate the set of natural numbers as follows: \[0,1,2,3,4,5,6,7,\cdots\]
+	We call this the \textit{natural ordering} of \(\N\). Some sets might not have a natural ordering, so we must enumerate it to provide an ordering.
+\end{example}
 
 \begin{example}
 	We could enumerate the set of integers as follows: \[0,1,-1,2,-2,3,-3,4,-4,\cdots\]
 \end{example}
 
-\begin{defn}[Finite]
-	A set is finite if there exists a bound on the number of elements. If you start counting the elements in a finite set, there should be a precise stopping point
+\begin{example}
+	The following is \textit{not} a valid enumeration of the integers: \[0,1,2,3,4,5,\cdots,-1,-2,-3,-4,-5,\cdots\]
+	This is not valid because we will never know when to switch from positive to negative integers.
+\end{example}
+
+The point of enumeration is such that we can create \textit{indices} for each element in a set. As we will see later, it will be helpful if you know that, for example, the index \(i=4\) into the set of integers yields \(-2\).
+
+\begin{defn}[Finite\index{Finite}]
+	A set is finite if there exists a bound on the number of elements. If you start counting the elements in a finite set, there should be a precise stopping point.
 \end{defn}
 
 \begin{example}
-	\(\{1,2,3\}\) and \(\N^{< 10,000,000,000}\) are finite sets
+	\(\{1,2,3\}\) and \(\N^{< 10,000,000,000}\) are finite sets.
 \end{example}
 
-\begin{defn}[Countably Infinite]
-	A set is countably infinte if you can find a one-to-one correspondence (bijection) between the set and \(\N\). Alternatively, a set is countably infinite if you can enumerate the set such that every element appears at a finite position
+\begin{defn}[Countably Infinite\index{Countably Infinite}]
+	A set is countably infinite if you can find a one-to-one correspondence (bijection) between the set and \(\N\). Alternatively, a set is countably infinite if you can enumerate the set such that every element appears at a finite position.
+	
+	More simply, a set is countably infinite if you can index each element.
 \end{defn}
 
 \begin{rem}
-	We denote \(|S| = \aleph_0\) for any (every) countably infinite set \(S\)
+	We denote \(|S| = \aleph_0\) for any (every) countably infinite set \(S\).
 \end{rem}
 
 There exist other definitions for countably infinite, however they all share the same idea that \textit{countably infinite} sets can be \textit{counted} \textit{in a finite amount of time}.
 
-\begin{defn}[Countable]
-	A set is countable if it is finite or countably infinite
+\begin{defn}[Countable\index{Countable}]
+	A set is countable if it is finite or countably infinite.
+\end{defn}
+
+\exproof{
+	\(S=\{1,2,3,4,5,6,7,8,9,10\}\) is countable.
+}{
+	\(S\) is finite, with 10 elements, so it is countable.
+}
+
+\exproof{
+	\(\N\) is countable.
+}{
+	The function \(f(x) = x\) where \(f : \N \mapsto \N\) is a bijection, so \(\N\) is countably infinite.
+}
+
+\exproof{
+	\(\Z\) is countable.
+}{
+	Enumerate \(\Z\) as follows: \(\{0,-1,1,-2,2,-3,3,\cdots\}\)
+	
+	Then \[f(x) = \begin{cases} \frac{n}{2} & x \equiv 0 \Mod{2} \\ -\frac{n+1}{2} & x \equiv 1 \Mod{2} \end{cases}\] where \(f : \N \mapsto \Z\) is a bijection (\textit{why?}).
+}
+
+\exproof{
+	\(\Q^+\) is countable.
+}{
+	We use what is called a \textit{snaking argument}. The idea is to build a grid that describes all positive rational numbers, then provide a bijection between that grid and the natural numbers.
+	
+	Grid:
+	
+	\begin{center}
+		\begin{tabular}{c|cccccc}
+			& 1 & 2 & 3 & 4 & 5 & \(\cdots\) \\
+			\hline
+			1 & \(1/1\)\tikzmark{1} & \tikzmark{2}\(2/1\) & \tikzmark{6}\(3/1\)\tikzmark{6b} & \tikzmark{7}\(4/1\) & \(5/1\) & \(\cdots\) \\
+			2 & \(1/2\)\tikzmark{3} & \tikzmark{5}\(2/2\)\tikzmark{5b} & \tikzmark{8b}\(3/2\)\tikzmark{8} & \(4/2\) & \(5/2\) & \(\cdots\) \\
+			3 & \(1/3\)\tikzmark{4} & \tikzmark{9b}\(2/3\)\tikzmark{9} & \(3/3\) & \(4/3\) & \(5/3\) & \(\cdots\) \\
+			4 & \(1/4\)\tikzmark{10} & \tikzmark{12}\(2/4\) & \(3/4\) & \(4/4\) & \(5/4\) & \(\cdots\) \\
+			5 & \(1/5\)\tikzmark{11} & \(2/5\) & \(3/5\) & \(4/5\) & \(5/5\) & \(\cdots\) \\
+			\(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\ddots\) \\
+		\end{tabular}
+	\end{center}
+	
+	\begin{tikzpicture}
+	[
+	remember picture,
+	overlay,
+	-latex,
+	%color=blue!75!green,
+	color=red,
+	yshift=1ex,
+	shorten >=1pt,
+	shorten <=1pt,
+	]
+	\draw ([yshift=1mm]{pic cs:1}) -- ([yshift=1mm]{pic cs:2});
+	\draw ({pic cs:2}) -- ([yshift=1mm]{pic cs:3});
+	\draw ([yshift=1mm]{pic cs:3}) -- ([yshift=1mm]{pic cs:4});
+	\draw ({pic cs:4}) -- ({pic cs:5});
+	\draw ([yshift=1mm]{pic cs:5b}) -- ({pic cs:6});
+	\draw ([yshift=1mm]{pic cs:6b}) -- ([yshift=1mm]{pic cs:7});
+	\draw ({pic cs:7}) -- ([yshift=1mm]{pic cs:8});
+	\draw ({pic cs:8b}) -- ([yshift=1mm]{pic cs:9});
+	\draw ({pic cs:9b}) -- ([yshift=1mm]{pic cs:10});
+	\draw ([yshift=1mm]{pic cs:10}) -- ([yshift=1mm]{pic cs:11});
+	\draw ({pic cs:11}) -- ({pic cs:12});
+	\end{tikzpicture}
+	
+	Let \(f(n)\) yield the rational number at position \(n\) along the snake in the table (e.g.\ \(f(0) = 1/1\), \(f(1) = 2/1\), \(f(2) = 1/2\)). Then \(f : \N \mapsto \Q^+\) is a bijection (\textit{why?}).
+}
+
+\begin{rem}
+	This proof does not account for the fact that we can reduce fractions (like how \(4/2 = 2/1\)). A more rigorous proof uses the Schr\"{o}der-Bernstein Theorem, which is out of the scope of this course.
+\end{rem}
+
+\begin{defn}[Uncountable\index{Uncountable}]
+	A set that is not countable.
 \end{defn}
 
 \begin{example}
-	\(\N\) is countably infinite
-	
-	\begin{proof}
-		The function \(f(x) = x\) where \(f : \N \mapsto \N\) is a bijection
-	\end{proof}
+	\(\R\) is uncountable.
 \end{example}
 
-\begin{example}
-	\(\Z\) is countably infinite
-	
-	\begin{proof}
-		Enumerate \(\Z\) as follows: \(\{0,-1,1,-2,2,-3,3,\cdots\}\)
-		
-		Then \[f(x) = \begin{cases} \frac{n}{2} & x \equiv 0 \Mod{2} \\ -\frac{n+1}{2} & x \equiv 1 \Mod{2} \end{cases}\] where \(f : \N \mapsto \Z\) is a bijection
-	\end{proof}
-\end{example}
-
-\begin{example}
-	\(\Q^+\) is countably infinite
-	
-	\begin{proof}
-		We use what is called a \textit{snaking argument}. The idea is to build a grid that describes all positive rational numbers, then provide a bijection between that grid and the natural numbers.
-		
-		Grid:
-		
-		\begin{center}
-			\begin{tabular}{c|cccccc}
-				& 1 & 2 & 3 & 4 & 5 & \(\cdots\) \\
-				\hline
-				1 & \(1/1\)\tikzmark{1} & \tikzmark{2}\(2/1\) & \tikzmark{6}\(3/1\)\tikzmark{6b} & \tikzmark{7}\(4/1\) & \(5/1\) & \(\cdots\) \\
-				2 & \(1/2\)\tikzmark{3} & \tikzmark{5}\(2/2\)\tikzmark{5b} & \tikzmark{8b}\(3/2\)\tikzmark{8} & \(4/2\) & \(5/2\) & \(\cdots\) \\
-				3 & \(1/3\)\tikzmark{4} & \tikzmark{9b}\(2/3\)\tikzmark{9} & \(3/3\) & \(4/3\) & \(5/3\) & \(\cdots\) \\
-				4 & \(1/4\)\tikzmark{10} & \tikzmark{12}\(2/4\) & \(3/4\) & \(4/4\) & \(5/4\) & \(\cdots\) \\
-				5 & \(1/5\)\tikzmark{11} & \(2/5\) & \(3/5\) & \(4/5\) & \(5/5\) & \(\cdots\) \\
-				\(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\vdots\) & \(\ddots\) \\
-			\end{tabular}
-		\end{center}
-	
-		\begin{tikzpicture}
-		[
-		remember picture,
-		overlay,
-		-latex,
-		%color=blue!75!green,
-		color=red,
-		yshift=1ex,
-		shorten >=1pt,
-		shorten <=1pt,
-		]
-		\draw ([yshift=1mm]{pic cs:1}) -- ([yshift=1mm]{pic cs:2});
-		\draw ({pic cs:2}) -- ([yshift=1mm]{pic cs:3});
-		\draw ([yshift=1mm]{pic cs:3}) -- ([yshift=1mm]{pic cs:4});
-		\draw ({pic cs:4}) -- ({pic cs:5});
-		\draw ([yshift=1mm]{pic cs:5b}) -- ({pic cs:6});
-		\draw ([yshift=1mm]{pic cs:6b}) -- ([yshift=1mm]{pic cs:7});
-		\draw ({pic cs:7}) -- ([yshift=1mm]{pic cs:8});
-		\draw ({pic cs:8b}) -- ([yshift=1mm]{pic cs:9});
-		\draw ({pic cs:9b}) -- ([yshift=1mm]{pic cs:10});
-		\draw ([yshift=1mm]{pic cs:10}) -- ([yshift=1mm]{pic cs:11});
-		\draw ({pic cs:11}) -- ({pic cs:12});
-		\end{tikzpicture}
-		
-		Let \(f(n)\) yield the rational number at position \(n\) along the snake in the table (e.g.\ \(f(0) = 1/1\), \(f(1) = 2/1\), \(f(2) = 1/2\)). Then \(f : \N \mapsto \Q^+\) is a bijection
-	\end{proof}
-	
-	\textit{Note: this proof does not account for the fact that we can reduce fractions (like how \(4/2 = 2/1\)). A more rigorous proof uses the Schr\"{o}der-Bernstein Theorem, which is out of the scope of this course}
-\end{example}
-
-\begin{defn}[Uncountable]
-	A set that is not countable
-\end{defn}
+But why? We will come back to this. First, we need a new proof tool to help us, plus some theorems.
 
 \section{Cantor's Diagonal Argument}
 
 We begin our study of this famous proof by diving into the actual proof.
 
-\begin{example}
-	Prove \((0,1)\) is uncountable
+\exproof{
+	Prove \((0,1)\) is uncountable.
+}{
+	By contradiction. Assume \((0,1)\) is countable. Then, we can enumerate the entire set. One possible enumeration is as follows:
 	
-	\begin{proof}
-		Assume \((0,1)\) is countable. Then, we can enumerate the entire set. One possible enumeration follows:
-		
+	\begin{center}
 		\begin{tabular}{rlllllllll}
-			0. & 0 & 1 & 2 & 6 & 5 & 9 & 8 & 7 & \(\cdots\) \\
-			0. & 1 & 8 & 4 & 3 & 1 & 3 & 0 & 8 & \(\cdots\) \\
-			0. & 1 & 9 & 9 & 5 & 9 & 9 & 6 & 6 & \(\cdots\) \\
-			0. & 1 & 9 & 0 & 3 & 2 & 5 & 2 & 7 & \(\cdots\) \\
-			0. & 1 & 9 & 0 & 4 & 2 & 0 & 4 & 1 & \(\cdots\) \\
-			0. & 1 & 9 & 0 & 4 & 3 & 3 & 8 & 2 & \(\cdots\) \\
-			0. & 1 & 9 & 0 & 4 & 3 & 4 & 8 & 2 & \(\cdots\) \\
+			\(r_0 = 0.\) & 0 & 1 & 2 & 6 & 5 & 9 & 8 & 7 & \(\cdots\) \\
+			\(r_1 = 0.\) & 1 & 8 & 4 & 3 & 1 & 3 & 0 & 8 & \(\cdots\) \\
+			\(r_2 = 0.\) & 1 & 9 & 9 & 5 & 9 & 9 & 6 & 6 & \(\cdots\) \\
+			\(r_3 = 0.\) & 1 & 9 & 0 & 3 & 2 & 5 & 2 & 7 & \(\cdots\) \\
+			\(r_4 = 0.\) & 1 & 9 & 0 & 4 & 2 & 0 & 4 & 1 & \(\cdots\) \\
+			\(r_5 = 0.\) & 1 & 9 & 0 & 4 & 3 & 3 & 8 & 2 & \(\cdots\) \\
+			\(r_6 = 0.\) & 1 & 9 & 0 & 4 & 3 & 4 & 8 & 2 & \(\cdots\) \\
+			\(r_7 = 0.\) & 1 & 9 & 0 & 4 & 3 & 4 & 9 & 2 & \(\cdots\) \\
+			\(r_8 = 0.\) & 1 & 9 & 0 & 4 & 3 & 4 & 9 & 3 & \(\cdots\) \\
 			\(\vdots\) \\
 		\end{tabular}
-	\end{proof}
-\end{example}
+	\end{center}
+	
+	Now, let us construct an element \(x \in (0,1)\): \[x = 0.x_1 x_2 x_3 x_4 \cdots\]
+	where \[x_i \equiv r_{i,i} + 1 \Mod{10}\]
+	and \(r_{i,i}\) is the \(i\)\textsuperscript{th} digit after the decimal point in \(r_i\). Here, we are using the mod function to give us the least-positive number in the congruence class \(r_{i,i} + 1 \Mod{10}\) -- otherwise known as the \textit{remainder}.
+	
+	So we grab the \textit{diagonal} digits,
+	
+	\begin{center}
+		\begin{tabular}{rlllllllll}
+			\(r_0 = 0.\) &\cellcolor{Melon}0 & 1 & 2 & 6 & 5 & 9 & 8 & 7 & \(\cdots\) \\
+			\(r_1 = 0.\) & 1 &\cellcolor{Melon}8 & 4 & 3 & 1 & 3 & 0 & 8 & \(\cdots\) \\
+			\(r_2 = 0.\) & 1 & 9 &\cellcolor{Melon}9 & 5 & 9 & 9 & 6 & 6 & \(\cdots\) \\
+			\(r_3 = 0.\) & 1 & 9 & 0 &\cellcolor{Melon}3 & 2 & 5 & 2 & 7 & \(\cdots\) \\
+			\(r_4 = 0.\) & 1 & 9 & 0 & 4 &\cellcolor{Melon}2 & 0 & 4 & 1 & \(\cdots\) \\
+			\(r_5 = 0.\) & 1 & 9 & 0 & 4 & 3 &\cellcolor{Melon}3 & 8 & 2 & \(\cdots\) \\
+			\(r_6 = 0.\) & 1 & 9 & 0 & 4 & 3 & 4 &\cellcolor{Melon}8 & 2 & \(\cdots\) \\
+			\(r_7 = 0.\) & 1 & 9 & 0 & 4 & 3 & 4 & 9 &\cellcolor{Melon}2 & \(\cdots\) \\
+			\(r_8 = 0.\) & 1 & 9 & 0 & 4 & 3 & 4 & 9 & 3 & \(\cdots\) \\
+			\(\vdots\) \\
+		\end{tabular}
+	\end{center}
+	
+	and to each of them we add one \(\Mod{10}\) to construct \[x = 0.19043493\cdots\]
+	
+	We claim that this new \(x\) is not in the enumeration. Your keen eye may have noticed that \(x = r_8\), so our claim is bogus. This is a rightful note, \textit{however} our claim is still valid. Remember that the numbers in the enumeration have an infinite decimal expansion. So \(r_8 = 0.19043493 d_8 d_9 d_{10} d_{11} \cdots\), as does \(x = 0.19043493 x_8 x_9 x_{10} x_{11} \cdots\).
+	
+	For decimal numbers to be equal, all of their corresponding digits must be equal. When we construct the digit \(x_8\) in \(x\), do we have that \(x_8 = d_8\), the corresponding digit in \(r_8\)? Well, by construction, \(x_8 \equiv r_{8,8} + 1 \equiv d_8 + 1 \Mod{10}\). It should be clear that \(d_8 \not\equiv d_8 + 1 \Mod{10}\), so we conclude that \(x_8 \neq d_8\). So \(x\) and \(r_8\) are not equal!
+	
+	Now, for \(r_9\), the previous argument tells us that \(x_9\) will be different than \(d_9\), so \(x_9 \neq r_9\). And we can repeat this for every single \(r_i\) in the enumeration. Since the enumeration is finite, there has to be a stopping point. Then by repeatedly applying the previous argument, we have that \textit{every} number in the enumeration \(r_i \neq x\). This is a contradiction, though, because \(x \in (0,1)\) (this should be obvious).
+	
+	Thus, \((0,1)\) is uncountable.
+}
+
+\begin{rem}
+	Cantor's diagonal argument can be abstracted to show that other sets are uncountable. The general method is:
+	\begin{enumerate}
+		\item Assume the set is countable
+		\item Enumerate the set, because it is countable
+		\item Find an element in the set that is \textit{not} in the enumeration
+	\end{enumerate}
+	The last step is the ``diagonal'' part of the argument -- the easiest way to find a new element is by constructing a new element that is different than every element in the set by at least one minute change.
+\end{rem}
+
+\begin{rem}
+	When you apply Cantor's diagonal argument in your proofs, you can omit the lengthy explanations. All you need is the three parts above -- in the third step, though, you should offer justification as to why your \textit{diagonalizer} (the constructor function that gives you the new element) actually gives you a new element.
+\end{rem}
+
+Now, we just showed that \((0,1)\) is uncountable. But we also know that \((0,1) \subseteq \R\). This subset relation intuitively suggests that \(|(0,1)| \leq |\R|\). So it is tempting to conclude from this that \(\R\) is indeed uncountable. Luckily, this is exactly what we can conclude, but we need some theorems that will let us do that.
 
 \section{Useful Theorems}
 
 We give some useful theorems of countable and uncountable sets. These will help you in determining whether a set is countable or uncountable.
 
-%\begin{thm}
-%	There exists a bijection between any countably infinite set.
-%\end{thm}
-%
-%\begin{proof}
-%	omitted.
-%\end{proof}
-%
-%\begin{thm}
-%	The power set of any countably infinite set is uncountable
-%\end{thm}
-%
-%\begin{proof}
-%	Let \(A\) be any countably infinite set. Then, there exists a bijection \(f\) between \(\N\) and \(A\).
-%\end{proof}
+\begin{defn}[Cardinality]
+	Two countable sets have the same cardinality if there exists a bijection between the two sets.
+\end{defn}
 
+\begin{rem}
+	We had previously defined cardinality as the number of elements in a set. This new definition is more abstract and generalizable. In fact, though, these two definitions are equivalent on finite sets. Indeed, if two finite sets have \(n\) elements, then they are countable, and any enumeration of the two sets yields a bijection. On the other hand, if there is a bijection \(f\) between the two, then we can associate each input with an index \(\leq n\), which yields the same index on the second set -- so they have the same number of elements.
+\end{rem}
 
+\begin{rem}
+	For countably infinite sets we will take this as a definition, since this is the first time we are seeing \textit{number of elements} for countably infinite sets.
+\end{rem}
+
+\begin{rem}
+	\(|\{1,2,3,4,5,6,7,8,9,10\}| < |\N|\) even though the two sets are countable. The first is finite, but the second is countably infinite.
+\end{rem}
+
+This tells us that our sets we have already proved countably infinite, \(\N, \Z, \Q^{+}\), all have the same cardinality as \(\N\) which is \(\aleph_0\) since there is a bijection between \(\N\) and those sets. This also implies that they all have the same cardinalities with each other. We can show this as a corollary to the following theorem.
+
+\subsection{Countable Set Theorems}
+
+\begin{thm}
+	There exists a bijection between any countably infinite set.
+\end{thm}
+
+\begin{proof}
+	Suppose \(A,B\) are countably infinite. Then there exists bijections \(f,g\) such that \(f : \N \rightarrow A\) and \(g : \N \rightarrow B\). Define the function \(h : A \rightarrow B\) given by \(h : a \mapsto g(f^{-1}(a))\). This is visualized as \[A \stackrel{f^{-1}}{\rightarrow} \N \stackrel{g}{\rightarrow} B\]
+	
+	This is a composition of bijective functions, which is a bijection.
+\end{proof}
+
+\begin{thm}
+	Every countably infinite set has cardinality \(\aleph_0\).
+\end{thm}
+
+\begin{proof}
+	This follows from the previous theorem, and that a bijection between two sets implies their cardinalities are equal.
+\end{proof}
+
+\begin{rem}
+	It seems natural to also define \(|A| \leq |B| \Leftrightarrow\) there exists an injection \(f : A \mapsto B\).
+\end{rem}
+
+\begin{thm}
+	\(A\) is countable \(\Rightarrow\) \(|A| \leq |\N|\).
+\end{thm}
+
+\begin{proof}
+	\(A\) is countable, so there is a bijection from \(\N\) to \(A\). Then the inverse is also a bijection, which is also an injection. Then \(|A| \leq |\N|\). Alternatively, \(A\) is countable so \(|A| = |\N|\) so \(|A| \leq |\N|\).
+\end{proof}
+
+\begin{thm}
+	If a set \(B\) is countable, then so is any subset \(A \subseteq B\).
+\end{thm}
+
+\begin{proof}
+	Define a function \(f : A \rightarrow B\) given by \(f(a) = a\). Then this is an injective function (why?), so \(|A| \leq |B|\). Then \(B\) is countable so \(|B| = |\N|\). Then \(|A| \leq |B| = |\N|\).
+\end{proof}
+
+\begin{thm}
+	\(A\) is countable \(\Leftarrow\) \(|A| \leq |\N|\).
+\end{thm}
+
+\begin{proof}
+	If \(|A| \leq |\N|\), then there is an injective function \(f : A \rightarrow \N\). Then let \(B \subseteq \N\) be the image of \(f\). Then by the previous theorem \(\N\) is countable so \(B\) is countable. Then \(|A| = |B| \leq |\N|\).
+\end{proof}
+
+\begin{rem}
+	We conclude that \(A\) is countable \(\Leftrightarrow\) \(|A| \leq |\N|\).
+\end{rem}
+
+\subsection{Uncountable Set Theorems}
+
+\begin{thm}
+	If any set \(A\) is uncountable, then so is any superset \(B \supseteq A\).
+\end{thm}
+
+\begin{proof}
+	By contradiction, let \(B \supseteq A\) and assume \(B\) is countable. Then by the previous theorem, \(B \subseteq A\). But \(A \subseteq B \subseteq A\), so \(A = B\). But \(A\) is uncountable, so \(B\) is uncountable. But we assumed \(B\) was countable. This is a contradiction, so \(B\) is uncountable.
+\end{proof}
+
+Now we come back to \(\R\) being uncountable. Since \(\R \supseteq (0,1)\), then since \((0,1)\) is uncountable our theorems allow us to conclude that \(\R\) is uncountable. Interestingly, we could also have given the bijection \(f : (0,1) \rightarrow \R\) given by \(f : x \mapsto \tan(\pi(x+\frac{1}{2}))\). It looks like this:
+
+\begin{center}
+	\begin{tikzpicture}
+	\begin{scope}
+		\draw[<->] (-2,0) -- (2,0) node[right, below] {\(x\)};
+		\draw[<->] (0,-2) -- (0,2) node[above] {\(f(x)\)};
+		\draw[shift={(1,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+		\draw[shift={(1,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] {1};
+		\draw[scale=1,domain=-1.1:1.1,smooth,variable=\x,blue] plot ({\x},{tan(deg(\x))}) node[right] {\(\tan(x)\)};
+	\end{scope}
+	\draw (0:2.75) node {\(\rightarrow\)};
+	\begin{scope}[xshift=5cm]
+		\draw[<->] (-1.5,0) -- (2.5,0) node[right, below] {\(x\)};
+		\draw[<->] (0,-2) -- (0,2) node[above] {\(f(x)\)};
+		\draw[shift={(1,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+		\draw[shift={(1,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] {1};
+		\draw[scale=1,domain=0.15:0.85,smooth,variable=\x,red] plot ({\x},{tan(deg(pi*(\x+(1/2))))}) node[right] {\(\tan(\pi(x+\frac{1}{2}))\)};
+	\end{scope}
+	\end{tikzpicture}
+\end{center}
+
+% todo, add one more?
+% continuum hypothesis?
 
 \section{Summary}
 
 \begin{itemize}
-	\item 
+	\item A countable set is either finite, or can be enumerated by the natural numbers
 	\item 
 	\item 
 \end{itemize}
@@ -174,7 +332,35 @@ We give some useful theorems of countable and uncountable sets. These will help 
 \section{Practice}
 
 \begin{enumerate}
-	\item 
-	\item 
+	\item Explain why the following proof fails:
+	\begin{proof}
+		\(\R^{+} \times \R^{+}\) is countably infinite because we can set up a grid as we did in the \(\Q^{+}\) argument and apply the same snaking bijection. \mbox{}
+	\end{proof}
+	\item Show that the even integers are countable by providing an explicit bijection from \(\N\) to \(\Z^{\text{even}}\).
+	\item Show that, given two countable sets \(A,B\), the following are countable:
+	\begin{enumerate}
+		\item \(A \cup B\) \textit{Hint: how did we prove the integers were countable?}
+		\item \(A \cap B\)
+		\item \(A \setminus B\)
+		\item \(A \times B\) \textit{Hint: how did we prove the rationals were countable?}
+	\end{enumerate}
+	\item Show that \(\Q\) is countable.
+	\item Show that \(\{ x \in \R \mid x > 0 \land x^2 \in \Q \}\) is countable.
+	\item Explain why the following proof fails:
+	\begin{proof}
+		The set of all polynomials with positive integer coefficients is uncountable. Assume it is countable, and enumerate each polynomial as we did in Cantor's diagonalization argument -- the rows are the polynomials, and the columns are the \(i\)\textsuperscript{th} coefficient in the polynomial (eg, \(ax^3\), \(a\) is the third coefficient). Then the polynomial \(f(x) = (p_{1,1}+1) + (p_{2,2}+1)x + (p_{3,3}+1)x^2 + \cdots\), where \(p_{i,i}\) is the \(i\)\textsuperscript{th} coefficient on polynomial \(p\), is not in our enumeration.
+	\end{proof}
+	\item Show that the set of functions from natural numbers to natural numbers \(\{ f \mid f : \N \rightarrow \N \}\) is uncountable.
+	\item Show that the power set of any countably infinite set is uncountable. Do this by showing that \(\mathcal{P}(\N)\) is uncountable using a diagnalization argument.
+	\item Show that the power set of any set is uncountable.
+	\item Show that, given an uncountable set \(A\) and a set \(B\),
+	\begin{enumerate}
+		\item \(A \cup B\) is uncountable
+		\item \(A \cap B\) is countable if and only if \(B\) is countable
+		\item \(A \setminus B\) is uncountable if \(B\) is countable
+		\item \(A \times B\) is uncountable
+	\end{enumerate}
+	\item Show that the set of irrational numbers \(\{ x \in \R \mid x \not\in \Q \}\) is uncountable.
+	\item Find another bijection from \((0,1) \rightarrow \R\) that does not use a trigonometric function.
 \end{enumerate}
 \end{document}

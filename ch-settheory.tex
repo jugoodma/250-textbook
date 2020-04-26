@@ -27,11 +27,22 @@ This chapter includes an overview of set theory -- sets, operations, binary rela
 
 \section{Building Sets}
 
-Before we dive into set theory concepts, we introduce set-builder notation. As the name implies, this is how we will build our sets.
+Before we dive into set theory concepts, we first introduce a few ways to denote sets.
 
-\begin{defn}[Set-Builder Notation]
+To start, you can simply denote a set by just writing each element inside some curly braces. For example, \[\{1,2,3\}\] describes the set containing 1, 2, and 3. This method is not useful when describing big sets, though. If your set has \(2^{64}\) elements, you would never be able to write them all out!
+
+To solve this, we can use \textit{ellipses} -- \(\cdots\) -- three dots in a row. Ellipses inside a set simply mean that you take the implicit pattern described in the set already, and continue it (possibly indefinitely). For example, \[\{1,2,3,\cdots,10\} = \{1,2,3,4,5,6,7,8,9,10\}\]
+Here, the pattern is described in the \(1,2,3\) part -- increase by 1. Now, 
+
+So far, the presented notations lack power. To combat this, we introduce set-builder notation. As the name implies, this is a way of building sets.
+
+\begin{defn}[Set-builder Notation\index{Set-builder Notation}]
 	A way of defining sets. Syntax: \(\{\,\mbox{element} \mid \mbox{condition(s)}\,\}\), read as, ``element \textit{such that} condition(s) is (are) satisfied.'' For example, the set of even integers (which we will learn about soon) can be written as: \(\{e \mid (\exists k \in \Z)[e = 2k]\}\)
 \end{defn}
+
+\begin{rem}
+	You may also see the \(:\) character instead of the \(\mid\) character in set-builder notation. These are equivalent. \(\{e \mid (\exists k \in \Z)[e = 2k]\} = \{e : (\exists k \in \Z)[e = 2k]\}\).
+\end{rem}
 
 It is pivotal that you know how to read and create sets this way. The syntax is very flexible because the conditions can be almost anything you like. The conditions should, however, relate to the set itself (otherwise the set would be trivially pointless).
 
@@ -44,8 +55,29 @@ It is pivotal that you know how to read and create sets this way. The syntax is 
 \exsol{
 	Build a set that contains everything except for the object \(\star\).
 }{
-	\[S = \{y \mid y \neq \star\}\]
+	\[S = \{y : y \neq \star\}\]
 }
+
+With set-builder notation, we can describe the following set short-cut: \[[n] = \{i \in \Z \mid 0 \leq i \leq n\}\].
+We do not know what \(\Z\) is just yet, but we will get there soon enough.
+
+\begin{rem}
+	Some authors denote \([3] = \{1,2,3\}\) since they do not include 0 as part of the natural numbers. More on this later. For now, just follow whatever your professor is doing.
+\end{rem}
+
+\begin{rem}
+	Some authors also reserve \([x]\) to mean the floor function -- the greatest integer smaller than \(x\). As with anything in math, context is key. We will not use brackets to indicate the floor function, but you should be aware that different notation conventions exist.
+\end{rem}
+
+Finally, we can describe continuous-interval sets. You may be familiar with the real number line -- this is a continuous line because there are no ``breaks'' between any two numbers you pull from it. Given any two numbers on the real number line, we can always take the midpoint to get another real number! How do we denote these intervals? We use interval notation:
+\begin{itemize}
+	\item \((x,y) = \{r \in \R : x < r < y\}\)
+	\item \((x,y] = \{r \in \R : x < r \leq y\}\)
+	\item \([x,y) = \{r \in \R : x \leq r < y\}\)
+	\item \([x,y] = \{r \in \R : x \leq r \leq y\}\)
+\end{itemize}
+
+A parenthesis means we \textit{exclude} the associated number from the continuous interval, and a bracket means we \textit{include} the associated number.
 
 \section{Definitions}
 
