@@ -4,6 +4,10 @@
 
 \epigraph{Time to get number \textit{freaky}.}{Justin Goodman}
 
+\begin{center}
+	\textit{This chapter is hefty.}
+\end{center}
+
 \minitoc
 
 \section{Introduction}
@@ -339,7 +343,7 @@ These definitions are important, however soon we will see that they fit into a w
 		\item We cannot divide by 0
 		\item 1 divides everything
 		\item 6 is even so \(2 \mid 6\)
-		\item \(\frac{6}{3} = 2 \in \N\)
+		\item \(\frac{6}{3} = 2 \in \N\) % todo -- nicefrac ?
 		\item \(\frac{6}{4} = 1.5 \not\in \N\)
 		\item \(\frac{6}{5} = 1.2 \not\in \N\)
 		\item Any integer divides itself, so \(6 \mid 6\)
@@ -835,7 +839,7 @@ This solves our 2-bit addition problem. What if we want to add 3-bit numbers? 4-
 	We need 1 half adder to start, and we need \(n-1\) full adders which each contain 2 half adders. This totals to \(2(n-1) + 1 = 2n-1\) half adders.
 }
 
-\section{Proofs}
+\section{Proofs -- Introduction}
 
 Recall that number theory studies integers \textit{and their properties}. We want to think about certain properties and be able to explain why they hold. We want our explanations, \textit{proofs}, to be valid. We want to take our knowledge base of basic principles and logically derive true/false statements. The whole idea behind a proof is to creatively apply the set of rules you know to show whether a statement hold or not.
 
@@ -856,8 +860,6 @@ Let's examine this definition. We want to explain why a statement is \textit{tru
 \end{tabularx}
 
 Proving an existential statement true, as well as proving a universal statement false, is relatively easy -- all you must do is search the statement domain for an example. Comparatively, proving an existential statement false, as well as proving a universal statement true, is much harder since it takes some form of creativity -- that is, if you believe \(P \neq NP\)\footnote{You will learn about this in an Algorithms course. Here is the gist: problems in the \(N\)on-deterministic \(P\)olynomial (\(NP\)) class are ones whose solution is \textit{easy} to verify in Polynomial time. \(P\)olynomial class problems have Polynomial-time (relatively fast) algorithms. If \(P = NP\) then problems whose solution is easy to check \textit{also} have fast algorithms. Typically you must use creativity to come up with an algorithm, however if it is just as easy to check a solution as it is to come up with a solution generator (algorithm), then creativity becomes meaningless. \href{https://youtu.be/YX40hbAHx3s}{Suggested reading}.}.
-
-\subsection{Format}
 
 Before we continue, we must show you how to format your proofs. The structure in this book may be different than what your instructor prefers, so make sure you pay attention in class and follow what they do. Our structure, however, is quite flexible with minimal rules, so it should be easy to adapt. You have likely already seen our style of proof in this book. We always follow a simple structural format that puts ``\textit{Proof.}'' at the start, followed by what technique we are using (typically), followed by our explanation, finished by a simple square signifying the end of the proof.
 
@@ -918,11 +920,11 @@ This general structure is easy to read, easy to adapt, and is easily formal. It 
 	We do not expect you to know how to prove Pythagoras' Theorem -- this is just an interesting proof example.
 \end{rem}
 
-\subsection{Techniques}
+\section{Proofs -- Techniques}
 
 We have a handful of proof techniques that will help you structure your proofs.
 
-\subsubsection{Direct Proof}
+\subsection{Direct Proof}
 
 Direct proofs are classical applications of valid reasoning (see chapter \ref{section:reasoning} about deductions). We start with the easier techniques: examples and counter-examples.
 
@@ -979,12 +981,42 @@ Direct proofs are classical applications of valid reasoning (see chapter \ref{se
 }
 
 \begin{defn}[Proof by Construction]
-	
+	Proving an existential statement by giving an algorithm or method to create the object in the statement.
 \end{defn}
 
-\begin{defn}[Proof by Non-Construction]
+\exproof{
+	Show that there exist irrational numbers \(a,b\) such that \(a^b\) is rational.
+}{
+	We will show this by constructing an actual example. First note that \(\sqrt{2}\) is irrational. We will prove this later. Next, note that \(\log_2(9)\) is irrational. We will also prove this later.
+}
+
+\exproof{
+	Prove \textbf{false} that \((\forall n \in \Z)[n \equiv 1 \Mod{4}]\).
+}{
+	This is probably obvious, since \(m = 6 \in \Z\) has \(m \equiv 2 \not\equiv 1 \Mod{4}\).
 	
+	Consider another, constructive argument. We will construct a counterexample. So suppose \(n \equiv 1 \Mod{4}\), then \(\exists k \in \Z\) such that \(n = 1 + 4k\). Then \(2n = 2(1+4k) = 2+8k = 2+4(4k) \equiv 2 \not\equiv 1 \Mod{4}\). So to construct a counterexample, we can simply double our input number \(n\).
+}
+
+\begin{defn}[Proof by Non-Construction]
+	Proving an existential statement \textit{without} providing an example, or a way to construct an example.
 \end{defn}
+
+The following is a classic non-constructive proof of the previous example (theorem).
+
+\exproof{
+	Show that exist irrational numbers \(a,b\) such that \(a^b\) is rational.
+}{
+	This time, we will do this without necessarily fixing some precise values for \(a\) and \(b\).
+	
+	Note again (we will prove later) that \(\sqrt{2}\) is irrational. Then consider the number \(\sqrt{2}^{\sqrt{2}}\). This number is either \textit{rational} or \textit{irrational} (there are no other options, since it is a real number).
+	
+	\textbf{If} \(\sqrt{2}^{\sqrt{2}}\) is \textit{rational}, then, since \(\sqrt{2}\) is irrational, we have found \(a,b\).
+	
+	\textbf{Else}, \(\sqrt{2}^{\sqrt{2}}\) is \textit{irrational}. Let \(a = \sqrt{2}^{\sqrt{2}}\) and \(b = \sqrt{2}\), which are two irrational numbers. Then \[a^b = (\sqrt{2}^{\sqrt{2}})^{\sqrt{2}} = \sqrt{2}^{\sqrt{2}\sqrt{2}} = \sqrt{2}^2 = 2 \in \Q\]
+	
+	So in either case, the statement holds. \textit{Notice} that we have not constructed an actual example -- whichever case holds is dependent on whether \(\sqrt{2}^{\sqrt{2}}\) is rational or not!
+}
 
 \begin{defn}[General Direct Proof]
 	Any proof that directly uses implications and/or bi-conditionals to directly show a statement is true. These proofs are done as a straightforward application of known-to-be-true facts, rules, propositions, and theorems
@@ -1001,10 +1033,14 @@ Before we prove it, let's understand what it means. The statement says that if a
 \end{proof}
 
 \begin{prop}
-	
+	\[(\forall a,b,c \in \Z)[\big((a \mid b) \land (b \mid c)\big) \Rightarrow (a \mid c)]\]
 \end{prop}
 
-\subsubsection{Indirect Proof}
+\begin{proof}
+	By definition of divisibility, \(\exists k,l \in \Z\) such that \(b = ak\) and \(c = bl\). Then \(c = bl = akl = a(kl)\). \(kl \in \Z\) by closure of integers under multiplication. Then by definition, \(a \mid c\)
+\end{proof}
+
+\subsection{Indirect Proof}
 
 Advanced applications of valid reasoning. These techniques are ``direct proofs in disguise'' because you do, in-fact, prove \textit{a statement} directly, however the original statement you \textit{want to prove} is proven \textit{indirectly} as a result.
 
@@ -1036,7 +1072,7 @@ The proof by contraposition is useful in proving implication statements when it 
 	The contrapositive of the statement is true, hence the original statement is true.
 \end{proof}
 
-We will use this proposition later.
+We will use this proposition later. % todo?
 
 
 \begin{defn}[Proof by Contradiction]
@@ -1066,23 +1102,23 @@ The contrapositive statement is logically equivalent to \(p\). Thus, a proof by 
 The proof by contradiction is useful for proving statements that may ``seem obvious'' yet have no seemingly obvious direct proof.
 
 \exproof{
-Prove there is no greatest integer.
+	Prove there is no greatest integer.
 }{
-By way of contradiction, assume there is a greatest integer. Call it \(N \in \Z\). By closure of integers under addition, \(N+1 \in \Z\). \(N+1 > N\), so we have found an integer greater than \(N\). But this contradicts our assumption that \(N\) is the greatest integer (and clearly, \(N+1 \neq N\)). Our assumption has lead to a contradiction, therefore our assumption must be false. Hence there is no greatest integer.
+	By way of contradiction, assume there is a greatest integer. Call it \(N \in \Z\). By closure of integers under addition, \(N+1 \in \Z\). \(N+1 > N\), so we have found an integer greater than \(N\). But this contradicts our assumption that \(N\) is the greatest integer (and clearly, \(N+1 \neq N\)). Our assumption has lead to a contradiction, therefore our assumption must be false. Hence there is no greatest integer.
 }
 
 The following argument, called the Euclidean Argument, is an important example of a proof by contradiction.
 
 \exproof{
-Prove that \(\sqrt{2} \not\in \Q\)
+	Prove that \(\sqrt{2} \not\in \Q\)
 }{
-By way of contradiction, assume \(\sqrt{2} \in \Q\). Then, by definition \(\sqrt{2} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). We necessarily assume that the ratio \(\frac{a}{b}\) is in its most-reduced form (that \(a\) and \(b\) share no common divisors).
-
-Then, \(\sqrt{2} = \frac{a}{b} \Rightarrow 2 = \frac{a^2}{b^2} \Leftrightarrow 2b^2 = a^2\). \(b^2\) is an integer by closure, thus \(a^2\) is even. By proposition \ref{prop3.x:eucl-arg-lemma}, it follows that \(a\) is even, so by definition \(a = 2k\) for some \(k \in \Z\).
-
-Then, \(2b^2 = a^2 = (2k)^2 = 4k^2\) so by dividing out 2, \(b^2 = 2k^2\). \(k^2\) is an integer by closure, thus \(b^2\) is even. Again, by proposition \ref{prop3.x:eucl-arg-lemma}, it follows that \(b\) is even, so by definition \(b = 2l\) for some \(l \in \Z\).
-
-Then, \(\sqrt{2} = \frac{a}{b} = \frac{2k}{2l} = \frac{k}{l}\) is reducible. This contradicts our assumption, hence \(\sqrt{2} \not\in \Q\).
+	By way of contradiction, assume \(\sqrt{2} \in \Q\). Then, by definition \(\sqrt{2} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). We necessarily assume that the ratio \(\frac{a}{b}\) is in its most-reduced form (that \(a\) and \(b\) share no common divisors).
+	
+	Then, \(\sqrt{2} = \frac{a}{b} \Rightarrow 2 = \frac{a^2}{b^2} \Leftrightarrow 2b^2 = a^2\). \(b^2\) is an integer by closure, thus \(a^2\) is even. By proposition \ref{prop3.x:eucl-arg-lemma}, it follows that \(a\) is even, so by definition \(a = 2k\) for some \(k \in \Z\).
+	
+	Then, \(2b^2 = a^2 = (2k)^2 = 4k^2\) so by dividing out 2, \(b^2 = 2k^2\). \(k^2\) is an integer by closure, thus \(b^2\) is even. Again, by proposition \ref{prop3.x:eucl-arg-lemma}, it follows that \(b\) is even, so by definition \(b = 2l\) for some \(l \in \Z\).
+	
+	Then, \(\sqrt{2} = \frac{a}{b} = \frac{2k}{2l} = \frac{k}{l}\) is reducible. This contradicts our assumption, hence \(\sqrt{2} \not\in \Q\).
 }
 
 There is a point in this proof that may be confusing -- why exactly do we need the assumption that \(\sqrt{2} = \frac{a}{b}\) is in its most-reduced form? An excellent question. Let us do the proof \textbf{without} this assumption, and see what happens.
@@ -1102,37 +1138,56 @@ There is a point in this proof that may be confusing -- why exactly do we need t
 Euclid's Argument can in-fact be extended to show other roots of numbers are irrational.
 
 \exproof{
-Prove that \(\sqrt{7} \not\in \Q\)
+	Prove that \(\sqrt{7} \not\in \Q\)
 }{
-This proof will rely on the following lemma, which is given as an exercise to the reader: \((\forall a \in \Z)[7 \mid a^2 \Rightarrow 7 \mid a]\)
-
-By way of contradiction, assume \(\sqrt{7} \in \Q\). Then, by definition \(\sqrt{7} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). We necessarily assume that the ratio \(\frac{a}{b}\) is in its most-reduced form (that \(a\) and \(b\) share no common divisors).
-
-Then, \(\sqrt{7} = \frac{a}{b} \Rightarrow 7 = \frac{a^2}{b^2} \Leftrightarrow 7b^2 = a^2\). \(b^2\) is an integer by closure, thus \(a^2\) is divisible by 7. By the above lemma, it follows that \(a\) is divisible by 7, so by definition \(a = 7k\) for some \(k \in \Z\).
-
-Then, \(7b^2 = a^2 = (7k)^2 = 49k^2\) so by dividing out 7, \(b^2 = 7k^2\). \(k^2\) is an integer by closure, thus \(b^2\) is divisible by 7. Again, by the above lemma, it follows that \(b\) is divisible by 7, so by definition \(b = 7l\) for some \(l \in \Z\).
-
-Then, \(\sqrt{7} = \frac{a}{b} = \frac{7k}{7l} = \frac{k}{l}\) is reducible. This contradicts our assumption, hence \(\sqrt{7} \not\in \Q\).
+	This proof will rely on the following lemma, which is given as an exercise to the reader: \((\forall a \in \Z)[7 \mid a^2 \Rightarrow 7 \mid a]\)
+	
+	By way of contradiction, assume \(\sqrt{7} \in \Q\). Then, by definition \(\sqrt{7} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). We necessarily assume that the ratio \(\frac{a}{b}\) is in its most-reduced form (that \(a\) and \(b\) share no common divisors).
+	
+	Then, \(\sqrt{7} = \frac{a}{b} \Rightarrow 7 = \frac{a^2}{b^2} \Leftrightarrow 7b^2 = a^2\). \(b^2\) is an integer by closure, thus \(a^2\) is divisible by 7. By the above lemma, it follows that \(a\) is divisible by 7, so by definition \(a = 7k\) for some \(k \in \Z\).
+	
+	Then, \(7b^2 = a^2 = (7k)^2 = 49k^2\) so by dividing out 7, \(b^2 = 7k^2\). \(k^2\) is an integer by closure, thus \(b^2\) is divisible by 7. Again, by the above lemma, it follows that \(b\) is divisible by 7, so by definition \(b = 7l\) for some \(l \in \Z\).
+	
+	Then, \(\sqrt{7} = \frac{a}{b} = \frac{7k}{7l} = \frac{k}{l}\) is reducible. This contradicts our assumption, hence \(\sqrt{7} \not\in \Q\).
 }
 
 At this point, you may be able to see a general ``machinery'' at work here, and you may be wondering whether it works for all square roots.
 
 \exsol{
-Spot the logical fallacy in the following proof that \(\sqrt{4} \not\in \Q\)
-
-\begin{proof}
-	Assume the following lemma holds: \((\forall a \in \Z)[4 \mid a^2 \Rightarrow 4 \mid a]\)
+	Spot the logical fallacy in the following proof that \(\sqrt{4} \not\in \Q\)
 	
-	By way of contradiction, assume \(\sqrt{4} \in \Q\). Then, by definition \(\sqrt{4} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). We necessarily assume that the ratio \(\frac{a}{b}\) is in its most-reduced form (that \(a\) and \(b\) share no common divisors).
-	
-	Then, \(\sqrt{4} = \frac{a}{b} \Rightarrow 4 = \frac{a^2}{b^2} \Leftrightarrow 4b^2 = a^2\). \(b^2\) is an integer by closure, thus \(a^2\) is divisible by 4. By the above lemma, it follows that \(a\) is divisible by 4, so by definition \(a = 4k\) for some \(k \in \Z\).
-	
-	Then, \(4b^2 = a^2 = (4k)^2 = 16k^2\) so by dividing out 4, \(b^2 = 4k^2\). \(k^2\) is an integer by closure, thus \(b^2\) is divisible by 4. Again, by the above lemma, it follows that \(b\) is divisible by 4, so by definition \(b = 4l\) for some \(l \in \Z\).
-	
-	Then, \(\sqrt{4} = \frac{a}{b} = \frac{4k}{4l} = \frac{k}{l}\) is reducible. This contradicts our assumption, hence \(\sqrt{4} \not\in \Q\).
-\end{proof}
+	\begin{proof}
+		Assume the following lemma holds: \((\forall a \in \Z)[4 \mid a^2 \Rightarrow 4 \mid a]\)
+		
+		By way of contradiction, assume \(\sqrt{4} \in \Q\). Then, by definition \(\sqrt{4} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). We necessarily assume that the ratio \(\frac{a}{b}\) is in its most-reduced form (that \(a\) and \(b\) share no common divisors).
+		
+		Then, \(\sqrt{4} = \frac{a}{b} \Rightarrow 4 = \frac{a^2}{b^2} \Leftrightarrow 4b^2 = a^2\). \(b^2\) is an integer by closure, thus \(a^2\) is divisible by 4. By the above lemma, it follows that \(a\) is divisible by 4, so by definition \(a = 4k\) for some \(k \in \Z\).
+		
+		Then, \(4b^2 = a^2 = (4k)^2 = 16k^2\) so by dividing out 4, \(b^2 = 4k^2\). \(k^2\) is an integer by closure, thus \(b^2\) is divisible by 4. Again, by the above lemma, it follows that \(b\) is divisible by 4, so by definition \(b = 4l\) for some \(l \in \Z\).
+		
+		Then, \(\sqrt{4} = \frac{a}{b} = \frac{4k}{4l} = \frac{k}{l}\) is reducible. This contradicts our assumption, hence \(\sqrt{4} \not\in \Q\).
+	\end{proof}
 }{
 	This is clearly a false statement, since \(\sqrt{4} = 2 = \frac{2}{1} \in \Q\). The fallacy occurs at the beginning -- assuming a lemma that does not in-fact hold. Why? Well, \(4 \mid 2^2\) but \(4 \nmid 2\). 
+}
+
+The ``machinery'' we used before shows that the square root of some numbers (maybe you have spotted a pattern?) is irrational. This is not the only technique we have for showing numbers are irrational. In fact, in a proof by contradiction, as long as we logically arrive at a contradiction then our proof is valid. The next example demonstrates this idea for showing another number is irrational.
+
+\exproof{
+	Recall earlier we claimed that \(\log_2(9)\) is irrational. Prove it.
+}{
+	By way of contradiction, assume \(\log_2(9) \in \Q\). Then \(\exists a,b \in \Z\) with \(b \neq 0\) such that \(\log_2(9) = \frac{a}{b}\). Then using logarithm rules,
+	
+	\begin{align*}
+	\log_2(9) &= \frac{a}{b} \\
+	b\log_2(9) &= a \\
+	\log_2(9^b) &= a \\
+	9^b &= 2^a \\
+	\end{align*}
+	
+	Then \(9^b\) is odd, and \(2^a\) is even. But we can never have an odd equal to an even, so we have arrived at a contradiction, and thus \(\log_2(9) \in \R \setminus \Q\).
+	
+	Now, here we are glossing over if \(a,b < 0\) and if \(a=0\). Consider these cases as an exercise!
 }
 
 \begin{thm}{The Unique Prime Factorization Theorem \index{Unique Prime Factorization Theorem, UPFT}}
@@ -1165,43 +1220,43 @@ We leave the \textit{existential} part of the Unique Prime Factorization Theorem
 Now we can use the unique factorization theorem:
 
 \exproof{
-Prove that there are an infinite number of prime numbers
+	Prove that there are an infinite number of prime numbers
 }{
-By way of contradiction, assume there are a finite number of prime numbers. Then we can list all the prime numbers: \(p_1, p_2, \cdots, p_k\). Let \(P = p_1 \cdot p_2 \cdot \dotsc \cdot p_k\) be the product of all primes in our list. We construct a new number \(Q\) by adding 1 to \(P\): \(Q = P + 1 = p_1 \cdot p_2 \cdot \dotsc \cdot p_k + 1\). Now, either \(Q\) is prime or it is not prime. If it is prime, then we have found another prime number not in our original list of primes, which contradicts our assumption.
-
-So \(Q\) is not prime. Then, by UPFT, there is some prime factor \(p\) that divides \(Q\). \(p\) must be in our list of primes, as per our original assumption. Thus, \(p \mid P\). But \(p \mid (P+1 = Q)\). By proposition \ref{prop:3.x-lin-combo-div}, we must have that \(p \mid (Q - P = (P+1) - P)\), so \(p \mid 1\). But by definition no prime number can divide 1. This is a contradiction, so our original assumption must be false. Hence, primes are infinite.
+	By way of contradiction, assume there are a finite number of prime numbers. Then we can list all the prime numbers: \(p_1, p_2, \cdots, p_k\). Let \(P = p_1 \cdot p_2 \cdot \dotsc \cdot p_k\) be the product of all primes in our list. We construct a new number \(Q\) by adding 1 to \(P\): \(Q = P + 1 = p_1 \cdot p_2 \cdot \dotsc \cdot p_k + 1\). Now, either \(Q\) is prime or it is not prime. If it is prime, then we have found another prime number not in our original list of primes, which contradicts our assumption.
+	
+	So \(Q\) is not prime. Then, by UPFT, there is some prime factor \(p\) that divides \(Q\). \(p\) must be in our list of primes, as per our original assumption. Thus, \(p \mid P\). But \(p \mid (P+1 = Q)\). By proposition \ref{prop:3.x-lin-combo-div}, we must have that \(p \mid (Q - P = (P+1) - P)\), so \(p \mid 1\). But by definition no prime number can divide 1. This is a contradiction, so our original assumption must be false. Hence, primes are infinite.
 }
 
 UPFT gives us another way to prove that \(\sqrt{2} \not\in \Q\)
 
 \exproof{
-Prove that \(\sqrt{2} \not\in \Q\)
+	Prove that \(\sqrt{2} \not\in \Q\)
 }{
-Suppose not, then by definition \(\sqrt{2} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). In order to use UPFT, we need to show that \(a,b > 1\). Since \(\sqrt{2} > 0\) then it follows that \(a,b > 0\) (if they were both negative, then simplify to make them positive). It suffices to explain why \(a,b \neq 1\). Suppose \(a = 1\), then if \(b = 1\) we have \(\sqrt{2} = 1\) which is not true, and if \(b > 1\) then \(\sqrt{2} < 1 \Rightarrow 2 < 1\) is also not true. Thus \(a > 1\), and we need to show that \(b \neq 1\). Suppose \(b = 1\), then \(\sqrt{2} = a \geq 2 \Rightarrow 2 \geq 4\) is not true. So we have both \(a,b > 1\).
-
-By UPFT, both \(a\) and \(b\) have unique prime factorizations:
-\[a = p_1^{e_1} \cdots p_k^{e_k}\]
-\[b = q_1^{f_1} \cdots q_m^{f_m}\]
-with \(p_i,q_j\) prime and \(e_i,f_j\) positive integers.
-
-Now, since 2 is prime, it appears inside both \(a\) and \(b\)'s factorization, possibly with a zero exponent \(2^0 = 1\). So, re-write the factorizations with all of the 2's pulled out:
-\[a = 2^e \cdot A\]
-\[b = 2^f \cdot B\]
-where \(e,f \geq 0\) and \(A,B\) constitute the rest of the factorization.
-
-Now, we have
-\begin{align*}
-\sqrt{2} &= \frac{a}{b} \\
-2 &= \frac{a^2}{b^2} \\
-2b^2 &= a^2 \\
-2(2^f \cdot B)^2 &= (2^e \cdot A)^2 \\
-2^{2f+1} B^2 &= 2^{2e} A^2
-\end{align*}
-
-By UPFT, the only way for this equality to be satisfied is if \(2f+1 = 2e\). This means, by definition, that an odd number equals an even number, which is impossible. We have arrived at a contradiction, so our assumption was wrong, and hence \(\sqrt{2} \not\in \Q\)
+	Suppose not, then by definition \(\sqrt{2} = \frac{a}{b}\) for some \(a,b \in \Z\) with \(b \neq 0\). In order to use UPFT, we need to show that \(a,b > 1\). Since \(\sqrt{2} > 0\) then it follows that \(a,b > 0\) (if they were both negative, then simplify to make them positive). It suffices to explain why \(a,b \neq 1\). Suppose \(a = 1\), then if \(b = 1\) we have \(\sqrt{2} = 1\) which is not true, and if \(b > 1\) then \(\sqrt{2} < 1 \Rightarrow 2 < 1\) is also not true. Thus \(a > 1\), and we need to show that \(b \neq 1\). Suppose \(b = 1\), then \(\sqrt{2} = a \geq 2 \Rightarrow 2 \geq 4\) is not true. So we have both \(a,b > 1\).
+	
+	By UPFT, both \(a\) and \(b\) have unique prime factorizations:
+	\[a = p_1^{e_1} \cdots p_k^{e_k}\]
+	\[b = q_1^{f_1} \cdots q_m^{f_m}\]
+	with \(p_i,q_j\) prime and \(e_i,f_j\) positive integers.
+	
+	Now, since 2 is prime, it appears inside both \(a\) and \(b\)'s factorization, possibly with a zero exponent \(2^0 = 1\). So, re-write the factorizations with all of the 2's pulled out:
+	\[a = 2^e \cdot A\]
+	\[b = 2^f \cdot B\]
+	where \(e,f \geq 0\) and \(A,B\) constitute the rest of the factorization.
+	
+	Now, we have
+	\begin{align*}
+	\sqrt{2} &= \frac{a}{b} \\
+	2 &= \frac{a^2}{b^2} \\
+	2b^2 &= a^2 \\
+	2(2^f \cdot B)^2 &= (2^e \cdot A)^2 \\
+	2^{2f+1} B^2 &= 2^{2e} A^2
+	\end{align*}
+	
+	By UPFT, the only way for this equality to be satisfied is if \(2f+1 = 2e\). This means, by definition, that an odd number equals an even number, which is impossible. We have arrived at a contradiction, so our assumption was wrong, and hence \(\sqrt{2} \not\in \Q\)
 }
 
-\subsubsection{Induction}
+\subsection{Induction}
 
 Historically induction is difficult for students to learn, \textit{at first}. We have found, though, that as students progress through the course they exclusively either
 
@@ -1227,7 +1282,7 @@ There are four big techniques of induction:
 	\item Constructive induction
 \end{enumerate}
 
-\sectionbreak
+\subsubsection{Weak Induction}
 
 The proof technique of weak induction is entirely based on the following theorem:
 
@@ -1381,7 +1436,7 @@ We can prove any sort of statement with \(n\) in a discrete lower-bounded increa
 	Therefore, by the principle of mathematical induction we conclude the statement holds \(\forall n \in \N\)
 }
 
-\sectionbreak
+\subsubsection{Strong Induction}
 
 Weak induction is great, however in its current form it is not useful enough to prove some mathematical statements.
 
@@ -1546,7 +1601,7 @@ Interestingly, strong induction and weak induction are equivalent techniques. An
 
 Usually, though, one technique will be significantly easier than the other. In this case, use the easier technique. In higher level mathematics, we are less formal about using induction. Typically the induction hypothesis is not written, and trivial base cases are hand-waved. We recommend being explicit in your induction proofs until you fully understand what is going on. Once you do, then you can use induction as one simple idea, and most of your induction proofs will under-the-hood be ``strong'' induction proofs.
 
-\sectionbreak
+\subsubsection{Structural Induction}
 
 \index{Induction!Structural Induction}
 Our next induction technique is structural induction. There is no formal theorem for structural induction since it is essentially equivalent to our previous forms of induction. Interestingly, all forms of induction are equivalent to the \textit{well-ordering principle}, however this is outside the scope of this book.
@@ -1668,7 +1723,7 @@ Essentially the main idea of induction is the same. We use the recursive definit
 	The inductive step shows that by applying the recursive definition of \(\mathcal{L}\) the property holds true, hence every string in \(\mathcal{L}\) has an even numbers of \(a\)'s, \(b\)'s, and \(c\)'s by structural induction.
 }
 
-\sectionbreak
+\subsubsection{Constructive Induction}
 
 \index{Induction!Constructive Induction}
 Our final induction technique is constructive induction. Like structural induction, there is no formal theorem for constructive induction. Instead, constructive induction utilizes the previous induction techniques.
@@ -1836,7 +1891,7 @@ Sometimes the unknown may be in a different place.
 	Since \(x \in \N\) the largest value of \(x\) that works is \(5\). So we get \[x = 5\]
 }
 
-\sectionbreak
+\subsubsection{Induction Templates}
 
 Here are some templates we use for induction proofs. These should be used as a starting point until you fully understand what is going on. Some professors may do induction proofs differently -- follow their style.
 
@@ -1916,9 +1971,9 @@ Here are some templates we use for induction proofs. These should be used as a s
 
 Just follow the previous techniques. At the end of the step, usually you will be solving some form of algebraic system.
 
-\sectionbreak
+% todo -- loop invariance? maybe save for asymp anal?
 
-\subsubsection{Combination of Techniques}
+\subsection{Combination of Techniques}
 
 We can combine our previously-defined proof techniques to accomplish any goal we want.
 

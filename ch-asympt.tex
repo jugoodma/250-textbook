@@ -150,6 +150,45 @@ There are a handful of common run-time complexities that you should be familiar 
 
 Big discussion time % todo
 
+\section{The Halting Problem}
+
+Infinite loops are a software developer's worst nightmare. They are hard to find, debug, and (sometimes) fix. If only there were a piece of software that could examine your code and tell you whether there are any infinite loops. More abstractly, if it could tell you whether your program continues forever or eventually stops.
+
+Well, we are sorry to break the news to you, but this piece of software can never exist; sort-of.
+
+The halting problem is most commonly used as an introduction to computability theory. What problems can we compute? What does it even mean to be computable? These questions are out of scope of this book, but if the following problem interests you, consider taking a course on theory of computation.
+
+\begin{defn}[The Halting Problem]
+	A computational problem of determining whether an arbitrary computer program, with input, will stop or run forever.
+\end{defn}
+
+Think to yourself whether you can come up with a solution program. It is a difficult problem. Alan Turing proved in 1936 that no such algorithm could exist \textit{for all} pairs of programs and inputs. This proof led to (created) the Turing machine, and arguably all of modern computer science. The proof sketch follows. We call it a sketch because the actual proof is significantly more in-depth.
+
+\begin{proof}
+	Assume that such an algorithm (code description, function, method, whatever you want to call it) \(h\) exists. The function \(h : P \times I \rightarrow B\) given by \(h : (p,i) \mapsto b\) tells us whether a given input program \(p \in P\) (the set of all programs) with input \(i \in I\) (the set of all program inputs) will halt (stop) or not: \(b \in B = \{\text{True}, \text{False}\}\).
+	
+	Then the following procedure \(\textsc{g} \in P\):
+	\begin{algorithmic}[1]
+		\Function{g}{\(\cdot\)\@}
+			\If{\(h(\textsc{g},\cdot)\)}
+				\While{True}
+				\Comment{loop forever}
+				\EndWhile
+			\EndIf
+		\EndFunction
+	\end{algorithmic}
+	
+	We have two cases -- \(h(\textsc{g},\cdot)\) returns True, or \(h(\textsc{g},\cdot)\) returns False.
+	
+	Case 1: \(h(\textsc{g},\cdot) = \text{True}\). Then \textsc{g} stops. But since \(h\) returned True, the body of the if-statement will be executed. Then \textsc{g} will loop forever. But this contradicts the output of \(h\).
+	
+	Case 2: \(h(\textsc{g},\cdot) = \text{False}\). Then \textsc{g} does not stop. But since \(h\) returned False, the body of the if-statement is \textit{not} executed, so \textsc{g} will stop. But this contradicts the output of \(h\).
+	
+	Thus, the halting problem is undecidable (impossible to answer for all inputs).
+\end{proof}
+
+% todo
+
 \section{Summary}
 
 \begin{itemize}

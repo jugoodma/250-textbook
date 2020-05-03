@@ -374,6 +374,15 @@ We omit the proof on this one, however it is essentially a generalization of the
 	\(= y^3 -1 +x^3 +3x + 3xy^2 -3x^2 -3y^2 + 3y + 3x^2y -6xy\)
 }
 
+Now, before we move on, we should have a quick discussion as to why \(\binom{n}{k}\) is an integer. It is very tempting to say that, since we can always construct a situation in which \(\binom{n}{k}\) \textit{counts something}, then it is an integer. Indeed, this is a valid \textit{combinatorial argument}. \(\binom{n}{k}\) counts exactly the number of possible \(k\)-subsets from a set of size \(n\). Can we show this a different way? Well, an algebraic argument might not lead anywhere, but an inductive proof may.
+
+\exproof{
+	Show that \(\binom{n}{k} \in \Z\) for \(n,k \in \N\) and \(n \geq k\).
+}{
+	We will show this using a sort-of \textit{double induction} proof
+	% todo
+}
+
 \section{The Inclusion-Exclusion Principle}
 
 Combinatorics deals with counting things. Often we care about counting sizes of sets. Sometimes even when sets overlap, as in a set intersection. The Inclusion-Exclusion Principle helps us tackle situations when we know \textit{almost} all information about two sets.
@@ -519,21 +528,31 @@ You can try and try and try, but to no avail. You cannot arrange the books on th
 
 \section{Discrete Probability}
 
-Bottom text here
+We have discussed techniques for counting. We can apply this in a statistical sense when we start counting \textit{events}. Often when we discuss probability, we care about some smaller portion, or subset, of the total amount of possible events.
 
 \begin{defn}[Probability\index{Probability}]
-	The likelihood (percent chance) that an event occurs. Probabilities of every possible event should add to 1
+	The likelihood (percent chance) that an event occurs.
 \end{defn}
 
 \begin{example}
-	
+	The probability of flipping tails on a 2-sided coin is \(\frac{1}{2}\).
 \end{example}
-
-Something else here
 
 \begin{example}
-	Harder example
+	The probability of rolling a 2 on a 6-sided dice is \(\frac{1}{6}\).
 \end{example}
+
+Notice that in both examples we have a fraction. This represents the number of events we care about divided by the total number of possible events. We will use this in the next example.
+
+\exsol{
+	What is the probability of rolling a 2 or a 3 on a 6-sided dice?
+}{
+	We cannot roll a 2 and a 3 at the same time, so we can add their individual probabilities. So the probability is \(\frac{1}{6} + \frac{1}{6} = \frac{1}{3}\).
+	
+	Alternatively, there are two total events we care about, out of 6 possible events, so the probability is \(\frac{2}{6}\).
+}
+
+Notice how % show that summing disjoing probability = 1
 
 Joint/Disjoint
 
