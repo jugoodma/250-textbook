@@ -376,11 +376,29 @@ We omit the proof on this one, however it is essentially a generalization of the
 
 Now, before we move on, we should have a quick discussion as to why \(\binom{n}{k}\) is an integer. It is very tempting to say that, since we can always construct a situation in which \(\binom{n}{k}\) \textit{counts something}, then it is an integer. Indeed, this is a valid \textit{combinatorial argument}. \(\binom{n}{k}\) counts exactly the number of possible \(k\)-subsets from a set of size \(n\). Can we show this a different way? Well, an algebraic argument might not lead anywhere, but an inductive proof may.
 
+% todo : might scrap it?
 \exproof{
 	Show that \(\binom{n}{k} \in \Z\) for \(n,k \in \N\) and \(n \geq k\).
 }{
-	We will show this using a sort-of \textit{double induction} proof
-	% todo
+	First, let us show the following lemma: \[(\forall m \in \N)(\forall o \in \N)[m! \mid \prod_{i=o}^{o+m-1} i]\]
+	All this says is that \(m!\) divides the product of \(m\) consecutive integers. We use \(o\) as an \textit{offset}. We will show this with a \textit{double induction} proof on \(m\) and \(o\). Note that \(o\) could be any integer, but we will restrict to naturals for simplicity.
+	
+	We start by inducting on \(m\). For \(m=0\) then we have \(0! = 1\) and 1 divides everything. So the base case holds.
+	
+	For a hypothesis, assume \((m-1)! \mid \prod_{i=o}^{o+m-2} i\) for an arbitrary \(m-1 \geq 0\).
+	
+	For the inductive step, we aim to show \(m! \mid \prod_{i=o}^{o+m-1} i\). We will now show this by inducting on \(o\).
+	
+	Note that if \(o=0\) then the product is 0, and anything divides 0. We do not have to, but we will also consider \(o=1\). In this case, \(\prod_{i=1}^{1+m-1} i = m!\), and \(m! \mid m!\). So the base case holds.
+	
+	For a hypothesis, assume \(m! \mid \prod_{i=o-1}^{o-1+m-1} i\) for an arbitrary \(o-1 \geq 0\).
+	
+	We aim to show that \(m! \mid \prod_{i=o}^{o+m-1} i = (o)(o+1)\cdots(o+m-1)\). Well
+	\((o)(o+1)\cdots(o+m-1) = (o-1)(o)\cdots(o-1+m-1) + (o)(o+1)\cdots(o+m-2)\big( (o+m-1) - (o-1) \big) = \prod_{i=o-1}^{o-1+m-1} i + m\prod_{i=o}^{o+m-2} i\). The first term in the sum is divisible by \(m!\) by the induction hypothesis for \(o\). The second term \(\prod_{i=o}^{o+m-2} i\) is divisible by \((m-1)!\) by the induction hypothesis for \(m\). Then \((m-1)! \mid \prod_{i=o}^{o+m-2} i \Rightarrow m(m-1)! \mid m\prod_{i=o}^{o+m-2} i\). Thus our entire original sum is divisible by \(m!\).
+	
+	So the induction step for \(o\) holds, and thus the induction step for \(m\) also holds.
+	
+	Then \(\binom{n}{k} = \frac{n!}{k!(n-k)!} = \frac{n \cdot (n-1) \cdots (n-k+1)}{k!}\). Then the numerator is a product of \(n - (n-k+1) + 1 = k-1+1 = k\) consecutive integers, so by the previous lemma \(\binom{n}{k} = \frac{n \cdot (n-1) \cdots (n-k+1)}{k!} \in \Z\).
 }
 
 \section{The Inclusion-Exclusion Principle}
@@ -439,7 +457,9 @@ The Inclusion-Exclusion Principle is precisely a generalization of this exact si
 		\item \textit{and so on}
 	\end{enumerate}
 	
-	More abstractly, for the sets \(A_1,A_2,\cdots,A_n\) we have \[|\bigcup_{i=1}^{n} A_i| =\]\[\sum_{1 \leq i \leq n} |A_i| - \sum_{1 \leq i,j \leq n} |A_i \cap A_j| + \sum_{1 \leq i,j,k \leq n} |A_i \cap A_j \cap A_k| - \cdots + (-1)^{n-1}|A_1 \cap \cdots \cap A_n|\]
+	More abstractly, for the sets \(A_1,A_2,\cdots,A_n\) we have
+	\[|\bigcup_{i=1}^{n} A_i| =\]
+	\[\sum_{1 \leq i \leq n} |A_i| - \sum_{1 \leq i,j \leq n} |A_i \cap A_j| + \sum_{1 \leq i,j,k \leq n} |A_i \cap A_j \cap A_k|\]\[- \cdots + (-1)^{n-1}|A_1 \cap \cdots \cap A_n|\]
 \end{thm}
 
 \begin{rem}
@@ -530,6 +550,18 @@ You can try and try and try, but to no avail. You cannot arrange the books on th
 
 We have discussed techniques for counting. We can apply this in a statistical sense when we start counting \textit{events}. Often when we discuss probability, we care about some smaller portion, or subset, of the total amount of possible events.
 
+An easy way to introduce probability is by working through a well-known example -- flipping a coin. Assuming the coin is fair, and coin flips are truly random, then we can start to reason about, given any coin flip, whether the coin will land heads-up or tails-up. Later we will see that we do not need these assumptions to reason about which side lands face-up, but we will assume them now for simplicity.
+
+Suppose we flip a fair and truly random coin. We know that there are only two possible outcomes -- the coin lands heads-up, or the coin lands tails-up. Since the coin is truly \textit{random}, we have no way to predict which side will land face-up. Since the coin is \textit{fair}, then both sides are equally likely to land face-up. We refer to this as a 50/50 chance -- a 50\% chance of landing tails, and a 50\% chance of landing heads. Note that \(50\% = 0.5 = \frac{1}{2}\), which is the likelihood that any \textit{one} of our \textit{two} (heads or tails) events occurs.
+\begin{center}
+	\begin{tikzpicture}
+	\draw (0,0) circle (0.75cm) node[] {Heads};
+	\draw (2,0) circle (0.75cm) node[] {Tails};
+	\end{tikzpicture}
+\end{center}
+
+A subtle note on \textbf{percents} -- the \(\%\) symbol. A \textit{percent} is a way to represent \textit{proportions}, or fractions, of a whole. In percent-land, we are concerned with fractions of a single whole, 1. All percents represent numbers in the continuous interval \([0,1]\). To translate a number \(0 \leq r \leq 1\) into a percent, multiply the number by 100 and append a \(\%\) on the end. So \(r \mapsto 100r\%\). For example, \(\frac{1}{4} = 0.25 = 25\%\). Usually percents are approximations for their real-number counterpart -- as such, percents necessarily approximate irrational numbers and any fraction with an infinite decimal expansion. For example, \(\frac{1}{9} = 0.\bar{1} = 0.111111\cdots \approx 11.11\%\). The cutoff point, and whether you round the result, is dependent on the situation -- research \textit{significant figures} if you are interested, but this is irrelevant for this course.
+
 \begin{defn}[Probability\index{Probability}]
 	The likelihood (percent chance) that an event occurs.
 \end{defn}
@@ -542,27 +574,114 @@ We have discussed techniques for counting. We can apply this in a statistical se
 	The probability of rolling a 2 on a 6-sided dice is \(\frac{1}{6}\).
 \end{example}
 
-Notice that in both examples we have a fraction. This represents the number of events we care about divided by the total number of possible events. We will use this in the next example.
+The fractions in a probability are formulated as: \[\frac{\text{\# events wanted}}{\text{\# events possible}}\]
+Our previous examples had single events in the numerator, however this fraction lets us extend this to different combinations of events. The numerator and denominator are \textit{counts}, so we can apply any of our previously learned combinatoric methods as well.
 
 \exsol{
-	What is the probability of rolling a 2 or a 3 on a 6-sided dice?
+	What is the probability of rolling a 2 or a 3 on a 6-sided die?
 }{
 	We cannot roll a 2 and a 3 at the same time, so we can add their individual probabilities. So the probability is \(\frac{1}{6} + \frac{1}{6} = \frac{1}{3}\).
 	
-	Alternatively, there are two total events we care about, out of 6 possible events, so the probability is \(\frac{2}{6}\).
+	Alternatively, there are two total different events we care about, out of 6 possible events, so the probability is \(\frac{2}{6}\).
 }
 
-Notice how % show that summing disjoing probability = 1
+\exsol{
+	We aim to select a group of size 3, by choosing one-by-one without replacement, from a set of objects \(\{A,B,C,D,E,F,G\}\). What is the probability that our selected group is \(\{A,C,E\}\)?
+}{
+	Well, how many possible ways can we select exactly those three objects? Note here that the order in which we select the objects does not matter, so long as we end up with \(\{A,C,E\}\). We can translate this to a string problem, selecting letters from \(\{A,C,E\}\) and placing into a length-3 string. This gives us \(3!=6\) possible selections. Then the \(i\)\textsuperscript{th} letter in the string is the \(i\)\textsuperscript{th} object we select. Then how many total possible groups can we select? Well, this is equivalent to asking the amount of possible length-3 strings we can make from our original set, or the amount of 3-permutations. This equals \(P(7,3) = \frac{7!}{4!} = 7 \cdot 6 \cdot 5\). All together, this gives a probability of \(\frac{3!}{\frac{7!}{4!}} = \frac{3!4!}{7!} = \frac{3 \cdot 2 \cdot 1}{7 \cdot 6 \cdot 5} = \frac{1}{35}\).
+	
+	Alternatively, we could have treated groups as one meaningful package, and examined how many total groups we can make. We can make \(\binom{7}{3}\) groups, one of which is \(\{A,C,E\}\). Then the probability is \(\frac{1}{\binom{7}{3}} = \frac{3!4!}{7!}\) which is the same as before.
+}
 
-Joint/Disjoint
+Now we go back to an earlier example.
+
+\exsol{
+	For a 6-sided die, calculate the following probabilities: rolling a 2 or a 3; rolling a 1, 4, or 5; rolling a 6.
+}{
+	The first set has probability \(\frac{1}{3}\), as we calculated before. The second has probability \(\frac{1+1+1}{6} = \frac{1}{2}\). The third has probability \(\frac{1}{6}\).
+}
+
+\begin{rem}
+	Notice how \(\frac{1}{3} + \frac{1}{2} + \frac{1}{6} = \frac{2}{6} + \frac{3}{6} + \frac{1}{6} = \frac{2+3+1}{6} = 1\)
+\end{rem}
+
+So why does this happen? Well, further notice from the previous example that our three different events are entirely disjoint. Finally, notice that all three events together make up all \textit{possible} events for a 6-sided die. The only possibilities for a 6-sided die is rolling one of the six sides.
+
+Before we formalize this idea, we should establish notation for probabilities.
+
+\begin{defn}[Probability Notation]
+	We denote \[P(E) \in [0,1]\] as the probability that event \(E\) occurs.
+\end{defn}
+
+\begin{defn}[Sample Space]
+	Denote \(\Omega\) as the set of all possible events/outcomes for the current situation.
+\end{defn}
+
+\begin{thm}
+	Let \(E_1,E_2,\cdots,E_n \in \Omega\). If \(\bigcap_{i=1}^{n} \{E_i\} = \emptyset\) and \(\bigcup_{i=1}^{n} \{E_i\} = \Omega\) then \[\sum_{i=1}^{n} P(E_i) = 1\]
+\end{thm}
+
+This intuitively says that the probabilities of disjoint events that cover the entire sample space add to 1. This follows quite easily from the definition of probability -- essentially think of our disjoint sample space as a partition of \([0,1]\), with the lengths of the partition as the probability of the associated event. We saw this happened in the previous example.
+
+\exsol{
+	Calculate the probability of \textbf{not} rolling a 1 from a 6-sided die.
+}{
+	Note that the event \textit{not rolling a 1} is equivalent to rolling a 2 or a 3 or a 4 or a 5 or a 6. Which we can calculate as having probability \(\frac{5}{6}\).
+	
+	Alternatively, notice how the events \textit{roll a 1} and \textit{not roll a 1} are disjoint. Further notice how these two events entirely make up our sample space of rolling any of the six sides. Then we can apply the previous theorem. Denote the first event as \(E_1\) and the second \(E_2\). We know the probability of rolling a 1, \(P(E_1)\), is \(\frac{1}{6}\). Then we know \(P(E_1) + P(E_2) = 1\), thus \(\frac{1}{6} + P(E_2) = 1\) so \(P(E_2) = 1 - \frac{1}{6} = \frac{5}{6}\).
+}
+
+This method, subtracting 1 to find the complement probability, is very common and helpful in more difficult problems. In the previous example, we could easily count all possibilities in the complement event. In other examples, this might not be possible.
+
+\exsol{
+	Suppose we roll three 6-sided dice. Our total value from the roll is the sum of all three die. Calculate the probability that our total value is at least 5.
+}{
+	There are a \textit{lot} of possible rolls that give us a total of at least 5. However, there are significantly less rolls that give us values \textit{strictly less than} 5. We can count them. We have \(\{1,1,1\}\), \(\{2,1,1\}\), \(\{2,2,1\}\), \(\{3,1,1\}\). Then we have a total of \(\frac{6^3}{3!}\) dice rolls (we divide out the \(3!\) possible orderings). So of those dice rolls, we have four that we care about. So \(P(v < 5) = \frac{4}{\frac{6^3}{3!}}\) where \(v\) is the dice roll value. Therefore, \(P(v \geq 5) = 1 - P(v < 5) = 1 - \frac{4}{\frac{6^3}{3!}}\).
+}
+
+Now that we understand the idea of joint and disjoint events, we can discuss joint and disjoint \textit{probability}.
 
 \begin{defn}[Joint Probability\index{Probability!Joint}]
-	
+	The probability of two (or more) events occurring together. We denote this as \[P(E_1,E_2,\cdots)\]
 \end{defn}
 
+We can discuss joint probability for events that are related to each other and for events completely unrelated to each other. This idea of \textit{relation}, that one event may or may not \textit{affect} another, is precisely the idea of \textit{independence}.
+
 \begin{defn}[Independence\index{Probability!Independence}]
-	
+	Two events are independent if the outcome of one event does not affect the outcome of the other. More than two events are independent if all possible pairings of events are independent.
 \end{defn}
+
+\begin{example}
+	The \(n\) events for flipping \(n\) coins are independent.
+\end{example}
+
+\begin{example}
+	Successive selection events of marbles from a bag, without replacement, are dependent.
+\end{example}
+
+\begin{thm}
+	\(E_1\) and \(E_2\) are independent if and only if \(P(E_1 \land E_2) = P(E_1)P(E_2)\)
+\end{thm}
+
+\begin{rem}
+	You may sometimes see \(P(E_1 \land E_2)\) written as \(P(E_1 \cap E_2)\).
+\end{rem}
+
+\begin{proof}
+	
+\end{proof}
+
+\exsol{
+
+}{
+
+}
+
+\exsol{
+
+}{
+
+}
 
 Some discussion on conditional probability
 

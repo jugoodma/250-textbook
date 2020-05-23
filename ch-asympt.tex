@@ -36,21 +36,21 @@ Our motivation here is to describe the \textit{growth-rate} of functions. The gr
 
 \section{Analyzing Algorithms}
 
-We can express algorithms in terms of functions. The function input is typically \(n\), the number of elements inputted into the algorithm, and the function output is typically time. Usually \textit{time} will be the number of certain operations performed during the algorithm.
+We can express algorithms in terms of functions. The function input is typically \(n\), the number of elements inputted into, or input size for, the algorithm, and the function output is typically time. Usually \textit{time} will be the number of certain operations performed during the algorithm.
 
 \exsol{
 	Come up with a function \(T(n)\) that describes the run-time of the following algorithm. Define run-time as the number of conditional evaluations. In the following algorithm, \(L\) is a list of integers of length \(n\).
 	\begin{algorithmic}[1]
 		\Function{GetMax}{\(L\), \(n\)\@}
-		\State \(M \gets -\infty\)
-		\State \(i \gets 0\)
-		\While{\(i < n\)}
-		\If{\(L[i] > M\)}
-		\State \(M \gets L[i]\)
-		\EndIf
-		\State \(i \gets i+1\)
-		\EndWhile
-		\State \Return \(M\)
+			\State \(M \gets -\infty\)
+			\State \(i \gets 0\)
+			\While{\(i < n\)}
+				\If{\(L[i] > M\)}
+					\State \(M \gets L[i]\)
+				\EndIf
+				\State \(i \gets i+1\)
+			\EndWhile
+			\State \Return \(M\)
 		\EndFunction
 	\end{algorithmic}
 }{
@@ -79,15 +79,15 @@ It is important to think about what is going on during the algorithm instead of 
 	Analyze the following algorithm:
 	\begin{algorithmic}[1]
 		\Function{AnalyzeList}{\(L\), \(n\)\@}
-		\State \(M \gets 0\)
-		\For{\(i \gets 0\); \(i < n\); \(i \gets i + 1\)}
-		\State \(k \gets L[i]\)
-		\For{\(j \gets i\); \(j < n\); \(j \gets j + 1\)}
-		\State \(k \gets k * L[j]\)
-		\EndFor
-		\State \(M \gets M + k\)
-		\EndFor
-		\State \Return \(M\)
+			\State \(M \gets 0\)
+			\For{\(i \gets 0\); \(i < n\); \(i \gets i + 1\)}
+				\State \(k \gets L[i]\)
+				\For{\(j \gets i\); \(j < n\); \(j \gets j + 1\)}
+					\State \(k \gets k * L[j]\)
+				\EndFor
+				\State \(M \gets M + k\)
+			\EndFor
+			\State \Return \(M\)
 		\EndFunction
 	\end{algorithmic}
 }{
@@ -98,24 +98,28 @@ It is important to think about what is going on during the algorithm instead of 
 	Examine the following algorithm:
 	\begin{algorithmic}[1]
 		\Function{AnalyzeGraph}{\(G = (V,E)\)\@}
-		\State \(c \gets 0\)
-		\For{\(v \in V\)}
-		\For{\(w \in \text{Neighbors}(v)\)}
-		\State \(c \gets c + 1\)
-		\EndFor
-		\EndFor
-		\State \Return \(c\)
+			\State \(c \gets 0\)
+			\For{\(v \in V\)}
+				\For{\(w \in \text{Neighbors}(v)\)}
+					\State \(c \gets c + 1\)
+				\EndFor
+			\EndFor
+			\State \Return \(c\)
 		\EndFunction
 	\end{algorithmic}
 }{
-	\(G\) represents a graph
+	\(G\) represents a graph % todo
 }
 
 \exsol{
-
+	% todo
 }{
 
 }
+
+\subsection{Solving Summations}
+
+% todo
 
 \subsection{Solving Recurrences}
 
