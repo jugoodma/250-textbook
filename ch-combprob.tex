@@ -660,93 +660,286 @@ We can discuss joint probability for events that are related to each other and f
 \end{example}
 
 \begin{thm}
-	\(E_1\) and \(E_2\) are independent if and only if \(P(E_1 \land E_2) = P(E_1)P(E_2)\)
+	If \(E_1\) and \(E_2\) are independent then \(P(E_1 \land E_2) = P(E_1)P(E_2)\)
 \end{thm}
 
 \begin{rem}
 	You may sometimes see \(P(E_1 \land E_2)\) written as \(P(E_1 \cap E_2)\).
 \end{rem}
 
-\begin{proof}
-	
-\end{proof}
+This is essentially a consequence of our combinatorics multiplication rule.
 
 \exsol{
-
+	Calculate the probability of flipping heads twice in a row. Then calculate the probability of flipping \(n\) heads in a row.
 }{
-
+	There is a \(\frac{1}{2}\) probability we flip heads. We know that the second coin flip is independent of the first, so we multiply to get \(\frac{1}{2}\frac{1}{2} = \frac{1}{4}\).
+	
+	Similarly, for \(n\) flips we get \(\underbrace{\frac{1}{2} \cdot \frac{1}{2}\cdots\frac{1}{2}}_{n \text{ times}} = \frac{1}{2^n}\).
 }
+
+Once events start affecting one another, however, then their probabilities act differently.
 
 \exsol{
-
+	Suppose we have a bag of marbles -- 3 red marbles, 2 blue marbles, and 5 green marbles. Calculate the probability of selecting (without replacement) a blue marble, then a red marble, then two green marbles.
 }{
-
+	Once we select a marble, notice that the total amount of marbles change. We start with \(3+2+5=10\) marbles. We have 2 blue marbles, so the probability of selecting a blue marble is \(\frac{2}{10}\). Then, we have \(3+1+5=9\) marbles left -- there is one less blue marble. Of these marbles, we have a \(\frac{3}{9}\) probability of selecting a red marble. Then we have \(2+1+5=8\) marbles left. We have a \(\frac{5}{8}\) chance of selecting a green marble. Finally, we have \(2+1+4=7\) marbles left, so we have a \(\frac{4}{7}\) chance of selecting the second green marble.
+	
+	Now that each probability calculation has accounted for our event dependencies, then we can treat them as independent and multiply to get our resulting probability. This yields \(\frac{2}{10} \cdot \frac{3}{9} \cdot \frac{5}{8} \cdot \frac{4}{7} \approx 2.381\%\).
 }
 
-Some discussion on conditional probability
+The previous example gives us motivation for a new definition.
 
 \begin{defn}[Conditional Probability\index{Probability!Conditional}]
-	
+	The probability of one event occurring given another event occurs. We denote this as \[P(E_2 \mid E_1)\] which reads as \textit{the probability that \(E_2\) occurs given \(E_1\) occurred}.
 \end{defn}
 
-\begin{defn}[Conditional Probability\index{Probability!Conditional}]
-	
-\end{defn}
+\exsol{
+	As in the previous example, suppose we have a bag of marbles -- 3 red marbles, 2 blue marbles, and 5 green marbles. Calculate the probability of selecting a red marble \textit{given} we first selected a blue marble.
+}{
+	Let \(E_1\) represent selecting a blue marble and \(E_2\) represent selecting a red marble. Then \(P(E_2 \mid E_1) = \frac{3}{9}\). In this case, we take out the already-selected blue marble, and continue as usual. There are \(3+1+5=9\) total marbles, and three of those are red.
+}
 
-Probably talk about 
+\begin{rem}
+	Compare this to the probability of selecting a blue marble and then selecting a red marble (which is \(\frac{2}{10} \cdot \frac{3}{9}\)).
+\end{rem}
+
+Now, what if our events in a conditional probability are independent? So what is \(P(E_2 \mid E_1)\) when \(E_1\) and \(E_2\) are independent? Well, the conditional probability focuses on when \(E_2\) occurs \textit{given} \(E_1\) occurred. But \(E_2\) is independent of \(E_1\), so \(E_1\) places no condition on \(E_2\). This gives us our next theorem.
+
+\begin{thm}
+	If \(E_1\) and \(E_2\) are independent then \(P(E_2 \mid E_1) = P(E_2)\)
+\end{thm}
+
+\exsol{
+	Calculate the probability that we flip heads on a coin given we already flipped heads.
+}{
+	The probability is \(\frac{1}{2}\). In the world where we already flipped heads, well the next flip we do has no dependence on our first flip. So the second flip has the same probability of a standard flip.
+}
+
+Sometimes a particular conditional probability is difficult to calculate, but the reverse conditional probability is much easier.
+
+\begin{thm}[Bayes' Theorem]
+	Let \(P(B) \neq 0\). Then \[P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)}\]
+\end{thm}
+
+Before we prove this, we need a lemma.
+
+\begin{prop}
+	\[P(A \cap B) = P(A)P(B \mid A)\]
+\end{prop}
+
+This is simply formalizing our multiplication rule for probabilities, accounting for dependent events.
+
+Then Bayes' holds by getting \(P(A \cap B) = P(A)P(B \mid A)\) and \(P(B \cap A) = P(B)P(A \mid B)\), noticing that \(P(A \cap B) = P(B \cap A)\), and setting these equal \[P(A)P(B \mid A) = P(A \cap B) = P(B)P(A \mid B)\]
+
+\begin{rem}
+	Our events in Bayes' theorem are historically written as \(A,B\), but those are simply placeholders. We could have written them as \(E_1,E_2\), \(E,F\), etc.
+\end{rem}
+
+\begin{rem}
+	There are a few mnemonics to remember this theorem. You can use the proof's formalization, which requires a simple rearrangement to recover the theorem. You can also rearrange the theorem to get \[P(A \mid B) = \frac{P(A) \cdot P(B \mid A)}{P(B)}\] and remember this by remembering \textit{ABABAB}.
+\end{rem}
+
+\exsol{
+	Bayes' is often used for false positives and false negatives.
+	
+	Suppose there exists a disease, and a test for this disease. Suppose for people who \textit{have} the disease, the test accurately says \textbf{yes} \(90\%\) of the time. Suppose for people who \textit{do not have} the disease, the test falsely says \textbf{yes} \(5\%\) of the time (false positives). Suppose finally that \(2\%\) of the world population has this disease. You take the test, and it turns up positive. What is the probability you actually have the disease? Further suppose the test turned up negative. Do we have enough informaiton to determine if you actually do \textit{not} have the disease?
+}{
+	We have events \(D\) and \(Y\), representing that you have the \textit{D}isease and representing the test saying \textit{Y}es. Our goal is to find \(P(D \mid Y)\) -- the probability you have the disease given the test says you have the disease. We know \(P(Y \mid D) = 0.9\) -- the probability that the test says yes given you have the disease. We also know \(P(D) = 0.02\) -- the probability that you have the disease, which is just the amount of people in the world who have the disease. Then we can use Bayes' so long as we have \(P(Y)\) -- the probability of the test saying yes. Well, we know the test says yes in the case that you do have the disease and the case that you do not -- these cover the entirety of our sample space. So we can add them. \(P(Y \mid D) = 0.9\) and \(P(Y \mid \lnot D) = 0.05\), so \(P(Y) = P(Y \mid D)P(D) + P(Y \mid \lnot D)P(\lnot D) = (0.9)(0.02) + (0.05)(1 - 0.02) = 0.067\). Then by Bayes', \(P(D \mid Y) = \frac{P(D)P(Y \mid D)}{P(Y)} = \frac{(0.02)(0.9)}{0.067} \approx 0.2687 \approx 26.87\%\) chance. So just above a 1 in 4 chance that you actually have the disease when the test says you do. I suppose the test is not very good then.
+	
+	\bigskip
+	
+	Now suppose the test says you do not have the disease. Then we need the probability that the test says \textit{N}o, \(P(N)\). Now, the test either says yes or it says no, and these events are mutually exclusive. So \(P(N) = 1 - P(Y) = 1 - 0.067\). Then we aim to find \(P(\lnot D \mid N)\), which by Bayes' means we need \(P(\lnot D) = 1 - P(D) = 0.98\) and \(P(N \mid \lnot D)\). This is the probability that the test says no given you do not have the disease. We know the probability that the test says \textit{yes} given you do not have the disease, \(0.05\). Then \(P(N \mid \lnot D) = 1 - P(Y \mid \lnot D) = 1 - 0.05 = 0.95\). Indeed we do have enough information! Thus by Bayes' \(P(\lnot D \mid N) = \frac{P(\lnot D)P(N \mid \lnot D)}{P(N)} = \frac{(0.98)(0.95)}{1-0.067} \approx 0.9979 \approx 99.79\%\). I suppose the test accurately says you do \textit{not} have the disease, so maybe it is not so bad then.
+}
+
+\begin{rem}
+	The second part of this example reminds us of an interesting idea. \(P(A \mid B) + P(\lnot A \mid B) = 1\). However, we know nothing about the relationship between \(P(A \mid B)\) and \(P(A \mid \lnot B)\) (see exercises).
+\end{rem}
+
+Note that if events \(A\) and \(B\) are independent then Bayes' tells us that \(P(A) = P(A \mid B) = \frac{P(B \mid A) \cdot P(A)}{P(B)} = \frac{P(B) \cdot P(A)}{P(B)} = P(A)\). This does not super useful, though.
 
 \section{Basic Statistics\index{Statistics}}
 
 Statistics are an important application of probability. Statistics give us a way to mathematically model probabilities of big events/experiments. We cover three fundamental statistics principles, along with a few related topics.
 
-\begin{defn}[Expected Value\index{Statistics!Expected Value}]
-	\(\mathbb{E}[X] = \mu_X = \sum_{x}^{} x \cdot \mathrm{Pr}(X = x)\). This is a generalization of the \textit{arithmetic mean}, which is defined in scenarios where outcomes are equally likely. If we denote \(x_1,\ x_2,\ x_3,\ \cdots,\ x_n\) to be the values outputted by \(X\), and \(p_1,\ p_2,\ p_3,\ \cdots,\ p_n\) to be their respective probabilities, then \(\mathbb{E}[X] = \sum_{i=1}^{n} x_i p_i\)
+\begin{rem}
+	Before we continue, you may notice that we also write \(\mathrm{Pr}(E)\) to be the probability that event \(E\) occurs. Before, we wrote this as \(P(E)\). These notations are interchangeable.
+\end{rem}
+
+\begin{defn}[Random Variable]
+	A random variable is an abstraction of a sample space.
 \end{defn}
 
-Sometimes students confuse \textit{expected value} with \textit{average}. First, the ``average'' is not well-defined -- it could refer to the mean, median, or mode (typically it refers to the mean). Second, as stated in the definition, the expected value is a generalized \textit{mean}.
+We denote \(X\) as a random variable. Random variables can be discrete or continuous, but we will focus only on the discrete case. Random variables take on values, or outcomes. Typically the outcomes of a random variable are actual values, but can sometimes be events with associated values. All possible random variable outcomes have an associated probability. In the discrete case, we can enumerate each probability. We know that all of these probabilities must add to 1. This also tells us that the probability of an outcome \textit{not} from the random variable has probability 0.
+
+Since the values of \(X\) are numeric values, we can apply our standard mathematical operators. We denote \(\mathrm{Pr}(X = x)\) as the probability that the random variable \(X\) outputs the value \(x\). Similarly, we denote \(\mathrm{Pr}(X > x)\) as the probability that \(X\) is greater than \(x\). We can take the probability of any proposition dependent on \(X\).
+
+\begin{defn}[Expected Value\index{Statistics!Expected Value}]
+	\(\mathbb{E}[X] = \mu_X = \sum_{x \in X} x \cdot \mathrm{Pr}(X = x)\). This is a generalization of the \textit{arithmetic mean}, which is defined in scenarios where outcomes are equally likely. If we denote \(x_1, x_2, x_3, \cdots, x_n\) to be the values outputted by \(X\), and \(p_1, p_2, p_3, \cdots, p_n\) to be their respective probabilities, then \(\mathbb{E}[X] = \sum_{i=1}^{n} p_i x_i\)
+\end{defn}
+
+Sometimes students confuse \textit{expected value} with \textit{average}. First, the ``average'' is not well-defined -- it could refer to the mean, median, or mode (typically it refers to the mean). Second, as stated in the definition, the expected value is a generalized \textit{mean}. The expected value is precisely the value of the random variable we expect to get.
+
+Note that \[\mathbb{E}[f(X)] = \sum_{x \in X} f(x) \cdot \mathrm{Pr}(X = x)\] which means that the expected value of some function of \(X\) is the same as the expected value of \(X\) but with \(f(x)\) substituted for \(x\).
+
+\begin{prop}
+	\(\mathbb{E}\) is a linear function, i.e.\ \(\mathbb{E}[aX+bY] = a\mathbb{E}[X] + b\mathbb{E}[Y]\)
+\end{prop}
+
+\begin{proof}
+	The expected value of a \textit{value}, not a \textit{variable}, is the value itself: \(\mathbb{E}[v] = v\). If we think of a random variable \(V\) that always outputs \(v\), then  \(\mathrm{Pr}(V=v) = 1\), so \(\mathbb{E}[V] = \sum_{v \in V} v \cdot \mathrm{Pr}(V = v) = v \cdot 1 = v\).
+	
+	Then the expected value of the sum of variables is the sum of the expected value of those variables: \(\mathbb{E}[X+Y] = \mathbb{E}[X] + \mathbb{E}[Y]\).
+	\begin{align*}
+	\mathbb{E}[X+Y] &= \sum_{x+y \in X+Y} (x+y) \cdot \mathrm{Pr}(X+Y = x+y) \\
+	&= \sum_{x \in X} \sum_{y \in Y} (x+y) \cdot \mathrm{Pr}(X = x \land Y = y) \\
+	&= \sum_{x \in X} \sum_{y \in Y} x \cdot \mathrm{Pr}(X = x \land Y = y) \\
+	 &+ \sum_{x \in X} \sum_{y \in Y} x \cdot \mathrm{Pr}(X = x \land Y = y) \\
+	&= \sum_{x \in X} x \sum_{y \in Y} \mathrm{Pr}(X = x \land Y = y) \\
+	 &+ \sum_{y \in Y} y \sum_{x \in X} \mathrm{Pr}(X = x \land Y = y) \\
+	&= \sum_{x \in X} x \sum_{y \in Y} \mathrm{Pr}(X = x)\mathrm{Pr}(Y=y \mid X=x) \\
+	 &+ \sum_{y \in Y} y \sum_{x \in X} \mathrm{Pr}(Y = y)\mathrm{Pr}(X=x \mid Y=y) \\
+	&= \sum_{x \in X} x \cdot \mathrm{Pr}(X = x) \sum_{y \in Y} \mathrm{Pr}(Y=y \mid X=x) \\
+	 &+ \sum_{y \in Y} y \cdot \mathrm{Pr}(Y = y) \sum_{x \in X} \mathrm{Pr}(X=x \mid Y=y) \\
+	&= \sum_{x \in X} x \cdot \mathrm{Pr}(X = x) + \sum_{y \in Y} y \cdot \mathrm{Pr}(Y = y) \\
+	&= \mathbb{E}[X] + \mathbb{E}[Y]
+	\end{align*}
+	
+	These together give us the result.
+\end{proof}
+
+\begin{rem}
+	Linearity is extended to any countable number of sums and products. So \[\mathbb{E}[c_1 X_1 + c_2 X_2 + \cdots + c_n X_n] = c_1\mathbb{E}[X_1] + c_2\mathbb{E}[X_2] + \cdots + c_n\mathbb{E}[X_n]\]
+\end{rem}
 
 \begin{defn}[Variance\index{Statistics!Variance}]
-	
+	\(\text{var}(X) = \sigma_X^2 = \mathbb{E}[(X-\mu_X)^2] = \mathbb{E}[(X-\mathbb{E}[X])^2]\)
 \end{defn}
+
+\begin{prop}
+	\[\sigma_X^2 = \mathbb{E}[X^2] - \mathbb{E}[X]^2\]
+\end{prop}
+
+\begin{proof}
+	\(\mathbb{E}\) is linear. Then
+	\begin{align*}
+	\sigma_X^2 &= \mathbb{E}[(X-\mathbb{E}[X])^2] \\
+	&= \mathbb{E}[X^2 - 2X\mathbb{E}[X] + \mathbb{E}[X]^2] \\
+	&= \mathbb{E}[X^2] - 2\mathbb{E}[X]\mathbb{E}[X] + \mathbb{E}[\mathbb{E}[X]^2] \\
+	&= \mathbb{E}[X^2] - 2\mathbb{E}[X]^2 + \mathbb{E}[X]^2 \\
+	&= \mathbb{E}[X^2] - \mathbb{E}[X]^2
+	\end{align*}
+\end{proof}
+
+Variance is a measure for the \textit{spread} of a random variable's sampled output from the variable's expected value.
+Variance also leads us to an idea of \textit{Covariance} between two (or more) random variables, which leads us to the idea of random variables being \textit{correlated}. If the covariance between two random variables is zero, then the two random variables are \textit{uncorrelated}, or independent. This is somewhat out of scope for this course, so search online if you are interested.
 
 \begin{defn}[Standard Deviation\index{Statistics!Standard Deviation}]
-	
+	\(\text{stdDev}(X) = \sigma_X = \sqrt{\sigma_X^2} = \sqrt{\text{var}(X)}\)
 \end{defn}
 
-% Uniform distribution -- flat line / dice roll / coin flip
+The standard deviation is also a measure for the spread of a random variable's outcomes from the expected value. In this case, though, the \textit{unit} for standard deviations is the same unit used for the expected value. With variance, however, the unit is the \textit{square} of the expected value's unit. For example, if we had a random variable whose value outputs are in meters, then the expected value's unit will be in meters, the variance's unit will be in meters squared, and the standard deviation's unit will be in meters. Standard deviation is useful for reporting, since its units are easier to understand, but variance is useful for analysis (proofs). The two are entirely dependent on each other, however. With one, you have the other.
 
-% Standard distribution -- bell curve
+Our formulation for the standard deviation is the \textit{population} standard deviation -- when we take a holistic view of the entire output of a random variable. We can also discuss \textit{sample} standard deviation, which estimates the population standard deviation from a random sampling of the random variable. The formula changes, however, since sampling a variable introduces bias in that we could sample the same value more than once. This is a gross oversimplification, however these ideas are out of scope for this course. We encourage you to read more if interested.
+
+We will end with two examples of random variables, and how they give rise to \textit{probability distributions}.
+
+\begin{rem}
+	Before we begin, let us introduce some notation. In statistics, the notation \(X \sim Y(\cdot)\) means that \(X\) \textit{is distributed according to} \(Y(\cdot)\). \(Y(\cdot)\) is some function that describes whatever probability distribution you care about.
+\end{rem}
+
+\begin{example}
+	Suppose \(U_n\) distributes the values \(\{1,2,\cdots,n\}\) each with \textbf{equal} probability. We call \(X \sim U_n\) a \textit{uniform distribution}, since each value is distributed uniformly (equally) as an output. Examples of this include coin flips, dice rolls, picking marbles with replacement, etc.
+	
+	The expected value of a uniform distribution is \(\mathbb{E}[X] = \sum_{x \in X} x \cdot \mathrm{Pr}(X = x) = \sum_{x=1}^{n} x \cdot \frac{1}{n} = \frac{1}{n}\sum_{x=1}^{n}x = \frac{1}{n}\frac{n(n+1)}{2} = \frac{n+1}{2}\). For example, the expected value of a standard 6-sided die is \(\frac{7}{2} = 3.5\).
+	
+	\(\mathbb{E}[X]^2 = \frac{1}{n^2}\), so it suffices to calculate \(\mathbb{E}[X^2]\) for the variance. For this, we need to examine \(X^2\), which is the square of each output from \(X\). These values are \(\{1^2,2^2,3^2,\cdots,n^2\}\). The associated probabilities do not change. Then \(\mathbb{E}[X^2] = \sum_{x=1}^{n} x^2 \cdot \frac{1}{n} = \frac{1}{n} \frac{n(n+1)(2n+1)}{6} = \frac{(n+1)(2n+1)}{6}\). Then the variance is
+	\(\mathbb{E}[X^2] - \mathbb{E}[X]^2
+	= \frac{(n+1)(2n+1)}{6} - (\frac{n+1}{2})^2
+	= \frac{(n+1)(2n+1)}{6} - \frac{(n+1)^2}{4}
+	= \frac{2(n+1)(2n+1)}{12} - \frac{3(n+1)^2}{12}
+	= \frac{2(n+1)(2n+1) - 3(n+1)^2}{12}
+	= \frac{(2(2n+1) - 3(n+1))(n+1)}{12}
+	= \frac{(n-1)(n+1)}{12}
+	= \frac{n^2-1}{12}\).
+	For example, the variance of a 6-sided die is \(\frac{6^2-1}{12} = 2.91\bar{6}\).
+	
+	The standard deviation is the square root of the variance, which in the uniform case is \(\sqrt{\frac{n^2-1}{12}}\). For example, the standard deviation of a 6-sided die is \(\sqrt{2.91\bar{6}} \approx 1.708\).
+\end{example}
+
+\begin{rem}
+	You thus may see our uniform distribution noted as \(X \sim U(1,n)\), which is abstracted to \(X \sim U(a,b)\) where \(a\) and \(b\), \(a \leq b\), are arbitrary endpoints. In this course, the range between \(a\) and \(b\) is discrete with unit step sizes, however the uniform distribution can be extended to a continuous range.
+\end{rem}
+
+\pgfmathdeclarefunction{gauss}{2}{%
+	\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+\begin{example}
+	Suppose \(X\) is a random variable with \(\mu = 0\) and \(\sigma = 1\). We call \(X\) a \textit{standard normal distribution}. It looks like this:
+	\medskip
+	\begin{center}
+		% https://tex.stackexchange.com/a/11371
+		\begin{tikzpicture}
+		\begin{axis}[every axis plot post/.append
+		style={mark=none,domain=-3.5:3.5,samples=50,smooth},
+		axis x line=bottom, % no box around the plot, only x and y axis
+		axis y line=left, % the * suppresses the arrow tips
+		enlarge y limits=upper]
+			\addplot {gauss(0,1)};
+		\end{axis}
+		\end{tikzpicture}
+	\end{center}
+	
+	The x-axis is in units of standard deviations away from the mean, and the y-axis is in percentage of values observed. The area under the graph gives us the total percentage of values observed within a given range. Recall \(\mu=0\) and \(\sigma=1\). We note that \(68.27\%\) of observations are within \(\mu \pm 1\sigma\), \(95.45\%\) within \(\mu \pm 2\sigma\), and \(99.73\%\) within \(\mu \pm 3\sigma\). This tells us that if you sample a normal distribution, there is just above a half chance that your value will be somewhat to the mean, and almost definitely within two standard deviations. We also see that the mean is equal to the median (the midpoint of observations), and is equal to the mode (the most amount of observations) -- look at the tip of the curve! Oh, we also call the normal distribution a \textit{bell curve}, because it kind-of looks like a bell!
+	
+	We can also \textit{normalize} a random variable. If \(\mu\) and \(\sigma\) are the mean and standard deviation of \(X\) then \(Z = \frac{X - \mu}{\sigma}\) will be roughly normally distributed.
+	
+	Normal distributions occur in many situations in nature. For example, human height. Another example, student grade data is often normally distributed (this is where the term \textit{curving} comes in, which is when \(\mu\) is low so the ``curve'' is shifted to reduce grade cutoffs). Finally, a \href{https://mathworld.wolfram.com/GaltonBoard.html}{Galton Board}, for large enough trials, approximates a normal distribution.
+\end{example}
 
 \section{Summary}
 
 \begin{itemize}
-	\item 1
-	\item 2
-	\item 3
+	\item Combinatorics is a toolbox, mindset, for counting.
+	\item Probability often utilizes counting techniques.
+	\item Statistics is applied counting and probability.
 \end{itemize}
 
 \section{Practice}
 
 \begin{enumerate}
-	\item counting
-	\item counting
-	\item counting
-	\item counting
+	\item We wish to build a sandwich made of bread, vegetables, cheese, and meat. We can select one of each kind of sandwich substance. There are 8 kinds of breads, 3 kinds of vegetables, 4 kinds of cheese, and 4 kinds of meat. How many possible sandwiches can we make?
+	\item In a standard deck of cards, each card has an associated rank (number) \(\in R=\{A,2,3,4,5,6,7,8,9,10,J,Q,K\}\) and suit (symbol) \(\in S=\{\spadesuit,\heartsuit,\diamondsuit,\clubsuit\}\). The set of cards can be abstracted to pairings of ranks and symbols \(C = R \times S\). For example, \((A,\clubsuit)\) is the ace of clubs, and \((7,\spadesuit)\) is the 7 of spades. Typically in card games each player has a \textit{hand}, which is simply a set of cards.
+	\begin{enumerate}
+		\item Calculate the total amount of \(n\)-card hands. Use this to calculate the total amount of 5-card hands.
+		\item A hand has a \textit{pair} if two cards in the hand have the same rank. Calculate the total amount of 5-card hands that have a pair.
+		\item There are other types of hands you could have (for example, 3-of-a-kind, straight, full house, etc.). A \textit{straight} is a hand where the cards can be ordered, with wraparound, in ascending (or descending) order. We let \(A < 2 < \cdots < 10 < J < Q < K\). For example, \(\{(J,\cdot), (Q,\cdot), (K,\cdot), (A,\cdot), (2,\cdot)\}\) is a valid straight. Calculate the total amount of straights. What if we did not allow for wraparound?
+		\item A \textit{full house} is a 5-card hand with a pair and a 3-of-a-kind (three cards with the same rank). Calculate the total number of full houses.
+		\item Notice that our hands with pairs from (b) include full houses. How many 5-card hands have a pair but are \textbf{not} full houses? Now, these hands also include 3-of-a-kinds and 4-of-a-kinds. Remove these as well. Do we need to remove straights? Do we need to remove 5-of-a-kinds, or any other \(n\)-of-a-kinds?
+		\item These have all been related to ranks, but there are also hands related to suits. For example, calculate the total amount of 5-card hands where each card is the same suit. Need these be removed from our set of 5-card hands that are pairs?
+	\end{enumerate}
+	\item How many ways can you represent \(n \in \Z^+\) as the sum of \(k \in \Z^+\) integers? Solve this by first writing down all cases (as sets) of \(n=5,k=3\). For example, \(\{2,2,1\}\) sum to 5. Then re-write these cases as sums of 1. For example, \(\{1+1,1+1,1\}\). Then find a pattern with the placement of \(,\) (commas) and \(+\) (plus signs) within the 1s.
 	\item Show that \(\binom{n}{k} =  \binom{n}{n-k}\) using a cominatorial argument and an algebraic argument.
+	\item Prove that \(\binom{2n}{n} = \sum_{i=0}^{n} \binom{n}{i}^2\).
+	\item Prove that \(\binom{n+2}{3} = \sum_{i=1}^{n} i(n-i+1)\).
+	
 	\item Use the Binomial Theorem to show that \(2^0\binom{n}{0} + 2^1\binom{n}{1} + \cdots + 2^n\binom{n}{n} = 3^n\). Use this idea to abstract out and show that \(\sum_{i=0}^{n} r^i \binom{n}{i} = (r+1)^n\) for any \(n \in \Z^+\).
-	\item combinatorial argument
-	\item algebraic argument
-	\item either or
-	\item inclusion exclusion
-	\item inclusion exclusion, harder
-	\item PHP
-	\item PHP
-	\item GPHP
-	\item GPHP
-	\item 2 of 20 light-bulbs are defective. You select 2 light-bulbs at random. What is the probability that neither bulb selected is defective? % (18/20) * (17/19)
-	\item probability involving combinatorics
-	\item Rand Var
-	\item Rand Var
-	\item ONE MORE???
+	\item % either or
+	\item % inclusion exclusion
+	\item % inclusion exclusion, harder
+	\item % PHP
+	\item % PHP
+	\item % GPHP
+	\item % GPHP
+	\item 2 of 20 light-bulbs are defective. You select two light-bulbs at random. What is the probability that neither bulb selected is defective? % (18/20) * (17/19)
+	\item % probability
+	\item % probability involving combinatorics
+	\item Recall we calculated the probability of flipping \(n\) heads in a row. Explain whether this is the same probability as flipping alternate heads and tails. Further explain whether the actual pattern of heads and tails matters.
+	\item Find a relationship between \(P(A \mid B)\) and \(P(A \mid \lnot B)\) \textit{Hint: use Bayes'}.
+	
+	\item We say that a random variable \(X\) follows a \textit{Bernoulli distribution} if \(X = \{0,1\}\) and \(\mathrm{Pr}(X = 1) = p \in [0,1]\) and \(\mathrm{Pr}(X = 0) = 1-p = q \in [0,1]\). We can describe this as \(X \sim \text{Bernoulli}(p)\) since the Bernoulli is entirely determined by the input probability \(p\). For example, a coin flip is a Bernoulli distribution with \(p=0.5\), \(x=0\) being heads (or tails), and \(x=1\) being tails (or heads). Calculate \(\mu_X\), \(\sigma_X^2\), and \(\sigma_X\).
+	
+	\item Suppose you are blindly throwing darts at a dart board. You have a \(p \in [0,1]\) chance of actually hitting the target in each independent trial. You wish to model the amount of shots \(k \in \Z^+\) required to successfully hit the target. We say this situation follows a \textit{geometric distribution} with parameter \(p\). Each trial is modeled by a Bernoulli distribution. Let our situation be \(X \sim \text{Geo}(p)\). Then \(\mathrm{Pr}(X = k) = (1-p)^{k-1}p\), which is the probability that you succeed on the \(k\)\textsuperscript{th} trial.
+	
+	Justify why the probability function above is correct, and calculate the expected trial number of when you successfully hit the target \(\mu_X\). Further, calculate \(\sigma_X^2\) and \(\sigma_X\). Now set \(p=0.25\), a \(25\%\) chance of hitting the target. After how many thrown darts do you expect to hit the target?
 \end{enumerate}
 \end{document}

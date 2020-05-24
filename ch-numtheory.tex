@@ -1442,7 +1442,7 @@ Weak induction is great, however in its current form it is not useful enough to 
 
 \begin{example}
 	\label{first-strong-proof}
-	Show that \(a_n \leq 3^n\) for all \(n \in \N\) where \[a_n = \begin{cases} 1 & n=0 \\ 2 & n=1 \\ 3 & n=2 \\ a_{n-1} + a_{n-2} + a_{n-3} & n \geq 3 \end{cases}\].
+	Show that \(a_n \leq 3^n\) for all \(n \in \N\) where \[a_n = \begin{cases} 1 & n=0 \\ 2 & n=1 \\ 3 & n=2 \\ a_{n-1} + a_{n-2} + a_{n-3} & n \geq 3 \end{cases}\]
 	
 	Consider how a proof using weak induction might go. There is one base case in a weak induction proof, however there are 3 base cases in the sequence \(a_n\). If we want to prove \(P(n)\), then the hypothesis tells us \(P(n-1)\) is true, so we have \(a_{n-1} \leq 3^{n-1}\). This does not help us, though, since in the inductive step we will have to use \(a_n = a_{n-1} + a_{n-2} + a_{n-3}\) but the hypothesis gives us nothing about \(a_{n-2}\) and \(a_{n-3}\).
 	
