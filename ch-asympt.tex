@@ -34,6 +34,8 @@ Our motivation here is to describe the \textit{growth-rate} of functions. The gr
 	An exact growth-rate of a function. Formally: \[f(n) \in \Theta(g(n)) \Leftrightarrow f(n) \in \Oh(g(n)) \land f(n) \in \Omega(g(n))\]
 \end{defn}
 
+Informally, \(f(n) \in \Oh(g(n))\)just means that eventually for big enough \(n\) we have \(f(n) < g(n)\). For example, \(2^n \in \Oh(n!)\) since \(2^n < n!\) for \(n \geq 4\) (\(n \in \N\)). So the growth-rate of \(2^n\) is bounded \textit{above} by \(n!\). Similarly, we could say that \(n! \in \Omega(2^n)\) since \(n! > 2^n\) for \(n \geq 4\). So \(n!\) is bounded \textit{below} by \(2^n\). Oftentimes in algorithm analysis we aim to show an algorithm has exact run-time (\(\Theta\)), and we do this by showing it has both \(\Oh\) and \(\Omega\) run-time. Sometimes, though, this is very hard to do.
+
 \section{Analyzing Algorithms}
 
 We can express algorithms in terms of functions. The function input is typically \(n\), the number of elements inputted into, or input size for, the algorithm, and the function output is typically time. Usually \textit{time} will be the number of certain operations performed during the algorithm.
@@ -111,11 +113,37 @@ It is important to think about what is going on during the algorithm instead of 
 	\(G\) represents a graph % todo
 }
 
-\exsol{
-	% todo
-}{
+Okay, so how does one determine whether an algorithm is \textit{good}? Well, it depends on how you define \textit{good}. Typically we define \textit{good} as having a low run-time. Unfortunately, an algorithm's run-time can change depending on the input. Remember: when writing algorithms, you cannot predetermine the input! This heeds way to the idea of \textit{best-case}, \textit{worst-case}, and \textit{average-case} analysis.
 
+\begin{defn}[Best-case Analysis]
+	Analyzing an algorithm based on an optimal input that minimizes its run-time.
+\end{defn}
+
+Best-case analysis is akin to bounding an algorithm's run-time function below, which is just determining the tightest Big-Omega bound. So, \(\Omega\) essentially tells you how fast the algorithm will run in the best case.
+
+\begin{defn}[Worst-case Analysis]
+	Analyzing an algorithm based on a pathological input that maximizes its run-time.
+\end{defn}
+
+By contrast, worst-case analysis is akin to bounding an algorithm's run-time function above, which is just determining the tightest Big-Oh bound. So, \(\Oh\) essentially tells you how fast the algorithm will run in the worst case.
+
+\begin{defn}[Average-case Analysis]
+	Analyzing an algorithm's run-time based on typical, expected, input.
+\end{defn}
+
+\begin{rem}
+	You may be tempted to think that, as the analogy would imply, average-case analysis is akin to \(\Theta\). This is not true. \(\Theta\) tells you the \textit{exact} run-time, which is when \(\Oh\) and \(\Omega\) agree. If you know your algorithm run-time has a \(\Theta\) bound, then the average-case analysis will be this bound. The converse is not true though. If you have the average-case bound, this does not necessarily mean the worst-case or best-case is the same. An important example of this is the Quicksort algorithm.
+\end{rem}
+
+We present a pathological example to explain why these different analysis types are important.
+
+\exsol{
+	% todo function that takes exponential on if-branch, and constant on else
+}{
+	
 }
+
+% maybe another that is less pathological
 
 \subsection{Solving Summations}
 
@@ -152,7 +180,49 @@ There are a handful of common run-time complexities that you should be familiar 
 
 \section{P vs NP}
 
-Big discussion time % todo
+There exist many YouTube videos discussing the famous P vs.\ NP problem (\href{https://www.youtube.com/watch?v=EHp4FPyajKQ}{ex 1}, \href{https://www.youtube.com/watch?v=YX40hbAHx3s}{ex 2}). Moreover, if you solve it, the Clay Mathematics Institute has \href{https://www.claymath.org/millennium-problems/p-vs-np-problem}{\$1,000,000} waiting for you. So what is it?
+
+\begin{defn}[P]
+	The class of computational problems that can be solved in \textit{P}olynomial time.
+\end{defn}
+
+\begin{defn}[NP]
+	The class of computational problems where a given solution can be \textit{verified} in polynomial time.
+\end{defn}
+
+\begin{rem}
+	NP stands for \textit{Nondeterministic Polynomial}. It does \textbf{not} stand for \textit{non-polynomial} as some people think.
+\end{rem}
+
+
+
+\begin{defn}[Reductions]
+	
+\end{defn}
+
+\begin{defn}[NP-Complete]
+	A computational problem is NP-Complete if it satisfies two conditions:
+	\begin{enumerate}
+		\item The problem is in NP
+		\item Every problem in NP is reducible to it in polynomial time
+	\end{enumerate}
+\end{defn}
+
+\begin{rem}
+	Problems that satisfy the second condition above, and not necessarily the first, are called \textbf{NP-Hard}.
+\end{rem}
+
+The second condition is tricky
+
+\begin{thm}[The Cook-Levin Theorem]
+	
+\end{thm}
+
+\begin{rem}
+	While at this point in the course you likely can understand the proof, we omit it for scope.
+\end{rem}
+
+We leave this discussion with one final remark.  \(\text{P}=\text{NP}\) will cause all cryptographic 
 
 \section{The Halting Problem}
 
@@ -182,7 +252,7 @@ Think to yourself whether you can come up with a solution program. It is a diffi
 		\EndFunction
 	\end{algorithmic}
 	
-	We have two cases -- \(h(\textsc{g},\cdot)\) returns True, or \(h(\textsc{g},\cdot)\) returns False.
+	We have two cases: \(h(\textsc{g},\cdot)\) returns True, or \(h(\textsc{g},\cdot)\) returns False.
 	
 	Case 1: \(h(\textsc{g},\cdot) = \text{True}\). Then \textsc{g} stops. But since \(h\) returned True, the body of the if-statement will be executed. Then \textsc{g} will loop forever. But this contradicts the output of \(h\).
 	

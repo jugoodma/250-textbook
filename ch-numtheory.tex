@@ -881,9 +881,9 @@ The ``\textit{Proof.}'' header clearly signifies the following text will be a pr
 
 The ending square is shorthand for the latin phrase \textit{quod erot demonstrandum} which, used in this context, roughly means \textit{it is shown/demonstrated}. You may put any of the following at the end of your proofs: QED, \(\blacksquare\), \(\square\).
 
-This general structure is easy to read, easy to adapt, and is easily formal. It is \textit{absolutely fine} to deviate from our structure, \textbf{so long as} your proof is still easy to read and makes clear it \textbf{is} a proof.
+This general structure is easy to read, easy to adapt, and is easily formal. It is \textit{absolutely fine} to deviate from our structure, \textbf{so long as} your proof is still easy to read and makes clear it \textbf{is} a proof. We have seen proofs before, but here is another example to get us started.
 
-\exproof{ % todo -- move somewhere else?
+\exproof{
 	Pythagoras' Theorem states that for any right-triangle, the square of the hypotenuse equals the sum of the squares of the other two sides. More familiarly, \[a^2 + b^2 = c^2\]
 	Prove it.
 }{
@@ -919,6 +919,18 @@ This general structure is easy to read, easy to adapt, and is easily formal. It 
 \begin{rem}
 	We do not expect you to know how to prove Pythagoras' Theorem -- this is just an interesting proof example.
 \end{rem}
+
+One final remark before we jump into proof techniques. There are almost always multiple ways to proof a statement. Some ways are better than others. Sometimes you may spend hours on a very long, but valid, proof, yet another proof requires less than three lines\footnote{Yes, this actually happened to me in my Abstract Algebra class. No big deal.}. Here is a cute example.
+
+\exproof{
+	Show that \[(\forall n \in \N)[n^4 \mid 10 \Rightarrow n \mid 10]\]
+}{
+	\(n \in \N\). For \(n=0\), \(0^4 = 0 \mid 10\) and \(0 \mid 10\). For \(n=1\), \(1^4 = 1 \mid 10\) and \(1 \mid 10\). For \(n \geq 2\), \(n^4 \geq 16 > 10\) so \(n^4 \nmid 10\). In all cases, the \(\Rightarrow\) holds.
+	
+	\bigskip
+	
+	Alternatively, we can use the transitivity of divisibility: \(n \mid n^4 \mid 10\).
+}
 
 \section{Proofs -- Techniques}
 
