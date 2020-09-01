@@ -19,7 +19,7 @@ Let's spell out two logic puzzles:
 	\textit{Two givens: knights always tell the truth, and knaves always lie. On the island of knights and knaves, you are approached by two people. The first one says to you, ``we are both knaves." What are they actually?} (from Popular Mechanic's Riddle of the Week \#43: Knights and Knaves, Part 1)
 \end{center}
 
-Thinking logically about these puzzles will help you -- think about what can and cannot happen; what can and cannot be true. Solutions to the above puzzles appear at the end of the chapter. There are only two possibilities for Boolean\index{Boolean} statements -- True or False. Here's a formal definition of logic, from Merriam-Webster:
+Thinking logically about these puzzles will help you -- think about what can and cannot happen; what can and cannot be true. Solving these problems is left as an exercise. There are only two possibilities for Boolean\index{Boolean} statements -- True or False. Here's a formal definition of logic, from Merriam-Webster:
 
 \begin{defn}[Logic\index{Logic}]
 	A science that deals with the principles and criteria of validity of inference and demonstration : the science of the formal principles of reasoning
@@ -334,6 +334,54 @@ Notice how we reference a theorem in each step. This allows us to fully explain 
 }
 
 Note in the preceding example that we used equivalences between the \textit{xnor} to the \textit{xor}, and the \textit{xor} to the \textit{or}. We will discuss later exactly how we deduced these equivalences.
+
+Now that we understand some equivalences, we can motivate some definitions relating to the implication.
+
+\begin{defn}[Converse]
+	The converse of \(p \Rightarrow q\) is \(q \Rightarrow p\). Obtain this by reversing the arrow direction.
+\end{defn}
+
+\begin{defn}[Inverse]
+	The inverse of \(p \Rightarrow q\) is \((\lnot p) \Rightarrow (\lnot q)\). Obtain this by negating both propositions.
+\end{defn}
+
+\begin{defn}[Contrapositive]
+	The contrapositive of \(p \Rightarrow q\) is \((\lnot q) \Rightarrow (\lnot p)\). Obtain this by reversing the arrow direction, and negating both propositions. Or, take both the converse and inverse.
+\end{defn}
+
+\begin{defn}[Negation]
+	The negation of \(p \Rightarrow q\) is \(\lnot (p \Rightarrow q)\). Obtain this by negating the entire implication.
+\end{defn}
+
+Now we can use our equivalencies to show some important facts about these definitions.
+
+\begin{thm}[Contraposition Equivalence]
+	\[p \Rightarrow q \equiv (\lnot q) \Rightarrow (\lnot p)\]
+\end{thm}
+
+We leave the proof as an exercise. This theorem will serve us well in our study of Number Theory. The contrapositive indirect proof technique relies on this fact.
+
+\begin{thm}[The Converse Error]
+	\[(p \Rightarrow q) \not\Rightarrow (q \Rightarrow p)\]
+\end{thm}
+
+\begin{proof}
+	We want to show that if you have \(p \Rightarrow q\), then you do not necessarily have \(q \Rightarrow p\). There are many ways to show this, but we will start by simply examining cases of \(p\) and \(q\).
+	
+	Consider \(p \equiv \mathbf{F}\) and \(q \equiv \mathbf{T}\). Then
+	\(p \Rightarrow q \equiv \mathbf{F} \Rightarrow \mathbf{T} \equiv \mathbf{T}\). But then
+	\(q \Rightarrow p \equiv \mathbf{T} \Rightarrow \mathbf{F} \equiv \mathbf{F}\). Then overall we have
+	\((p \Rightarrow q) \Rightarrow (q \Rightarrow p) \equiv \mathbf{T} \Rightarrow \mathbf{F} \equiv \mathbf{F}\).
+	So we've shown that if you have \(p \Rightarrow q\), then you do not necessarily have \(q \Rightarrow p\).
+\end{proof}
+
+\begin{thm}[The Inverse Error]
+	\[(p \Rightarrow q) \not\Rightarrow ((\lnot p) \Rightarrow (\lnot q))\]
+\end{thm}
+
+\begin{rem}
+	A similar proof can be made for this theorem. Find one truth-value pairings for \(p\) and \(q\) such that \(p \Rightarrow q\) is true, but \((\lnot p) \Rightarrow (\lnot q)\) is false.
+\end{rem}
 
 \subsection{Circuits} %todo make better
 

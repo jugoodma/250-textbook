@@ -102,7 +102,8 @@ It is important to think about what is going on during the algorithm instead of 
 		\Function{AnalyzeGraph}{\(G = (V,E)\)\@}
 			\State \(c \gets 0\)
 			\For{\(v \in V\)}
-				\For{\(w \in \text{Neighbors}(v)\)}
+				\For{\(w \in \text{UnvisitedNeighbors}(v)\)}
+					\State Visit \(w\)
 					\State \(c \gets c + 1\)
 				\EndFor
 			\EndFor
@@ -110,8 +111,14 @@ It is important to think about what is going on during the algorithm instead of 
 		\EndFunction
 	\end{algorithmic}
 }{
-	\(G\) represents a graph % todo
+	\(G\) represents a graph, where \(V\) is the set of vertices and \(E\) is the set of edges. We usually denote \(|V| = n\) and \(|E| = m\).
+	
+	Let us first think about what the algorithm is \textit{doing}. We instantiate \(c=0\), then go through each unvisited vertex we increment \(c\). We consider the amount of work in the inner loop \(\Theta(1)\), and we do this exactly \(|V| = n\) times. So our algorithm runs in \(\Theta(V)\) (or \(\Theta(n)\)). % todo : undirected or directed? define neighbors?
 }
+
+\begin{rem}
+	How would this change had we instead iterated through the \textit{neighbors}, instead of \textit{unvisited neighbors}? We will come back to this % todo
+\end{rem}
 
 Okay, so how does one determine whether an algorithm is \textit{good}? Well, it depends on how you define \textit{good}. Typically we define \textit{good} as having a low run-time. Unfortunately, an algorithm's run-time can change depending on the input. Remember: when writing algorithms, you cannot predetermine the input! This heeds way to the idea of \textit{best-case}, \textit{worst-case}, and \textit{average-case} analysis.
 
@@ -138,6 +145,24 @@ By contrast, worst-case analysis is akin to bounding an algorithm's run-time fun
 We present a pathological example to explain why these different analysis types are important.
 
 \exsol{
+	Examine the following algorithm:
+	\begin{algorithmic}[1]
+		\Function{Pathological}{\(L\), \(n\)\@}
+		\If{\(n \equiv 0 \Mod{2}\)}
+			\State 
+		\Else
+			\State \Return \(L[0]\)
+		\EndIf
+		\State \(c \gets 0\)
+		\For{\(v \in V\)}
+		\For{\(w \in \text{UnvisitedNeighbors}(v)\)}
+		\State Visit \(w\)
+		\State \(c \gets c + 1\)
+		\EndFor
+		\EndFor
+		\State \Return \(c\)
+		\EndFunction
+	\end{algorithmic}
 	% todo function that takes exponential on if-branch, and constant on else
 }{
 	
