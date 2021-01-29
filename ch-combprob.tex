@@ -703,6 +703,22 @@ The previous example gives us motivation for a new definition.
 	Compare this to the probability of selecting a blue marble and then selecting a red marble (which is \(\frac{2}{10} \cdot \frac{3}{9}\)).
 \end{rem}
 
+Think of conditional probability as a re-scale.
+In a standard probability, we divide the size of the event by the size of the sample space.
+In a \textit{conditional} probability, we change the denominator to the size of the \textit{given} event.
+More formally:
+
+\begin{prop}
+	\[P(E_2 \mid E_1) = \frac{P(E_2 \cap E_1)}{P(E_1)}\]
+\end{prop}
+
+\begin{rem}
+	Note that this definition does not work when \(E_1 = \emptyset \Rightarrow P(E_1) = 0\) since we have a divide-by-zero.
+	But, note that intuitively \(P(E_2 \mid \emptyset) = P(E_2 \cap \emptyset) = 0\), so it still \textit{somewhat} makes sense.
+	The more common  given is
+	\[P(E_2 \mid E_1)P(E_1) = P(E_2 \cap E_1)\]
+\end{rem}
+
 Now, what if our events in a conditional probability are independent? So what is \(P(E_2 \mid E_1)\) when \(E_1\) and \(E_2\) are independent? Well, the conditional probability focuses on when \(E_2\) occurs \textit{given} \(E_1\) occurred. But \(E_2\) is independent of \(E_1\), so \(E_1\) places no condition on \(E_2\). This gives us our next theorem.
 
 \begin{thm}
@@ -713,6 +729,24 @@ Now, what if our events in a conditional probability are independent? So what is
 	Calculate the probability that we flip heads on a coin given we already flipped heads.
 }{
 	The probability is \(\frac{1}{2}\). In the world where we already flipped heads, well the next flip we do has no dependence on our first flip. So the second flip has the same probability of a standard flip.
+}
+
+\exsol{
+	What does disjointness tell us about independence?
+}{
+	For two disjoint events \(E_1\) and \(E_2\) by definition \(E_1 \cap E_2 = \emptyset\).
+	Then \(P(E_1 \cap E_2) = \emptyset\).
+	For independence to hold, we need \(P(E_1 \mid E_2) = P(E_1)\).
+	We know that \(P(E_1 \mid E_2)P(E_2) = P(E_1 \cap E_2)\), so for independence to hold we need
+	\[P(E_1)P(E_2) = P(E_1 \cap E_2) = 0\]
+	Thus for independence to hold we need one of \(E_1,E_2 = \emptyset\).
+	
+	This may be counter-intuitive at first -- one may think that disjoint events are indeed independent.
+	Yet, while a Venn-diagram interpretation of events gives us information about \textit{conditional} probability, it tells us nothing about \textit{independence}.
+	
+	The intuition is here -- when two events are mutually exclusive, then either one or the other occurs.
+	Thus, if one occurs then the other does not occur (and vice versa).
+	This is, in and of itself, a \textbf{dependence} relationship.
 }
 
 Sometimes a particular conditional probability is difficult to calculate, but the reverse conditional probability is much easier.
@@ -728,6 +762,7 @@ Before we prove this, we need a lemma.
 \end{prop}
 
 This is simply formalizing our multiplication rule for probabilities, accounting for dependent events.
+This is also just a definition of conditional probability.
 
 Then Bayes' holds by getting \(P(A \cap B) = P(A)P(B \mid A)\) and \(P(B \cap A) = P(B)P(A \mid B)\), noticing that \(P(A \cap B) = P(B \cap A)\), and setting these equal \[P(A)P(B \mid A) = P(A \cap B) = P(B)P(A \mid B)\]
 
@@ -912,7 +947,7 @@ We will end with two examples of random variables, and how they give rise to \te
 	\begin{enumerate}
 		\item Calculate the total amount of \(n\)-card hands. Use this to calculate the total amount of 5-card hands.
 		\item A hand has a \textit{pair} if two cards in the hand have the same rank. Calculate the total amount of 5-card hands that have a pair.
-		\item There are other types of hands you could have (for example, 3-of-a-kind, straight, full house, etc.). A \textit{straight} is a hand where the cards can be ordered, with wraparound, in ascending (or descending) order. We let \(A < 2 < \cdots < 10 < J < Q < K\). For example, \(\{(J,\cdot), (Q,\cdot), (K,\cdot), (A,\cdot), (2,\cdot)\}\) is a valid straight. Calculate the total amount of straights. What if we did not allow for wraparound?
+		\item There are other types of hands you could have (for example, 3-of-a-kind, straight, full house, etc.). A \textit{straight} is a hand where the cards can be ordered, with wrap-around, in ascending (or descending) order. We let \(A < 2 < \cdots < 10 < J < Q < K\). For example, \(\{(J,\cdot), (Q,\cdot), (K,\cdot), (A,\cdot), (2,\cdot)\}\) is a valid straight. Calculate the total amount of straights. What if we did not allow for wraparound?
 		\item A \textit{full house} is a 5-card hand with a pair and a 3-of-a-kind (three cards with the same rank). Calculate the total number of full houses.
 		\item Notice that our hands with pairs from (b) include full houses. How many 5-card hands have a pair but are \textbf{not} full houses? Now, these hands also include 3-of-a-kinds and 4-of-a-kinds. Remove these as well. Do we need to remove straights? Do we need to remove 5-of-a-kinds, or any other \(n\)-of-a-kinds?
 		\item These have all been related to ranks, but there are also hands related to suits. For example, calculate the total amount of 5-card hands where each card is the same suit. Need these be removed from our set of 5-card hands that are pairs?
@@ -933,7 +968,7 @@ We will end with two examples of random variables, and how they give rise to \te
 	\item 2 of 20 light-bulbs are defective. You select two light-bulbs at random. What is the probability that neither bulb selected is defective? % (18/20) * (17/19)
 	\item % probability
 	\item % probability involving combinatorics
-	\item Recall we calculated the probability of flipping \(n\) heads in a row. Explain whether this is the same probability as flipping alternate heads and tails. Further explain whether the actual pattern of heads and tails matters.
+	\item Recall we calculated the probability of flipping \(n\) heads in a row. Explain whether this is the same probability as flipping alternating heads and tails. Further explain whether the actual pattern of heads and tails matters.
 	\item Find a relationship between \(P(A \mid B)\) and \(P(A \mid \lnot B)\) \textit{Hint: use Bayes'}.
 	
 	\item We say that a random variable \(X\) follows a \textit{Bernoulli distribution} if \(X = \{0,1\}\) and \(\mathrm{Pr}(X = 1) = p \in [0,1]\) and \(\mathrm{Pr}(X = 0) = 1-p = q \in [0,1]\). We can describe this as \(X \sim \text{Bernoulli}(p)\) since the Bernoulli is entirely determined by the input probability \(p\). For example, a coin flip is a Bernoulli distribution with \(p=0.5\), \(x=0\) being heads (or tails), and \(x=1\) being tails (or heads). Calculate \(\mu_X\), \(\sigma_X^2\), and \(\sigma_X\).

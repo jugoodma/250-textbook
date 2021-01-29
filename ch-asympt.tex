@@ -34,7 +34,18 @@ Our motivation here is to describe the \textit{growth-rate} of functions. The gr
 	An exact growth-rate of a function. Formally: \[f(n) \in \Theta(g(n)) \Leftrightarrow f(n) \in \Oh(g(n)) \land f(n) \in \Omega(g(n))\]
 \end{defn}
 
-Informally, \(f(n) \in \Oh(g(n))\)just means that eventually for big enough \(n\) we have \(f(n) < g(n)\). For example, \(2^n \in \Oh(n!)\) since \(2^n < n!\) for \(n \geq 4\) (\(n \in \N\)). So the growth-rate of \(2^n\) is bounded \textit{above} by \(n!\). Similarly, we could say that \(n! \in \Omega(2^n)\) since \(n! > 2^n\) for \(n \geq 4\). So \(n!\) is bounded \textit{below} by \(2^n\). Oftentimes in algorithm analysis we aim to show an algorithm has exact run-time (\(\Theta\)), and we do this by showing it has both \(\Oh\) and \(\Omega\) run-time. Sometimes, though, this is very hard to do.
+Informally, \(f(n) \in \Oh(g(n))\) just means that \textbf{eventually} (for big enough \(n\)) we have that (some constant-multiple of) \(g\) overtakes \(f\).
+For example, \(2^n \in \Oh(n!)\) since \(2^n < n!\) (\(n!\) overtakes \(2^n\)) for \(n \geq 4\) (\(n \in \N\)).
+So the growth-rate of \(2^n\) is bounded \textit{above} by \(n!\).
+Similarly, \(n! \in \Omega(2^n)\) since \(n! > 2^n\) for \(n \geq 4\).
+So \(n!\) is bounded \textit{below} by \(2^n\).
+Oftentimes in algorithm analysis we aim to show an algorithm has exact run-time (\(\Theta\)), and we do this by showing it has both \(\Oh\) and \(\Omega\) run-time.
+Sometimes, though, this is hard to do.
+
+\begin{rem}
+	You may see \(f(n) = \Oh(g(n))\) instead of \(f(n) \in \Oh(g(n))\).
+	Both notations represent the same thing.
+\end{rem}
 
 \section{Analyzing Algorithms}
 
