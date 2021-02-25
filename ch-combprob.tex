@@ -46,6 +46,46 @@ Imagine you are a software developer for a large company, \textit{Macrosoft}. Yo
 	For the first position, we have three possibilities: \textit{a}, \textit{b}, or \textit{c}. Then, we place that letter and move on to the second position where we can place one of the two remaining letters. In the last position, we place the remaining letter.
 	
 	So, \textit{for each} possibility in the first position, we have all possibilities for the second and third positions. So there are \(3 \times \) \textit{second/third position possibilities} total orderings. Then, journey into the second and third positions. There are two remaining letters, so there are \(2 \times \) \textit{third position possibilities} sub-orderings. There is one option in the last position, so putting this all together we get \(3 \times 2 \times 1 = 3! = 6\) total orderings.
+	
+	\bigskip
+	Another way to view this problem is as a decision tree.
+	For each step in the tree, we decide which letter to place in the permuted string.
+	Then we need to count the number of leaf nodes in the tree.
+	\begin{center}
+		\begin{tikzpicture}[
+			level distance=1.5cm,
+			level 1/.style={sibling distance=2cm},
+			level 2/.style={sibling distance=1cm},
+			level 3/.style={sibling distance=1em},
+			grow=right
+			]
+			\node {\textit{\_\_\_}}
+			child {node {\textit{a\_\_}}
+				child {node {\textit{ab\_}}
+					child {node {\textit{aac}}}
+				}
+				child {node {\textit{ac\_}}
+					child {node {\textit{acb}}}
+				}
+			}
+			child {node {\textit{b\_\_}}
+				child {node {\textit{ba\_}}
+					child {node {\textit{bac}}}
+				}
+				child {node {\textit{bc\_}}
+					child {node {\textit{bca}}}
+				}
+			}
+			child {node {\textit{c\_\_}}
+				child {node {\textit{ca\_}}
+					child {node {\textit{cab}}}
+				}
+				child {node {\textit{cb\_}}
+					child {node {\textit{cba}}}
+				}
+			};
+		\end{tikzpicture}
+	\end{center}
 }
 
 %In the example above, we listed out all of the \textit{permutations} of the letters \textit{abc}.
@@ -59,7 +99,7 @@ Imagine you are a software developer for a large company, \textit{Macrosoft}. Yo
 \end{rem}
 
 \begin{defn}[Permutations\index{Combinatorics!Permutations}]
-	\textbf{Ordered} arrangements of \textit{all} elements from a set of size \(n\). By the multiplication rule, the total amount of permutations equals \[n!\]
+	The number of \textbf{ordered} arrangements of \textit{all} elements from a set of size \(n\). By the multiplication rule, the total amount of permutations equals \[n!\]
 \end{defn}
 
 \begin{rem}
@@ -179,6 +219,7 @@ There are slight differences between the notion of \textit{with replacement} and
 	
 	In the second problem, we cannot re-use characters. So we choose the first character (26 options), then choose the second character (25 options -- we cannot use the first chosen character again!), and keep going. This gives us \(26 \times 25 \times \cdots \times 17 = \frac{26!}{(26-10)!}\) possible passwords.
 	
+	\bigskip
 	In the first problem, we are allowed to \textit{re-use} each character -- we sample characters \textit{with replacement}. In the second, we are not -- \textit{without replacement}.
 }
 
@@ -198,16 +239,101 @@ There are slight differences between the notion of \textit{with replacement} and
 	For explanation on unordered sampling with replacement, \href{https://www.probabilitycourse.com/chapter2/2_1_4_unordered_with_replacement.php}{see here}.
 \end{rem}
 
+\exsol{
+	How many strings of length 3 can we make using the characters \(\Sigma = \{a,b,c\}\)?
+}{
+	We are counting elements with replacement where order matters.
+	Our main set \(n = 3\) is the number of character choices, and our subset \(k = 3\) is the string length.
+	By the table, we can make \(3^3 = 27\) strings.
+	
+	\bigskip
+	Another viable solution to this problem is to use a decision tree, where each branch represents placing one of the three characters in the string.
+	\begin{center}
+		\begin{tikzpicture}[
+			level distance=1.5cm,
+			level 1/.style={sibling distance=3cm},
+			level 2/.style={sibling distance=1cm},
+			level 3/.style={sibling distance=1em},
+			grow=right
+			]
+			\node {\textit{\_\_\_}}
+			child {node {\textit{a\_\_}}
+				child {node {\textit{aa\_}}
+					child {node {\textit{aaa}}}
+					child {node {\textit{aab}}}
+					child {node {\textit{aac}}}
+				}
+				child {node {\textit{ab\_}}
+					child {node {\textit{aba}}}
+					child {node {\textit{abb}}}
+					child {node {\textit{abc}}}
+				}
+				child {node {\textit{ac\_}}
+					child {node {\textit{aca}}}
+					child {node {\textit{acb}}}
+					child {node {\textit{acc}}}
+				}
+			}
+			child {node {\textit{b\_\_}}
+				child {node {\textit{ba\_}}
+					child {node {\textit{baa}}}
+					child {node {\textit{bab}}}
+					child {node {\textit{bac}}}
+				}
+				child {node {\textit{bb\_}}
+					child {node {\textit{bba}}}
+					child {node {\textit{bbb}}}
+					child {node {\textit{bbc}}}
+				}
+				child {node {\textit{bc\_}}
+					child {node {\textit{bca}}}
+					child {node {\textit{bcb}}}
+					child {node {\textit{bcc}}}
+				}
+			}
+			child {node {\textit{c\_\_}}
+				child {node {\textit{ca\_}}
+					child {node {\textit{caa}}}
+					child {node {\textit{cab}}}
+					child {node {\textit{cac}}}
+				}
+				child {node {\textit{cb\_}}
+					child {node {\textit{cba}}}
+					child {node {\textit{cbb}}}
+					child {node {\textit{cbc}}}
+				}
+				child {node {\textit{cc\_}}
+					child {node {\textit{cca}}}
+					child {node {\textit{ccb}}}
+					child {node {\textit{ccc}}}
+				}
+			};
+		\end{tikzpicture}
+	\end{center}
+}
+
 \begin{defn}[Combinatorial Argument\index{Combinatorics!Combinatorial Argument}]
-	A counting proof that typically shows a cominatorial identity (an equality) by providing two separate interpretations 
+	A counting proof that shows a cominatorial identity is true.
+	The most common approach is to show two seemingly different quantities \textit{count} the same thing.
 \end{defn}
 
-A combinatorial argument aims to show that \(X = Y\) typically by:
+\begin{rem}
+	There exist two forms of combinatorial argument.
+	\begin{enumerate}
+		\item
+		Double counting method
+		\item
+		Bijective method
+	\end{enumerate}
+	We will focus exclusively on the first.
+\end{rem}
+
+One can show that \(X = Y\) via combinatorial argument using the following steps,
 \begin{enumerate}
-	\item Finding a counting problem that can be solved in at least two ways
-	\item Explaining that counting via \(X\) will solve the problem
-	\item Explaining that counting via \(Y\) will also solve the problem
-	\item Concluding that, since both ways solve the same problem, the solutions are equal
+	\item Find/create a counting problem that can be solved in at least two ways
+	\item Show that we can count the problem using quantity \(X\)
+	\item Show that we can count the problem using quantity \(Y\)
+	\item Conclude that, since both ways count same problem, the quantities \(X\) and \(Y\) are equal
 \end{enumerate}
 
 \exproof{
@@ -354,6 +480,11 @@ This pattern is explained by our identity \(\binom{n}{k} = \binom{n-1}{k-1} + \b
 
 We omit the proof on this one, however it is essentially a generalization of the proof for the Binomial Theorem.
 
+\begin{rem}
+	You might see \(\frac{n!}{i_1! i_2! \cdots i_k!}\) written as \(\binom{n}{i_1, i_2, \cdots, i_k}\).
+	The latter is called the \textit{multi-nomial coefficient}, and is equal to the former.
+\end{rem}
+
 \exsol{
 	Expand \((x-1+y)^3\).
 }{
@@ -372,6 +503,19 @@ We omit the proof on this one, however it is essentially a generalization of the
 	+ \frac{3!}{1!1!1!}x^1(-1)^1y^1\)
 	
 	\(= y^3 -1 +x^3 +3x + 3xy^2 -3x^2 -3y^2 + 3y + 3x^2y -6xy\)
+}
+
+\exsol{
+	Calculate the coefficient of the term \(x^4 y^{1000} z^{200} w^{90}\) in the expansion of \((x-y+2z-2w^3)^{1234}\).
+}{
+	The coefficient is \(\frac{1234!}{4! 1000! 200! 30!} \cdot 1^4 \cdot (-1)^{1000} \cdot 2^{200} \cdot (-2)^{30}\).
+	This follows from the Multinomial Theorem.
+	Note that \(w^{90} = (w^3)^{20}\).
+	We set \((x_1, x_2, x_3, x_4) = (x, -y, 2z, -2w^3)\) and \((i_1, i_2, i_3, i_4) = (4, 1000, 200, 30)\).
+	Then the term in the expansion is
+	\(\frac{1234!}{4! 1000! 200! 30!} \cdot x^4 \cdot (-y)^{1000} \cdot (2z)^{200} \cdot (-2w^3)^{30}\).
+	By properties of powers, we pull the constant terms \textit{out} and yield
+	\(\frac{1234!}{4! 1000! 200! 30!} (1)^4 (-1)^{1000} (2)^{200} (-2)^{30} \cdot x^4 y^{1000} z^{200} w^{90}\).
 }
 
 Now, before we move on, we should have a quick discussion as to why \(\binom{n}{k}\) is an integer. It is very tempting to say that, since we can always construct a situation in which \(\binom{n}{k}\) \textit{counts something}, then it is an integer. Indeed, this is a valid \textit{combinatorial argument}. \(\binom{n}{k}\) counts exactly the number of possible \(k\)-subsets from a set of size \(n\). Can we show this a different way? Well, an algebraic argument might not lead anywhere, but an inductive proof may.
@@ -403,7 +547,31 @@ Now, before we move on, we should have a quick discussion as to why \(\binom{n}{
 
 \section{The Inclusion-Exclusion Principle}
 
-Combinatorics deals with counting things. Often we care about counting sizes of sets. Sometimes even when sets overlap, as in a set intersection. The Inclusion-Exclusion Principle helps us tackle situations when we know \textit{almost} all information about two sets.
+Combinatorics deals with counting things. Often we care about counting sizes of sets. Sometimes even when sets overlap, as in a set intersection.
+The Inclusion-Exclusion Principle helps us tackle situations when we know \textit{almost} all information about two sets.
+
+\begin{example}
+	As a motivating example, let's suppose we wish to count the number of binary strings of length 3 \textit{starting with a 0} \textbf{or} \textit{ending with a 1}.
+	A naive approach might be to first calculate the number of strings that start with a 0, and add to that the number of strings that end with a 1.
+	
+	\begin{multicols}{2}
+		Start with 0: 000, 001, 010, 011
+		
+		\columnbreak
+		
+		Start with 1: 100, 101, 110, 111
+	\end{multicols}
+	
+	If we do this, then we would yield the solution \(4+4 = 8\).
+	Yet, indeed \textit{not all length-3 binary strings start with a 0 or end with a 1}.
+	For example, 100 and 110 satisfy neither condition.
+	Indeed, the correct answer is \(4+4-2=6\).
+	In our naive approach, we forgot to account for the \textit{overlap} between our two cases.
+\end{example}
+
+% todo addition rule
+
+% todo subtraction rule
 
 \begin{example}
 	Suppose we have 30 students in a class. 10 of them received an A on the first assignment, and 15 of them received an A on the second assignment. 13 students received an A on \textit{both} assignments. How many students have received \textit{at least one} A?
@@ -567,11 +735,11 @@ A subtle note on \textbf{percents} -- the \(\%\) symbol. A \textit{percent} is a
 \end{defn}
 
 \begin{example}
-	The probability of flipping tails on a 2-sided coin is \(\frac{1}{2}\).
+	The probability of flipping tails on a fair 2-sided coin is \(\frac{1}{2}\).
 \end{example}
 
 \begin{example}
-	The probability of rolling a 2 on a 6-sided dice is \(\frac{1}{6}\).
+	The probability of rolling a 2 on a fair 6-sided dice is \(\frac{1}{6}\).
 \end{example}
 
 The fractions in a probability are formulated as: \[\frac{\text{\# events wanted}}{\text{\# events possible}}\]
@@ -934,7 +1102,7 @@ We will end with two examples of random variables, and how they give rise to \te
 \section{Summary}
 
 \begin{itemize}
-	\item Combinatorics is a toolbox, mindset, for counting.
+	\item Combinatorics is a toolbox, a mindset, for counting.
 	\item Probability often utilizes counting techniques.
 	\item Statistics is applied counting and probability.
 \end{itemize}
@@ -953,11 +1121,18 @@ We will end with two examples of random variables, and how they give rise to \te
 		\item These have all been related to ranks, but there are also hands related to suits. For example, calculate the total amount of 5-card hands where each card is the same suit. Need these be removed from our set of 5-card hands that are pairs?
 	\end{enumerate}
 	\item How many ways can you represent \(n \in \Z^+\) as the sum of \(k \in \Z^+\) integers? Solve this by first writing down all cases (as sets) of \(n=5,k=3\). For example, \(\{2,2,1\}\) sum to 5. Then re-write these cases as sums of 1. For example, \(\{1+1,1+1,1\}\). Then find a pattern with the placement of \(,\) (commas) and \(+\) (plus signs) within the 1s.
+	\item
+	How many terms are in the expansion of \((x_1+x_2+\cdots+x_k)^n\)?
+	\item
+	Justify why \(0! = 1\) makes sense combinatorially.
 	\item Show that \(\binom{n}{k} =  \binom{n}{n-k}\) using a cominatorial argument and an algebraic argument.
 	\item Prove that \(\binom{2n}{n} = \sum_{i=0}^{n} \binom{n}{i}^2\).
 	\item Prove that \(\binom{n+2}{3} = \sum_{i=1}^{n} i(n-i+1)\).
-	
-	\item Use the Binomial Theorem to show that \(2^0\binom{n}{0} + 2^1\binom{n}{1} + \cdots + 2^n\binom{n}{n} = 3^n\). Use this idea to abstract out and show that \(\sum_{i=0}^{n} r^i \binom{n}{i} = (r+1)^n\) for any \(n \in \Z^+\).
+	\item Prove that \(\binom{m+n}{2} - \binom{m}{2} - \binom{n}{2} = mn\).
+	\item Use the Binomial Theorem to show that \(2^0\binom{n}{0} + 2^1\binom{n}{1} + \cdots + 2^n\binom{n}{n} = 3^n\).
+	Use this idea to abstract out and show that \(\sum_{i=0}^{n} r^i \binom{n}{i} = (r+1)^n\) for any \(n \in \Z^+\).
+	\item
+	Show that \(\sum_{k=d}^{n} \binom{n}{k}\binom{k}{d} = 2^{n-d}\binom{n}{d}\).
 	\item % either or
 	\item % inclusion exclusion
 	\item % inclusion exclusion, harder

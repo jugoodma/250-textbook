@@ -251,14 +251,17 @@ There exist many YouTube videos discussing the famous P vs.\ NP problem (\href{h
 The second condition is tricky
 
 \begin{thm}[The Cook-Levin Theorem]
-	
+	The Boolean satisfiability problem is NP-Complete.
 \end{thm}
 
 \begin{rem}
 	While at this point in the course you likely can understand the proof, we omit it for scope.
 \end{rem}
 
-We leave this discussion with one final remark.  \(\text{P}=\text{NP}\) will cause all cryptographic 
+We leave this discussion with one final remark.
+\(\text{P}=\text{NP}\) will render most (all) cryptographic algorithms and services broken.
+This is because most modern cryptography is built on the observation that factoring very large primes is \textit{hard}.
+If you are interested, look into RSA and/or the Diffie-Hellman key exchange.
 
 \section{The Halting Problem}
 
