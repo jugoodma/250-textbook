@@ -2097,7 +2097,8 @@ We can combine our previously-defined proof techniques to accomplish any goal we
 	\item Prove that \((\forall n \in \N^{\geq n_0})[2^n > \frac{1}{24}(n^4 - 6n^3 + 23n^2 - 18n + 24)]\), then use your proof to find \(n_0 \in \N\)
 	\item Prove \((\exists a,b \in \N)(\forall n \in \N)[7 \mid a^n + b]\)
 	\item Find constants \(a,b,c,d,e \in \R\) such that \[(\forall n \in \N)[\sum_{i=0}^{n} i^3 = an^4 + bn^3 + cn^2 + dn + e]\]
-	\item Prove that \(t_n \leq n \log_b n\) where \[t_n = \begin{cases} 0, & n = 0 \\ 2t_{\floor{\frac{n}{2}}} + n - 1, & n > 0 \end{cases}\] \textit{you will need to select a base \(b \in \Z^+\) during the step that makes the induction easy}
+	\item Prove that \(t_n \leq n \log_b n\) where \[t_n = \begin{cases} 0, & n = 0 \\ 2t_{\floor{\frac{n}{2}}} + n - 1, & n > 0 \end{cases}\]
+	\textit{You will need to select a base \(b \in \Z^+\) during the step that makes the induction easy}
 	\item Find the lower bound for the amount of dollars we can make using strictly 5 and 6 dollar bills. Do this with constructive induction. Verify your result is correct by proving it with both weak and strong induction. % >= 20
 	\item Repeat the previous problem with strictly 3, 7, and 15 dollar bills.
 \end{enumerate}

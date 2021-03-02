@@ -166,7 +166,8 @@ We begin our study of this famous proof by diving into the actual proof.
 	
 	Now, let us construct an element \(x \in (0,1)\): \[x = 0.x_1 x_2 x_3 x_4 \cdots\]
 	where \[x_i \equiv r_{i,i} + 1 \Mod{10}\]
-	and \(r_{i,i}\) is the \(i\)\textsuperscript{th} digit after the decimal point in \(r_i\). Here, we are using the mod function to give us the least-positive number in the congruence class \(r_{i,i} + 1 \Mod{10}\) -- otherwise known as the \textit{remainder}.
+	and \(r_{i,i}\) is the \(i\)\textsuperscript{th} digit after the decimal point in \(r_i\).
+	Here, we are using the mod function to give us the least-non-negative number in the congruence class \(r_{i,i} + 1 \Mod{10}\) -- otherwise known as the \textit{remainder}.
 	
 	So we grab the \textit{diagonal} digits,
 	
@@ -185,13 +186,24 @@ We begin our study of this famous proof by diving into the actual proof.
 		\end{tabular}
 	\end{center}
 	
-	and to each of them we add one \(\Mod{10}\) to construct \[x = 0.19043493\cdots\]
+	and to each of them we add 1 \(\Mod{10}\) to construct \[x = 0.19043493\cdots\]
 	
-	We claim that this new \(x\) is not in the enumeration. Your keen eye may have noticed that \(x = r_8\), so our claim is bogus. This is a rightful note, \textit{however} our claim is still valid. Remember that the numbers in the enumeration have an infinite decimal expansion. So \(r_8 = 0.19043493 d_8 d_9 d_{10} d_{11} \cdots\), as does \(x = 0.19043493 x_8 x_9 x_{10} x_{11} \cdots\).
+	We claim that this new \(x\) is not in the enumeration.
+	Your keen eye may have noticed that \(x = r_8\), so our claim is bogus.
+	This is a rightful note, \textit{however} our claim is still valid.
+	Remember that the numbers in the enumeration have an infinite decimal expansion.
+	So \(r_8 = 0.19043493 d_8 d_9 d_{10} d_{11} \cdots\), as does \(x = 0.19043493 x_8 x_9 x_{10} x_{11} \cdots\).
 	
-	For decimal numbers to be equal, all of their corresponding digits must be equal. When we construct the digit \(x_8\) in \(x\), do we have that \(x_8 = d_8\), the corresponding digit in \(r_8\)? Well, by construction, \(x_8 \equiv r_{8,8} + 1 \equiv d_8 + 1 \Mod{10}\). It should be clear that \(d_8 \not\equiv d_8 + 1 \Mod{10}\), so we conclude that \(x_8 \neq d_8\). So \(x\) and \(r_8\) are not equal!
+	For decimal numbers to be equal, all of their corresponding digits must be equal.
+	When we construct the digit \(x_8\) in \(x\), do we have that \(x_8 = d_8\), the corresponding digit in \(r_8\)?
+	Well, by construction, \(x_8 \equiv r_{8,8} + 1 \equiv d_8 + 1 \Mod{10}\).
+	It should be clear that \(d_8 \not\equiv d_8 + 1 \Mod{10}\), so we conclude that \(x_8 \neq d_8\). So \(x\) and \(r_8\) are not equal!
 	
-	Now, for \(r_9\), the previous argument tells us that \(x_9\) will be different than \(d_9\), so \(x_9 \neq r_9\). And we can repeat this for every single \(r_i\) in the enumeration. Since the enumeration is finite, there has to be a stopping point. Then by repeatedly applying the previous argument, we have that \textit{every} number in the enumeration \(r_i \neq x\). This is a contradiction, though, because \(x \in (0,1)\) (this should be obvious).
+	Now, for \(r_9\), the previous argument tells us that \(x_9\) will be different than \(d_9\), so \(x_9 \neq r_9\).
+	And we can repeat this for every single \(r_i\) in the enumeration.
+	Since the enumeration is finite, there has to be a stopping point.
+	Then by repeatedly applying the previous argument, we have that \textit{every} number in the enumeration \(r_i \neq x\).
+	This is a contradiction, though, because \(x \in (0,1)\) (this should be obvious).
 	
 	Thus, \((0,1)\) is uncountable.
 }
@@ -203,7 +215,7 @@ We begin our study of this famous proof by diving into the actual proof.
 		\item Enumerate the set, because it is countable
 		\item Find an element in the set that is \textit{not} in the enumeration
 	\end{enumerate}
-	The last step is the ``diagonal'' part of the argument -- the easiest way to find a new element is by constructing a new element that is different than every element in the set by at least one minute change.
+	The last step is the ``diagonal'' part of the argument -- the easiest way to find a new element is by constructing a new element that is different than every element in the set by at least one minuscule change.
 \end{rem}
 
 \begin{rem}
@@ -293,6 +305,12 @@ This tells us that our sets we have already proved countably infinite, \(\N, \Z,
 \end{thm}
 
 \begin{proof}
+	By contradiction, let \(B \supseteq A\) and assume \(B\) is countable.
+	Then, since \(A \subseteq B\), by previous theorem \(A\) is countable.
+	This contradicts that \(A\) is uncountable, thus our assumption was wrong and \(B\) is uncountable.
+	
+	\bigskip
+	Another argument:
 	By contradiction, let \(B \supseteq A\) and assume \(B\) is countable. Then by the previous theorem, \(B \subseteq A\). But \(A \subseteq B \subseteq A\), so \(A = B\). But \(A\) is uncountable, so \(B\) is uncountable. But we assumed \(B\) was countable. This is a contradiction, so \(B\) is uncountable.
 \end{proof}
 
@@ -318,15 +336,21 @@ Now we come back to \(\R\) being uncountable. Since \(\R \supseteq (0,1)\), then
 	\end{tikzpicture}
 \end{center}
 
-% todo, add one more?
-% continuum hypothesis?
+\section{The Continuum Hypothesis}
+
+The continuum hypothesis states:
+\begin{center}
+	There is no set whose cardinality is strictly between that of the integers and the real numbers.
+\end{center}
+This is an open question in mathematics.
+If it interests you, consider taking a course in real analysis or set theory.
 
 \section{Summary}
 
 \begin{itemize}
 	\item A countable set is either finite, or can be enumerated by the natural numbers
-	\item 
-	\item 
+	\item An uncountable set has no possible enumeration
+	\item Is there any distinct cardinality between \(\Z\) and \(\R\)?
 \end{itemize}
 
 \section{Practice}
@@ -342,7 +366,7 @@ Now we come back to \(\R\) being uncountable. Since \(\R \supseteq (0,1)\), then
 		\item \(A \cup B\) \textit{Hint: how did we prove the integers were countable?}
 		\item \(A \cap B\)
 		\item \(A \setminus B\)
-		\item \(A \times B\) \textit{Hint: how did we prove the rationals were countable?}
+		\item \(A \times B\) \textit{Hint: how did we prove the positive rationals were countable?}
 	\end{enumerate}
 	\item Show that \(\Q\) is countable.
 	\item Show that \(\{ x \in \R \mid x > 0 \land x^2 \in \Q \}\) is countable.

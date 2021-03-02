@@ -40,7 +40,40 @@ Propositional logic is a branch of logic that deals with simple propositions and
 	An operation that connects two propositions. We study these below
 \end{defn}
 
-The motivation behind propositional logic is that we want to represent basic logical statements as an expression of variables and operators. Propositional logic also lays the groundwork for higher-order logic.
+The motivation behind propositional logic is that we want to represent basic logical statements as an expression of variables and operators.
+Propositional logic also lays the groundwork for higher-order logic.
+
+Before we start, let us motivate propositional logic and Boolean algebra by recalling the fundamental ideas of mathematical concepts we are already familiar with.
+For standard arithmetic, we utilize real numbers \(\R\), binary (two inputs) operators \(+\),\(-\),\(\times\),\(\div\),\(\cdots\), and unary (one input) operators \(\exp(\cdot)\), \(\log(\cdot)\), \(\sqrt{\cdot}\), \(\text{abs}(\cdot)\), \((-1)(\cdot)\),\(\cdots\).
+Note that our operators here take elements from our main set, and return an element back inside that set.
+For example, \(4.01 + 3.99\) gives us 8.
+We have a way to signal that those two quantities above are the same, namely the equals sign \(=\).
+Finally, we have a way to abstract out elements as \textit{variables}, for example \(x+y=z\).
+And if we fill in some of the variables, we can solve for the other ones.
+For example \(x+3.99=8\) implies \(x=4.01\).
+In a similar way, this whole mathematical system can be completely abstracted, and we can reason about those abstract structures.
+Then, any specific example that holds the same inherent properties of our structures will also have any reasoned theorem apply.
+This is quite an important idea in mathematics -- we can abstract concepts and reason about abstract structures that can apply to a variety of specific examples.
+
+\begin{figure}[h]
+	\centering
+	\[(\hspace{2mm} \rule{0.5cm}{0.5pt} \hspace{2mm} \mathbin{\square} \hspace{2mm} \rule{0.5cm}{0.5pt} \hspace{2mm}) \mapsto \hspace{1mm} \rule{0.5cm}{0.5pt}\]
+	\caption{
+		In abstract mathematics, we care about \textit{operators} that \textit{map} elements from a set into another element in the same set.
+		For addition in the reals, this would look like \((4.01+3.99) \mapsto 8\).
+	}
+\end{figure}
+
+Why does this apply here?
+Well, for propositional logic, we are, essentially, going to \textit{define} a new \textit{structure}.
+Our new ``number set'' becomes \(\B = \{\mathbf{T},\mathbf{F}\}\) (analogous to \(\R\)).
+Our new ``unary operators'' become \(\lnot\) (analogous to multiplying by \(-1\), etc).
+Our new ``binary operators'' become \(\land,\lor,\Rightarrow,\cdots\) (analogous to \(+,-,\times,\div,\cdots\)).
+Our new ``equality'' becomes \textit{logical equivalence} (\(\equiv\) versus \(=\)).
+Our idea of \textit{variables} stays the same.
+But, interestingly, because our input set \(\B\) is \textit{finite} (which is different from the countably infinite \(\Z\) and the uncountable \(\R\)).
+This gives us nice ways to actually \textit{write out all possibilities} for inputs and outputs of our operators.
+With this in mind, let us push onward to propositional logic.
 
 \subsection{Truth Tables and Logical Connectives}
 
