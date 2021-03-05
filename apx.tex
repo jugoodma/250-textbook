@@ -1,0 +1,157 @@
+\documentclass[main.tex]{subfiles}
+\begin{document}
+
+%\begin{appendices}
+
+\appendixpage
+\noappendicestocpagenum
+\addappheadtotoc
+
+\chapter{Tables}
+\label{appendix:tables}
+
+\epigraph{A surprise, to be sure, but a welcome one.}{Senator Palpatine}
+
+% todo fix
+%\dosecttoc
+%\faketableofcontents
+%\secttoc
+\minitoc
+%\startcontents[sections]
+%\printcontents[sections]{l}{1}{\setcounter{tocdepth}{2}}
+
+We list helpful tables here.
+
+\section{Logical Equivalences}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{lc}
+		\toprule
+		Commutativity & \(\begin{aligned} p \land q &\equiv q \land p \\ p \lor q &\equiv q \lor p \end{aligned}\) \\
+		\midrule
+		Associativity & \(\begin{aligned} (p \land q) \land r &\equiv p \land (q \land r) \\ (p \lor q) \lor r &\equiv p \lor (q \lor r) \end{aligned}\) \\
+		\midrule
+		Distributivity & \(\begin{aligned} p \land (q \lor r) &\equiv (p \land q) \lor (p \land r) \\ p \lor (q \land r) &\equiv (p \lor q) \land (p \lor r) \end{aligned}\) \\
+		\midrule
+		Identity & \(\begin{aligned} p \land \taut &\equiv p \\ p \lor \cont &\equiv p \end{aligned}\) \\
+		\midrule
+		Negation & \(\begin{aligned} p \land \lnot p &\equiv \cont \\ p \lor \lnot p &\equiv \taut \end{aligned}\) \\
+		\midrule
+		Double Negation & \(\begin{aligned} \lnot (\lnot p) &\equiv p \end{aligned}\) \\
+		\midrule
+		Idempotency & \(\begin{aligned} p \land p &\equiv p \\ p \lor p &\equiv p \end{aligned}\) \\
+		\midrule
+		Universal Bound & \(\begin{aligned} p \lor \taut &\equiv \taut \\ p \land \cont &\equiv \cont \end{aligned}\) \\
+		\midrule
+		De Morgan's & \(\begin{aligned} \lnot (p \lor q) &\equiv \lnot p \land \lnot q \\ \lnot (p \land q) &\equiv \lnot p \lor \lnot q \end{aligned}\) \\
+		\midrule
+		Absorption & \(\begin{aligned} p \lor (p \land q) &\equiv p \\ p \land (p \lor q) &\equiv p \end{aligned}\) \\
+		\midrule
+		Negation of \(\taut\) and \(\cont\) & \(\begin{aligned} \lnot \taut &\equiv \cont \\ \lnot \cont &\equiv \taut \end{aligned}\) \\
+		\midrule
+		Implication Equivalence & \(\begin{aligned} p \Rightarrow q &\equiv \lnot p \lor q \end{aligned}\) \\
+		\midrule
+		Bi-conditional Equivalence & \(\begin{aligned} p \Leftrightarrow q &\equiv (p \Rightarrow q) \land (q \Rightarrow p) \end{aligned}\) \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+\pagebreak
+
+\section{Rules of Inference}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lrr}
+		\toprule
+		Modus Ponens & & \(\begin{aligned} p \\ p \Rightarrow q \\ \therefore q \end{aligned}\) \\
+		\midrule
+		Modus Tollens & & \(\begin{aligned} p \Rightarrow q \\ \lnot q \\ \therefore \lnot p \end{aligned}\) \\
+		\midrule
+		Generalization & \(\begin{aligned} p \\ \therefore p \lor q \end{aligned}\) & \(\begin{aligned} q \\ \therefore p \lor q \end{aligned}\) \\
+		\midrule
+		Specialization & \(\begin{aligned} p \land q \\ \therefore p \end{aligned}\) & \(\begin{aligned} p \land q \\ \therefore q \end{aligned}\) \\
+		\midrule
+		Conjunction & & \(\begin{aligned} p \\ q \\ \therefore p \land q \end{aligned}\) \\
+		\midrule
+		Elimination & \(\begin{aligned} p \lor q \\ \lnot p \\ \therefore q \end{aligned}\) & \(\begin{aligned} p \lor q \\ \lnot q \\ \therefore p \end{aligned}\) \\
+		\midrule
+		Transitivity & & \(\begin{aligned} p \Rightarrow q \\ q \Rightarrow r \\ \therefore p \Rightarrow r \end{aligned}\) \\
+		\midrule
+		Cases & & \(\begin{aligned} p \lor q \\ p \Rightarrow r \\ q \Rightarrow r \\ \therefore r \end{aligned}\) \\
+		\midrule
+		Contradiction & & \(\begin{aligned} \lnot p \Rightarrow \cont \\ \therefore p \end{aligned}\) \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+\pagebreak
+
+\section{Set Equivalences}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{lc}
+		\toprule
+		Commutativity & \(\begin{aligned} A \cup B &= B \cup A \\ A \cap B &= B \cap A \end{aligned}\) \\
+		\midrule
+		Associativity & \(\begin{aligned} (A \cup B) \cup C &= A \cup (B \cup C) \\ (A \cap B) \cap C &= A \cap (B \cap C) \end{aligned}\) \\
+		\midrule
+		Distributivity & \(\begin{aligned} A \cap (B \cup C) &= (A \cap B) \cup (A \cap C) \\ A \cup (B \cap C) &= (A \cup B) \cap (A \cup C) \end{aligned}\) \\
+		\midrule
+		Identity & \(\begin{aligned} A \cup \emptyset &= A \\ A \cap U &= A \end{aligned}\) \\
+		\midrule
+		Inverse & \(\begin{aligned} A \cup A^{\mathsf{c}} &= U \\ A \cap A^{\mathsf{c}} &= \emptyset \end{aligned}\) \\
+		\midrule
+		Double Compliment & \(\begin{aligned} (A^{\mathsf{c}})^{\mathsf{c}} &= A \end{aligned}\) \\
+		\midrule
+		Idempotency & \(\begin{aligned} A \cup A &= A \\ A \cap A &= A \end{aligned}\) \\
+		\midrule
+		Universal Bound (Domination) & \(\begin{aligned} A \cup U &= U \\ A \cap \emptyset &= \emptyset \end{aligned}\) \\
+		\midrule
+		De Morgan's & \(\begin{aligned} (A \cup B)^{\mathsf{c}} &= A^{\mathsf{c}} \cap B^{\mathsf{c}} \\ (A \cap B)^{\mathsf{c}} &= A^{\mathsf{c}} \cup B^{\mathsf{c}} \end{aligned}\) \\
+		\midrule
+		Absorption & \(\begin{aligned} A \cup (A \cap B) &= A \\ A \cap (A \cup B) &= A \end{aligned}\) \\
+		\midrule
+		Absolute Compliment & \(\begin{aligned} \emptyset^{\mathsf{c}} &= U \\ U^{\mathsf{c}} &= \emptyset \end{aligned}\) \\
+		\midrule
+		Set Subtraction Equality & \(\begin{aligned} A - B &= A \cap B^{\mathsf{c}} \end{aligned}\) \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+\pagebreak
+
+\section{Common Growth-rates}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ll}
+		\toprule
+		Constant & \(\Theta(1)\) \\
+		\midrule
+		Logarithmic & \(\Theta(\log(n))\) \\
+		\midrule
+		Linear & \(\Theta(n)\) \\
+		\midrule
+		-- & \(\Theta(n\log(n))\) \\
+		\midrule
+		Quadratic & \(\Theta(n^2)\) \\
+		\midrule
+		-- & \(\Theta(n^2\log(n))\) \\
+		\midrule
+		Polynomial & \(\Theta(n^c)\) \\
+		\midrule
+		-- & \(\Theta(2^n)\) \\
+		\midrule
+		Exponential & \(\Theta(c^n)\) \\
+		\midrule
+		Factorial & \(\Theta(n!)\) \\
+		\midrule
+		-- & \(\Theta(n^n)\) \\
+		\bottomrule
+	\end{tabular}
+	\caption{\textit{In ascending order of growth-rate.}}
+\end{table}
+
+%\end{appendices}
+
+\end{document}

@@ -1,4 +1,4 @@
-\documentclass{book}
+\documentclass[10pt]{book}
 
 % math stuff
 \usepackage[utf8]{inputenc}
@@ -180,6 +180,8 @@
 
 % fancy chapter TOC
 \usepackage{minitoc}
+%\usepackage{titletoc}
+\usepackage[titletoc]{appendix}
 
 % specialty commands
 \newcommand{\B}{\ensuremath{\mathbb{B}}}
@@ -191,6 +193,8 @@
 \renewcommand{\P}{\ensuremath{\mathbf{P}}}
 \newcommand{\Oh}{\ensuremath{\mathcal{O}}}
 \newcommand{\Mod}[1]{\ensuremath{\ (\mathrm{mod}\ #1)}}
+\newcommand{\taut}{\mathbf{T}}
+\newcommand{\cont}{\mathbf{F}}
 
 \usepackage{mathtools}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
@@ -420,6 +424,8 @@
 \subfile{ch-outro.tex} % outro
 
 \appendix
+
+\subfile{apx.tex}
 
 \backmatter
 % to recompile, go to Tools > Index

@@ -144,7 +144,21 @@ There are other graph representations, such as the \textit{edge list} and the \t
 
 \subsection{Graph Coloring}
 
+Note that we can represent \textit{maps} as graphs.
+A \textit{map} is simply a plane that is separated into contiguous regions.
+To represent this as a graph, let the set of vertices be the contiguous regions and let an edge between two vertices exist if and only if the represented regions share a border.
+
+\begin{thm}[The Four Color Theorem]
+	We can color the regions of a map in a maximum of four colors such that no two adjacent regions share the same color.
+\end{thm}
+
+\begin{rem}
+	Deciding whether a map can be colored in three colors is NP-Complete.
+\end{rem}
+
 \subsection{Network Flow}
+
+% todo
 
 \section{Summary}
 
