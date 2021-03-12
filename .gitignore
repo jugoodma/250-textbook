@@ -162,6 +162,8 @@ acs-*.bib
 *.slt[0-9]*
 *.stc[0-9]*
 
+*.ptc
+
 # minted
 _minted*
 *.pyg
