@@ -301,6 +301,9 @@
 % allow align to span pages
 \allowdisplaybreaks
 
+% bibliography
+\usepackage[backend=biber,block=ragged]{biblatex}
+\addbibresource{bib.bib}
 
 
 % title stuff
@@ -428,6 +431,9 @@
 \subfile{apx.tex}
 
 \backmatter
+
+\printbibliography
+
 % to recompile, go to Tools > Index
 % then standard F6
 \printindex
