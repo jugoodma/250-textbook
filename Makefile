@@ -17,8 +17,6 @@
 
 SHELL := /bin/bash
 
-# Viewers: 
-VIEWER = xdvi
 # Logfile
 LOG = compile.log
 
@@ -28,36 +26,24 @@ LOG = compile.log
 # Rules ==============================
 
 main:
-	rm -f main.pdf main.ps
+	rm -f main.pdf
 	make main.pdf
 	mv main.pdf out/
 	make clean
 
 chapters:
-	rm -f *.pdf *.ps
+	rm -f *.pdf
 	for file in $(wildcard ch-*.tex) ; do \
 		make $${file//.tex/.pdf} ; done
 	mv ch-*.pdf out/
 	make clean
 
-%: %.dvi
-	@echo "Viewing $<..."
-	$(VIEWER) $< &
-
-%.pdf: %.ps
-	@echo "Converting $< to PDF..."
-	@ps2pdf $< $@ >> $(LOG) 2>&1
-
-%.ps: %.dvi
-	@echo "Converting $< to Postscript..."
-	@dvips -o $@ $< >> $(LOG) 2>&1
-
-%.dvi: %.tex
+%.pdf: %.tex
 	@echo "Running latex on $< (compilation log in $(LOG))..."
-	@latex -- $< > $(LOG) 2>&1
+	@pdflatex -- $< > $(LOG) 2>&1
 #	Bibliography (if needed)
 	@if (egrep -s 'undefined references' $(subst .tex,.log,$<)); then \
-	    echo "Running bibtex..." ;                                    \
+	    echo "Running bibtex (biber)..." ;                                    \
 	    biber $(subst .tex,,$<) >> $(LOG) 2>&1 ;                 \
 	fi
 #	Index (if needed)
@@ -71,7 +57,7 @@ chapters:
 		    $(subst .tex,.log,$<)                              \
 		 && [ $$latex_count -lt 5 ] ) ; do                     \
 	   echo "Re-running LaTeX ($$latex_count)..." ;                \
-	   latex $< >> $(LOG) 2>&1 ;                                   \
+	   pdflatex $< >> $(LOG) 2>&1 ;                                   \
 	   latex_count=`expr $$latex_count + 1` ;                      \
 	done
 

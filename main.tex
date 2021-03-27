@@ -1,4 +1,4 @@
-\documentclass[10pt]{book}
+\documentclass[10pt]{book} % [10pt]
 
 % math stuff
 \usepackage[utf8]{inputenc}
@@ -36,6 +36,20 @@
 	\thmnote{ {\the\thm@notefont#3}}}
 \let\thmhead\thmhead@plain
 \makeatother
+
+%%%
+% font
+\usepackage[T1]{fontenc}
+
+%\usepackage{arev}
+
+%\usepackage{fourier}
+
+\usepackage[sfdefault,scaled=.85]{FiraSans}
+\usepackage{newtxsf}
+
+%\usepackage{libertinus}
+%%%
 
 % better-looking paragraphs
 \usepackage[parfill]{parskip}
@@ -249,6 +263,8 @@
 		shape border rotate=235,yshift=0.1cm}
 }
 \usepackage{pgfplots}
+%\pgfplotset{compat=1.10} % need?
+\usepgfplotslibrary{fillbetween}
 
 %
 

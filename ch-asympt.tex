@@ -43,9 +43,103 @@ Oftentimes in algorithm analysis we aim to show an algorithm has exact run-time 
 Sometimes, though, this is hard to do.
 
 \begin{rem}
+	You may see \(\Oh,\Omega,\Theta\) defined using \(\forall n \in \N^{> n_0}\).
+	It does not actually matter.
+	Just consult whichever definition your instructor uses.
+\end{rem}
+
+\begin{rem}
 	You may see \(f(n) = \Oh(g(n))\) instead of \(f(n) \in \Oh(g(n))\).
 	Both notations represent the same thing.
 \end{rem}
+
+\begin{rem}
+	We need not use \(n\) for our function variable.
+\end{rem}
+
+\exproof{
+	Show that \(f(x) = x^2 + 2x - 4 = \Oh(x^2)\).
+}{
+	To show \(\Oh\), it suffices to find a constant \(c\) and starting point \(x_0\).
+	A typical way to do this is by selecting a starting point that might help us down the line.
+	Consider \(x_0 = 1\).
+	Then, \(x \geq x_0 = 1\).
+	Then \(x \leq x^2\) so \(2x \leq 2x^2\) (this is where our starting point choice helps us).
+	Thus \(x^2 + 2x - 4 \leq x^2 + 2x \leq x^2 + 2x^2 = 3x^2\).
+	So we let \(c = 3\) and we are done.
+}
+
+\exproof{
+	Show that \(f(x) = x^2 + 2x - 4 = \Omega(x^2)\).
+}{
+	We take a similar approach as in the previous example.
+	Let \(x_0 = 4\).
+	Then \(x \geq x_0 = 4\).
+	Thus \(x \geq 4 = \frac{2}{1-\frac{1}{2}}\) so \((1-\frac{1}{2}x \geq 2\) so \(x - \frac{1}{2}x \geq 2\) thus \(x - 2 \geq \frac{1}{2}x\).
+	Since \(x+2 \geq x-2\) then \(x+2 \geq \frac{1}{2}x\).
+	Thus \((x+2)(x-2) \geq (\frac{1}{2}x)^2 = \frac{1}{4}x^2\).
+	Since \((x+2)(x-2) = x^2 - 4\) and \(x \geq 4 > 0\) so \(2x > 0\), then \(x^2+2x-4 \geq x^2-4 \geq \frac{1}{4}x^2\).
+	So we let \(c = \frac{1}{4}\) and we are done.
+}
+
+\begin{rem}
+	We can conclude that our \(f(x)\) defined above is in \(\Theta(x^2)\) since it satisfies both \(\Oh\) and \(\Omega\).
+	Note that the \(c,x_0\) used in the \(\Oh\) proof need not be the same as those in the \(\Omega\) proof (and vice versa).
+	They only need to exist.
+\end{rem}
+
+A picture, to see what is going on.
+
+%\pgfmathdeclarefunction{bound}{1}{%
+%	\pgfmathparse{#1*x^2}%
+%}
+\begin{boxx}
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[
+				mark=none,smooth,
+				axis x line=bottom, % no box around the plot, only x and y axis
+				axis y line=left,
+				every fill between plot/.append style={fill=gray,fill opacity=0.1},
+				samples=50]
+				\addplot [name path=up,color=red,domain=4:6.5] {(3)*x^2} node[pos=1] (up) {};
+				\addplot [name path=lo,color=blue,domain=4:6.5] {(1/4)*x^2} node[pos=1] (lo) {};
+				\addplot [gray] fill between[of=up and lo];
+				\addplot [color=black,domain=0:6.5] {x^2+2*x-4} node[pos=1] (func) {};
+				\addplot [color=red,domain=0:6.5] {(3)*x^2} node[pos=1] (upper) {};
+				\addplot [color=blue,domain=0:6.5] {(1/4)*x^2} node[pos=1] (lower) {};
+				\node [label=135:{\(x_0\)},circle,fill,inner sep=1pt] at (axis cs:1,3) {};
+				\node [label=135:{\(x_0\)},circle,fill,inner sep=1pt] at (axis cs:4,4) {};
+			\end{axis}
+			\node [above, color=black] at (func) {\(f(x)\)};
+			\node [above, color=red] at (upper) {\(\Oh\)};
+			\node [above, color=blue] at (lower) {\(\Omega\)};
+		\end{tikzpicture}
+	\end{center}
+\end{boxx}
+
+It should be easy to see from this picture that we can make tighter bounds by changing \(c\).
+If you change your \(c\), then your \(x_0\) usually will also change.
+It should also be easy to see from this picture that for a given \(c\), we may be able to find better \(x_0\).
+In this case, we could move our \(\Omega\) \(x_0\) closer to 2.
+Note that our function \(f\) is still bounded by our \(\Oh\) and \(\Omega\) functions.
+As long as \(c,x_0\) \textit{exist}, we are good to go.
+
+It might be confusing seeing these proofs, as we somewhat made everything appear out of nowhere.
+Often, we solve these proofs using scratch work, then cleaning it up for presentation.
+
+\begin{example}
+	For \(\Omega\), we started at the goal of \(x^2 + 2x - 4 \stackrel{?}{\geq} cx^2\).
+	Note that \(x^2 + 2x - 4 \geq x^2-4 = (x+2)(x-2)\).
+	Since \(x+2 > x-2\) then if we can find \(d > 0\) such that \(x-2 \geq dx\) then we can conclude that \((x+2)(x-2) \geq d^2x^2\).
+	Then we let \(c = d^2\).
+	
+	So now our goal is to solve \(x-2 \stackrel{?}{\geq} dx\).
+	Rearranging yields \(x \stackrel{?}{\geq} \frac{2}{(1-d)}\).
+	By letting \(d = \frac{1}{2}\), then we get \(x \geq 4\) and we can thus work backwards for the actual proof to find \(c = \frac{1}{4}\) with \(x_0 = 4\).
+\end{example}
+
+% todo -- limit definitions
 
 \section{Analyzing Algorithms}
 
@@ -185,9 +279,25 @@ We present a pathological example to explain why these different analysis types 
 
 % todo
 
+% we did a similar thing during the number theory chapter.
+% i guess make it more explicit here? idk
+% we use the sum of c, i and i^2 here
+
+% recall addition is linear, so blah blah blah
+
 \subsection{Solving Recurrences}
 
 % todo
+
+% tree table descending example
+
+\begin{thm}[The Master Theorem]
+	% todo
+\end{thm}
+
+Proof omitted.
+
+% another example, but use master thm
 
 \section{Common Complexities}
 
@@ -219,7 +329,7 @@ There are a handful of common run-time complexities that you should be familiar 
 There exist many YouTube videos discussing the famous P vs.\ NP problem (\href{https://www.youtube.com/watch?v=EHp4FPyajKQ}{ex 1}, \href{https://www.youtube.com/watch?v=YX40hbAHx3s}{ex 2}). Moreover, if you solve it, the Clay Mathematics Institute has \href{https://www.claymath.org/millennium-problems/p-vs-np-problem}{\$1,000,000} waiting for you. So what is it?
 
 \begin{defn}[P]
-	The class of computational problems that can be solved in \textit{P}olynomial time.
+	The class of computational problems that can be solved in \textbf{P}olynomial time.
 \end{defn}
 
 \begin{defn}[NP]
@@ -248,7 +358,9 @@ There exist many YouTube videos discussing the famous P vs.\ NP problem (\href{h
 	Problems that satisfy the second condition above, and not necessarily the first, are called \textbf{NP-Hard}.
 \end{rem}
 
-The second condition is tricky
+The second condition is tricky.
+As of now, the set of NP-Complete problems is empty.
+So we need some form of \textit{starter problem} to which all reductions can be made.
 
 \begin{thm}[The Cook-Levin Theorem]
 	The Boolean satisfiability problem is NP-Complete.
@@ -278,7 +390,7 @@ The halting problem is most commonly used as an introduction to computability th
 Think to yourself whether you can come up with a solution program. It is a difficult problem. Alan Turing proved in 1936 that no such algorithm could exist \textit{for all} pairs of programs and inputs. This proof led to (created) the Turing machine, and arguably all of modern computer science. The proof sketch follows. We call it a sketch because the actual proof is significantly more in-depth.
 
 \begin{proof}
-	Assume that such an algorithm (code description, function, method, whatever you want to call it) \(h\) exists. The function \(h : P \times I \rightarrow B\) given by \(h : (p,i) \mapsto b\) tells us whether a given input program \(p \in P\) (the set of all programs) with input \(i \in I\) (the set of all program inputs) will halt (stop) or not: \(b \in B = \{\text{True}, \text{False}\}\).
+	Assume that such an algorithm (code description, function, method, whatever you want to call it) \(h\) exists. The function \(h : P \times I \rightarrow \mathbb{B}\) given by \(h : (p,i) \mapsto b\) tells us whether a given input program \(p \in P\) (the set of all programs) with input \(i \in I\) (the set of all program inputs) will halt (stop) or not: \(b \in \mathbb{B} = \{\text{True}, \text{False}\}\).
 	
 	Then the following procedure \(\textsc{g} \in P\):
 	\begin{algorithmic}[1]

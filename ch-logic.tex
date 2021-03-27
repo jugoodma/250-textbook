@@ -519,7 +519,244 @@ We can think of truth tables in an equivalent fashion, where 1 is true and 0 is 
 
 You can use 1/0 or T/F, whichever you prefer. If an assignment specifies you use a specific key, then use the one specified. Later when we discuss different number systems, you will notice a correlation between binary numbers and truth tables with 1/0s. This makes it easy to construct a truth table very quickly with a given amount of inputs.
 
-We can also create circuits that add numbers. We will come back to this after our discussion of different number bases in section \ref{diff-num-bases}.
+
+
+\subsubsection{Circuit Addition}
+
+We can also create circuits that add numbers.
+For a discussion of different number bases, see section \ref{diff-num-bases}.
+
+We can build a circuit that adds two single-digit binary numbers? There are only 4 possibilities for adding single-digit numbers, so let's examine what a truth table for this process might look like (all numbers are in base-2):
+
+\begin{center}
+	\begin{tabular}{cc|c}
+		input \(a\) & input \(b\) & output \(a + b\) \\
+		\midrule
+		0 & 0 & 0 \\
+		0 & 1 & 1 \\
+		1 & 0 & 1 \\
+		1 & 1 & 10 \\
+	\end{tabular}
+\end{center}
+
+In the output, we can always append zeros to the beginning of the binary number without changing the actual number:
+
+\begin{center}
+	\begin{tabular}{cc|c}
+		input \(a\) & input \(b\) & output \(a + b\) \\
+		\midrule
+		0 & 0 & 00 \\
+		0 & 1 & 01 \\
+		1 & 0 & 01 \\
+		1 & 1 & 10 \\
+	\end{tabular}
+\end{center}
+
+Now let's separate our output column into two columns -- the sum-bit (right) and the carry-bit (left):
+
+\begin{center}
+	\begin{tabular}{cc|cc}
+		input \(a\) & input \(b\) & carry & sum \\
+		\midrule
+		0 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 1 \\
+		1 & 0 & 0 & 1 \\
+		1 & 1 & 1 & 0 \\
+	\end{tabular}
+\end{center}
+
+We know how to generate Boolean expressions for the output columns: 
+\begin{align*}
+	\text{sum} &\equiv a \oplus b \\
+	\text{carry} &\equiv a \land b
+\end{align*}
+
+Which gives us the \textbf{half adder}:
+
+\begin{boxx}
+	Adding two bits \(a+b = cs\) is equivalent to the circuit
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0) node (xor1) [xor port] {}
+			(0,1.5) node (and1) [and port] {}
+			(and1.in 1) node (a) [anchor=east,xshift=-1cm] {\(a\)}
+			(xor1.in 2) node (b) [anchor=east,xshift=-1cm] {\(b\)};
+			
+			\draw (and1.in 1) -- (a);
+			\draw (and1.in 2) -- (b);
+			\draw (xor1.in 1) -- (a);
+			\draw (xor1.in 2) -- (b);
+			
+			\draw
+			(and1.out) node (c) [anchor=west,xshift=1cm] {carry}
+			(xor1.out) node (s) [anchor=west,xshift=1cm] {sum};
+			
+			\draw (and1.out) -- (c);
+			\draw (xor1.out) -- (s);
+			
+			\node [xshift=.2cm] at (a) {\textbullet};
+			\node [xshift=.2cm] at (b) {\textbullet};
+			\node [xshift=-.5cm] at (c) {\textbullet};
+			\node [xshift=-.5cm] at (s) {\textbullet};
+		\end{circuitikz}
+	\end{center}
+\end{boxx}
+
+Now we can add two 1-bit numbers together. What if we want to add multiple-bit numbers together? Consider adding two 2-bit numbers:
+\begin{center}
+	\begin{tabular}{ccc}
+		& \(c\) & \\
+		& \(x\) & \(y\) \\
+		\(+\) & \(z\) & \(w\) \\
+		\midrule
+		\(o_2\) & \(o_1\) & \(s\)
+	\end{tabular}
+\end{center}
+
+We see here that after adding \(y+w\) we are left with a carry bit \(c\) for our addition \(x+z\). How do we add three bits \(c+x+z\)? Well, we can separate it into two 1-bit additions: \(c+x\) which, via a half-adder, yields a sum bit \(s_1\) and carry bit \(c_1\), then \(s_1 + z\) which, via another half-adder, yields a sum bit \(s_2\) and carry bit \(c_2\). Then, we can let \(o_1 = s_2\). Unfortunately this leaves us two carry bits that somehow need to be combined into a final carry bit.
+
+Consider now the truth-table for adding three bits:
+\begin{center}
+	\begin{tabular}{ccc|c|ccc}
+		\(c\) & \(x\) & \(z\) & \(c+x+z\) & carry\((c+x)\)  & sum\((c+x) = s_1\) & carry\((s_1+z)\) \\
+		\midrule
+		0 & 0 & 0 & 00 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 01 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 01 & 0 & 1 & 0 \\
+		0 & 1 & 1 & 10 & 0 & 1 & 1 \\
+		1 & 0 & 0 & 01 & 0 & 1 & 0 \\
+		1 & 0 & 1 & 10 & 0 & 1 & 1 \\
+		1 & 1 & 0 & 10 & 1 & 0 & 0 \\
+		1 & 1 & 1 & 11 & 1 & 0 & 0 \\
+	\end{tabular}
+\end{center}
+
+Now notice the carry bit in the output column \(c+x+z\) is the same as OR-ing the two carry bits from \(c+x\) and \(s_1+z\). This completes our circuit for adding three bits. We call this the \textbf{full adder}:
+
+\begin{boxx}
+	Adding three bits \(a+b+c = os\) is equivalent to the circuit
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0.75) node[draw,minimum width=2cm,minimum height=1cm] (HA1) {Half Adder}
+			(3.5,0) node[draw,minimum width=2cm,minimum height=1cm] (HA2) {Half Adder}
+			($(HA1.west)!0.75!(HA1.north west)$) coordinate (ha1in1)
+			($(HA1.west)!0.75!(HA1.south west)$) coordinate (ha1in2);
+			\draw
+			(ha1in1) node (a) [anchor=east,xshift=-0.5cm] {\(a\)}
+			(ha1in2) node (b) [anchor=east,xshift=-0.5cm] {\(b\)}
+			(ha1in1) -- (a)
+			(ha1in2) -- (b);
+			\node [xshift=.2cm] at (a) {\textbullet};
+			\node [xshift=.2cm] at (b) {\textbullet};
+			
+			\draw
+			($(HA1.east)!0.75!(HA1.north east)$) coordinate (ha1out1)
+			($(HA1.east)!0.75!(HA1.south east)$) coordinate (ha1out2);
+			\draw
+			(ha1out1) node (c1) [anchor=west,xshift=4cm] {c\(_1\)}
+			(ha1out2) node (s1) [anchor=west,xshift=0.35cm] {sum}
+			(ha1out1) -- (c1)
+			(ha1out2) -- (s1);
+			%\node [xshift=-.2cm] at (c1) {\textbullet};
+			
+			\draw
+			($(HA2.west)!0.75!(HA2.north west)$) coordinate (ha2in1)
+			($(HA2.west)!0.75!(HA2.south west)$) coordinate (ha2in2);
+			\draw
+			(s1) -- (ha2in1)
+			(ha2in2) node (c) [anchor=east,xshift=-4cm] {\(c\)}
+			(ha2in2) -- (c);
+			\node [xshift=.2cm] at (c) {\textbullet};
+			
+			\draw
+			($(HA2.east)!0.75!(HA2.north east)$) coordinate (ha2out1)
+			($(HA2.east)!0.75!(HA2.south east)$) coordinate (ha2out2);
+			\draw
+			(ha2out1) node (c2) [anchor=west,xshift=0.5cm] {c\(_2\)}
+			(ha2out2) node (s) [anchor=west,xshift=2.65cm] {\(s\)}
+			(ha2out1) -- (c2)
+			(ha2out2) -- (s);
+			\node [xshift=-.2cm] at (s) {\textbullet};
+			
+			\draw
+			(7,0.75) node (or1) [or port] {}
+			(or1.in 1) -- (c1)
+			(or1.in 2) -- (c2)
+			(or1.out) node (o) [anchor=west] {\(o\)};
+			\node [xshift=-.2cm] at (o) {\textbullet};
+		\end{circuitikz}
+	\end{center}
+\end{boxx}
+
+Putting these two structures, the half adder and full adder, together, we can construct a 2-bit adder, which solves our previous problem of doing \(xy + zw = o_2o_1s\):
+
+\begin{boxx}
+	Adding three bits \(a+b+c = os\) is equivalent to the circuit
+	\begin{center}
+		\begin{circuitikz}
+			\draw
+			(0,0.75) node[draw,minimum width=2cm,minimum height=1cm] (HA1) {Half Adder}
+			(3.75,-0.2) node[draw,minimum width=2cm,minimum height=1.5cm] (FA1) {Full Adder}
+			($(HA1.west)!0.75!(HA1.north west)$) coordinate (ha1in1)
+			($(HA1.west)!0.75!(HA1.south west)$) coordinate (ha1in2);
+			\draw
+			(ha1in1) node (y) [anchor=east,xshift=-0.5cm] {\(y\)}
+			(ha1in2) node (w) [anchor=east,xshift=-0.5cm] {\(w\)}
+			(ha1in1) -- (y)
+			(ha1in2) -- (w);
+			\node [xshift=.2cm] at (y) {\textbullet};
+			\node [xshift=.2cm] at (w) {\textbullet};
+			
+			\draw
+			($(HA1.east)!0.75!(HA1.north east)$) coordinate (ha1out1)
+			($(HA1.east)!0.75!(HA1.south east)$) coordinate (ha1out2);
+			\draw
+			(ha1out1) node (s) [anchor=west,xshift=4.5cm] {\(s\)}
+			(ha1out2) node (c1) [anchor=west,xshift=0.35cm] {carry}
+			(ha1out1) -- (s)
+			(ha1out2) -- (c1);
+			\node [xshift=-.2cm] at (s) {\textbullet};
+			
+			\draw
+			($(FA1.west)!0.75!(FA1.north west)$) coordinate (fa1in1)
+			($(FA1.west)!0.75!(FA1.south west)$) coordinate (fa1in2)
+			($(FA1.west)!0!(FA1.south west)$) coordinate (fa1in3);
+			\draw
+			(c1) -- (fa1in1)
+			(fa1in2) node (x) [anchor=east,xshift=-4.25cm] {\(x\)}
+			(fa1in2) -- (x)
+			(fa1in3) node (z) [anchor=east,xshift=-4.25cm] {\(z\)}
+			(fa1in3) -- (z);
+			\node [xshift=.2cm] at (x) {\textbullet};
+			\node [xshift=.2cm] at (z) {\textbullet};
+			
+			\draw
+			($(FA1.east)!0.75!(FA1.north east)$) coordinate (fa1out1)
+			($(FA1.east)!0.75!(FA1.south east)$) coordinate (fa1out2);
+			\draw
+			(fa1out1) node (o1) [anchor=west,xshift=0.75cm] { \(o_1\)}
+			(fa1out2) node (o2) [anchor=west,xshift=0.75cm] { \(o_2\)}
+			(fa1out1) -- (o1)
+			(fa1out2) -- (o2);
+			\node [xshift=-.3cm] at (o1) {\textbullet};
+			\node [xshift=-.3cm] at (o2) {\textbullet};
+		\end{circuitikz}
+	\end{center}
+\end{boxx}
+
+This solves our 2-bit addition problem. What if we want to add 3-bit numbers? 4-bit numbers? \(n\)-bit numbers? Well, after the first bit column (adding two bits) we must add three bits. After this second column, we get a sum bit and a carry bit. If we tack on another column, which would make a 3-bit adder, then we add in the previous carry to the two new bits. This same process repeats for all further columns. So, tacking on another bit solely entails tacking on another full adder! \textit{Picture omitted}.
+
+\exsol{
+	How many half adders are required for an \(n\)-bit adder?
+}{
+	Note, here we implicitly assumed \(n > 0\).
+	
+	We need 1 half adder to start, and we need \(n-1\) full adders which each contain 2 half adders. This totals to \(2(n-1) + 1 = 2n-1\) half adders.
+}
+
+
 
 \subsection{Translations}
 

@@ -9,12 +9,15 @@ Justin Goodman
 ## Compilation
 
 ```
-sudo apt install texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-science biber ghostscript
+https://www.tug.org/texlive/acquire-netinstall.html
+https://www.tug.org/texlive/quickinstall.html
+
+sudo apt install biber
 
 make
 ```
 
-Interesting tool: `apt-file -x search '/algpseudocode.sty$'`
+Interesting tool: `apt-file -x search '/algpseudocode.sty$'` (if you're using the old `texlive` installed from `apt`)
 
 ## Progress
 
@@ -32,8 +35,6 @@ Interesting tool: `apt-file -x search '/algpseudocode.sty$'`
 * `4/10` Conclusion
 
 Need to figure out how to compile each chapter individually.
-[sol?](https://tex.stackexchange.com/questions/31334/how-to-create-individual-chapter-pdfs-from-included-texs)
-[maybe?](https://tex.stackexchange.com/questions/231861/how-do-i-get-consecutive-section-numbering-for-an-entire-document-using-subfiles)
 
 Also, maybe re-structure Number Theory chapter. It's really long
 

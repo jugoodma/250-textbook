@@ -22,11 +22,11 @@ Consider the real number line:
 
 \begin{center}
 \begin{tikzpicture}
-\draw[latex-] (-6.5,0) -- (6.5,0) ;
-\draw[-latex] (-6.5,0) -- (6.5,0) ;
-\foreach \x in  {-6,-4,-2,0,2,4,6}
+\draw[latex-] (-5.5,0) -- (5.5,0) ;
+\draw[-latex] (-5.5,0) -- (5.5,0) ;
+\foreach \x in  {-4,-2,0,2,4}
 \draw[shift={(\x,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
-\foreach \x in {-6,-4,-2,0,2,4,6}
+\foreach \x in {-4,-2,0,2,4}
 \draw[shift={(\x,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] 
 {$\x$};
 \fill (3.14159,0) circle[radius=2pt];
