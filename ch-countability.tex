@@ -76,7 +76,7 @@ There exist other definitions for countably infinite, however they all share the
 }{
 	Enumerate \(\Z\) as follows: \(\{0,-1,1,-2,2,-3,3,\cdots\}\)
 	
-	Then \[f(x) = \begin{cases} \frac{n}{2} & x \equiv 0 \Mod{2} \\ -\frac{n+1}{2} & x \equiv 1 \Mod{2} \end{cases}\] where \(f : \N \mapsto \Z\) is a bijection (\textit{why?}).
+	Then \[f(n) = \begin{cases} \frac{n}{2} & n \equiv 0 \Mod{2} \\ -\frac{n+1}{2} & n \equiv 1 \Mod{2} \end{cases}\] where \(f : \N \mapsto \Z\) is a bijection (\textit{why?}).
 }
 
 \exproof{
@@ -127,7 +127,8 @@ There exist other definitions for countably infinite, however they all share the
 }
 
 \begin{rem}
-	This proof does not account for the fact that we can reduce fractions (like how \(4/2 = 2/1\)). A more rigorous proof uses the Schr\"{o}der-Bernstein Theorem, which is out of the scope of this course.
+	This proof does not account for the fact that we can reduce fractions (like how \(4/2 = 2/1\)).
+	A more rigorous proof uses the Schr\"{o}der-Bernstein Theorem, which is out of the scope of this course.
 \end{rem}
 
 \begin{defn}[Uncountable\index{Uncountable}]
@@ -286,6 +287,12 @@ This tells us that our sets we have already proved countably infinite, \(\N, \Z,
 	Define a function \(f : A \rightarrow B\) given by \(f(a) = a\). Then this is an injective function (why?), so \(|A| \leq |B|\). Then \(B\) is countable so \(|B| = |\N|\). Then \(|A| \leq |B| = |\N|\).
 \end{proof}
 
+\begin{rem}
+	We can conclude from here that \(A \subseteq B \Rightarrow |A| \leq |B|\).
+	Note later that this holds even if \(A\) and \(B\) are uncountable.
+	We cannot go the \(\Leftarrow\) direction though -- why?
+\end{rem}
+
 \begin{thm}
 	\(A\) is countable \(\Leftarrow\) \(|A| \leq |\N|\).
 \end{thm}
@@ -315,7 +322,6 @@ This tells us that our sets we have already proved countably infinite, \(\N, \Z,
 \end{proof}
 
 Now we come back to \(\R\) being uncountable. Since \(\R \supseteq (0,1)\), then since \((0,1)\) is uncountable our theorems allow us to conclude that \(\R\) is uncountable. Interestingly, we could also have given the bijection \(f : (0,1) \rightarrow \R\) given by \(f : x \mapsto \tan(\pi(x+\frac{1}{2}))\). It looks like this:
-
 \begin{center}
 	\begin{tikzpicture}
 	\begin{scope}
@@ -335,14 +341,43 @@ Now we come back to \(\R\) being uncountable. Since \(\R \supseteq (0,1)\), then
 	\end{scope}
 	\end{tikzpicture}
 \end{center}
+Given this bijection, we conclude that both \(|(0,1)| \leq |\R|\) \(|(0,1)| \geq |\R|\).
 
 \section{The Continuum Hypothesis}
 
-The continuum hypothesis states:
+We are motivated by the power set.
+Remember that \(\mathcal{P}(A) = \{ S \subseteq A \}\) -- the set of all possible subsets.
+How does the cardinality of the power set relate to the input set, then?
+Well, we turn back to Georg Cantor with the following theorem.
+
+\begin{thm}[Cantor's Theorem]
+	\[|A| < |\mathcal{P}(A)|\]
+\end{thm}
+
+\(<\) here means that their cardinalitites are strictly different.
+While there are other types of cardinalities (this gets into the idea of ordinals), for now we can interpret this to mean that if \(A\) is countable then its powerset will be uncountable.
+The proof of this statement is left as an exercise.
+
+\begin{thm}
+	There is no set of all sets
+\end{thm}
+
+\begin{proof}
+	Suppose \(U = \) a set of all sets.
+	Then \(U \subseteq \mathcal{P}(U)\) by definition, so \(|U| \leq |\mathcal{P}(U)|\).
+	But, \(\mathcal{P}(U) \subseteq U\) since \(\mathcal{P}(U)\) is a set of sets and \(U\) is a set of all sets.
+	The Schr\"{o}der-Bernstein Theorem (out of scope) tells us (intuitively) that \(|A| \leq |B|\) and \(|B| \leq |A|\) implies \(|A| = |B|\).
+	Thus, \(|U| = |\mathcal{P}(U)|\).
+	But this contradicts the previous theorem.
+\end{proof}
+
+Naturally, this leads us to ask whether there \textit{is} some set of cardinality strictly between \(|\N|\) and \(|\mathcal{P}(\N)|\).
+This is precisely the continuum hypothesis:
 \begin{center}
 	There is no set whose cardinality is strictly between that of the integers and the real numbers.
 \end{center}
 This is an open question in mathematics.
+Previous mathematicians have shown that, given our system of mathematics, we cannot prove this statement \textit{true} \textbf{nor} \textit{false}.
 If it interests you, consider taking a course in real analysis or set theory.
 
 \section{Summary}
@@ -356,18 +391,26 @@ If it interests you, consider taking a course in real analysis or set theory.
 \section{Practice}
 
 \begin{enumerate}
-	\item Explain why the following proof fails:
+	\item
+	Explain why the following proof fails:
 	\begin{proof}
 		\(\R^{+} \times \R^{+}\) is countably infinite because we can set up a grid as we did in the \(\Q^{+}\) argument and apply the same snaking bijection. \mbox{}
 	\end{proof}
-	\item Show that the even integers are countable by providing an explicit bijection from \(\N\) to \(\Z^{\text{even}}\).
-	\item Show that, given two countable sets \(A,B\), the following are countable:
+	\item
+	Show that the even integers are countable by providing an explicit bijection from \(\N\) to \(\Z^{\text{even}}\).
+	Then, show that the odd integers are countable using a bijection.
+	\item
+	Show that the set of perfect squares is countable using a bijection.
+	\item
+	Show that, given two countable sets \(A,B\), the following are countable:
 	\begin{enumerate}
 		\item \(A \cup B\) \textit{Hint: how did we prove the integers were countable?}
 		\item \(A \cap B\)
 		\item \(A \setminus B\)
 		\item \(A \times B\) \textit{Hint: how did we prove the positive rationals were countable?}
 	\end{enumerate}
+	\item
+	Prove by induction that \(\N^k\) is countable.
 	\item Show that \(\Q\) is countable.
 	\item Show that \(\{ x \in \R \mid x > 0 \land x^2 \in \Q \}\) is countable.
 	\item Explain why the following proof fails:
@@ -375,7 +418,9 @@ If it interests you, consider taking a course in real analysis or set theory.
 		The set of all polynomials with positive integer coefficients is uncountable. Assume it is countable, and enumerate each polynomial as we did in Cantor's diagonalization argument -- the rows are the polynomials, and the columns are the \(i\)\textsuperscript{th} coefficient in the polynomial (eg, \(ax^3\), \(a\) is the third coefficient). Then the polynomial \(f(x) = (p_{1,1}+1) + (p_{2,2}+1)x + (p_{3,3}+1)x^2 + \cdots\), where \(p_{i,i}\) is the \(i\)\textsuperscript{th} coefficient on polynomial \(p\), is not in our enumeration.
 	\end{proof}
 	\item Show that the set of functions from natural numbers to natural numbers \(\{ f \mid f : \N \rightarrow \N \}\) is uncountable.
-	\item Show that the power set of any countably infinite set is uncountable. Do this by showing that \(\mathcal{P}(\N)\) is uncountable using a diagnalization argument.
+	\item
+	Show that the power set of any countably infinite set is uncountable.
+	Do this by showing that \(\mathcal{P}(\N)\) is uncountable using a diagonalization argument.
 	\item Show that the power set of any set is uncountable.
 	\item Show that, given an uncountable set \(A\) and a set \(B\),
 	\begin{enumerate}
